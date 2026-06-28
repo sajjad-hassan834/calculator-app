@@ -25,7 +25,7 @@ export function FeaturedCalculators() {
               <button
                 key={calc.id}
                 onClick={() => navigate(path)}
-                className="group relative text-left bg-card border border-border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden"
+                className="group relative text-left bg-card border border-border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden cursor-pointer"
               >
                 {calc.popular && (
                   <div className="absolute top-4 right-4">

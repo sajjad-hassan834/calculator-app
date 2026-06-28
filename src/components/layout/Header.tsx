@@ -55,7 +55,7 @@ export function Header({
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
               <button
                 onClick={() => setSearchOpen(true)}
-                className="w-full flex items-center pl-9 pr-3 py-2 text-sm bg-[#f3f4f6] dark:bg-[#1a2332] border border-border/60 rounded-xl text-muted-foreground hover:text-foreground text-left transition-all duration-200 focus:ring-2 focus:ring-blue-600 focus:bg-white dark:focus:bg-[#1e293b] aria-expanded:ring-2 aria-expanded:ring-blue-600"
+                className="w-full flex items-center pl-9 pr-3 py-2 text-sm bg-gray-50 dark:bg-gray-900 border border-border/60 rounded-xl text-muted-foreground hover:text-foreground text-left transition-all duration-200 focus:ring-2 focus:ring-blue-600 focus:bg-white dark:focus:bg-gray-950 aria-expanded:ring-2 aria-expanded:ring-blue-600"
                 aria-label="Open search"
               >
                 <span>Search calculators...</span>
@@ -79,7 +79,7 @@ export function Header({
               </button>
               <Link
                 to="/calculator/mortgage"
-                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-all duration-200 hover:shadow-xl hover:-translate-y-1 cursor-pointer"
               >
                 <Calculator className="w-4 h-4" />
                 <span>Calculate</span>

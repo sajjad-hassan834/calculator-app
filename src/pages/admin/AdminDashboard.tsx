@@ -1,7 +1,7 @@
 import { useState } from "react"
 import {
   Calculator, FileText, BookOpen, DollarSign, LogOut,
-  Menu, X, Settings, Save, Check
+  Menu, X, Save, Check
 } from "lucide-react"
 
 interface CalculatorEntry {
@@ -131,7 +131,7 @@ export function AdminDashboard() {
         <div className="p-2 border-t border-border shrink-0">
           <button
             onClick={() => {
-              localStorage.removeItem("admin_token")
+              localStorage.removeItem("fc_admin_token")
               window.location.href = "/"
             }}
             className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-all duration-200"

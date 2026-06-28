@@ -32,7 +32,7 @@ export function CategoryPage() {
     <div className="bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-          <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+          <Link to="/" className="hover:text-foreground transition-all duration-200">Home</Link>
           <span>/</span>
           <span className="text-foreground font-medium">{category.label}</span>
         </nav>
@@ -58,7 +58,7 @@ export function CategoryPage() {
                 <Link
                   key={calc.id}
                   to={path}
-                  className="group relative text-left bg-card border border-border rounded-2xl p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all overflow-hidden"
+                  className="group relative text-left bg-card border border-border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden cursor-pointer"
                 >
                   <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${calc.gradient} flex items-center justify-center mb-4`}>
                     <CalcIcon className="w-5 h-5 text-white" />

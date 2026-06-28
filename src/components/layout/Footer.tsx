@@ -67,7 +67,7 @@ export function Footer() {
                 return (
                   <button
                     key={s.label}
-                    className="w-8 h-8 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-colors"
+                    className="w-8 h-8 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-200 hover:-translate-y-0.5"
                     aria-label={s.label}
                   >
                     <Icon className="w-4 h-4" />
@@ -85,7 +85,7 @@ export function Footer() {
               <ul className="space-y-2.5">
                 {links.map((l) => (
                   <li key={l.label}>
-                    <Link to={l.path} className="text-xs text-slate-500 hover:text-slate-300 transition-colors">
+                    <Link to={l.path} className="text-xs text-slate-500 hover:text-slate-300 transition-all duration-200">
                       {l.label}
                     </Link>
                   </li>

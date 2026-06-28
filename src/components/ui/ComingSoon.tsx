@@ -23,7 +23,7 @@ export function ComingSoonCard({
   desc: string
 }) {
   return (
-    <div className="relative bg-card border border-border/50 rounded-2xl p-5 opacity-60 hover:opacity-80 transition-opacity group">
+    <div className="relative bg-card border border-border/50 rounded-2xl p-5 opacity-60 hover:opacity-80 transition-all duration-300 ease-out group hover:-translate-y-1 hover:shadow-xl">
       <div className="absolute top-3 right-3">
         <span className="flex items-center gap-1 px-2 py-0.5 bg-secondary text-muted-foreground text-xs font-medium rounded-full border border-border">
           <Lock className="w-2.5 h-2.5" /> Coming Soon

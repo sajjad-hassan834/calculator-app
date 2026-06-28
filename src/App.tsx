@@ -2,9 +2,14 @@ import { BrowserRouter, Routes, Route } from "react-router"
 import { lazy, Suspense } from "react"
 import { MainLayout } from "./components/layout/MainLayout"
 import { ScrollToTop } from "./components/layout/ScrollToTop"
-import { AdminRouteGuard } from "./components/admin/AdminRouteGuard"
+import { OwnerAuthGuard } from "./components/admin/OwnerAuthGuard"
 import { useDarkMode } from "./hooks/useDarkMode"
 import { CalculatorSkeleton } from "./components/ui/Skeleton"
+
+function AdminRouteWrapper({ children }: { children: React.ReactNode }) {
+  const [darkMode] = useDarkMode()
+  return <div className={darkMode ? "dark" : ""}>{children}</div>
+}
 
 const HomePage = lazy(() => import("./pages/HomePage").then(m => ({ default: m.HomePage })))
 const CalculatorPage = lazy(() => import("./pages/calculator/CalculatorPage").then(m => ({ default: m.CalculatorPage })))
@@ -37,6 +42,18 @@ export default function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        <Route
+          path="admin-portal"
+          element={
+            <Suspense fallback={<SuspenseFallback />}>
+              <AdminRouteWrapper>
+                <OwnerAuthGuard>
+                  <AdminDashboard />
+                </OwnerAuthGuard>
+              </AdminRouteWrapper>
+            </Suspense>
+          }
+        />
         <Route element={<LayoutWrapper />}>
           <Route index element={<Suspense fallback={<SuspenseFallback />}><HomePage /></Suspense>} />
           <Route path="calculator/:type" element={<Suspense fallback={<SuspenseFallback />}><CalculatorPage /></Suspense>} />
@@ -48,17 +65,6 @@ export default function App() {
           <Route path="blog" element={<Suspense fallback={<SuspenseFallback />}><HomePage /></Suspense>} />
           <Route path="sitemap" element={<Suspense fallback={<SuspenseFallback />}><HomePage /></Suspense>} />
         </Route>
-
-        <Route
-          path="admin"
-          element={
-            <Suspense fallback={<SuspenseFallback />}>
-              <AdminRouteGuard>
-                <AdminDashboard />
-              </AdminRouteGuard>
-            </Suspense>
-          }
-        />
       </Routes>
     </BrowserRouter>
   )

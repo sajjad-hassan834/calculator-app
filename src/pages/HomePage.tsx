@@ -24,7 +24,7 @@ function Testimonials() {
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {testimonials.map((t) => (
-            <div key={t.name} className="bg-background border border-border rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ease-out">
+            <div key={t.name} className="bg-background border border-border rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out cursor-pointer">
               <Quote className="w-6 h-6 text-primary/30 mb-3" />
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
               <div>
@@ -60,7 +60,7 @@ function TrendingNow() {
               <button
                 key={c.id}
                 onClick={() => navigate(`/calculator/${c.id}`)}
-                className="flex items-center gap-4 bg-card border border-border rounded-2xl p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ease-out text-left"
+                className="flex items-center gap-4 bg-card border border-border rounded-2xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-left cursor-pointer"
               >
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center shrink-0`}>
                   <Icon className="w-5 h-5 text-white" />
@@ -105,7 +105,7 @@ function LearningResources() {
               <button
                 key={r.title}
                 onClick={() => navigate("/about")}
-                className="group text-left bg-background border border-border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out"
+                className="group text-left bg-background border border-border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out cursor-pointer"
               >
                 <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${r.gradient} flex items-center justify-center mb-3`}>
                   <Icon className="w-5 h-5 text-white" />

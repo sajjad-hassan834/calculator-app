@@ -25,7 +25,7 @@ export function CategoriesSection() {
               <button
                 key={cat.id}
                 onClick={() => navigate(`/category/${cat.id}`)}
-                className="flex flex-col items-center gap-2.5 p-4 rounded-2xl border border-border bg-background hover:bg-secondary transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg"
+                className="flex flex-col items-center gap-2.5 p-4 rounded-2xl border border-border bg-background hover:bg-secondary transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl cursor-pointer"
               >
                 <Icon className="w-6 h-6 text-primary" />
                 <div className="text-center">
