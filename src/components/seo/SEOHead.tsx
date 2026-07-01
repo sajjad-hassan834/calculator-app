@@ -11,7 +11,8 @@ interface SEOHeadProps {
 }
 
 const SITE_NAME = "FinanceCalculator.com"
-const DEFAULT_OG_IMAGE = "https://financecalculator.com/og-image.png"
+const DEFAULT_OG_IMAGE = "https://financecalc.com/og-image.png"
+const SITE_URL = "https://financecalc.com"
 
 export function SEOHead({
   title,
@@ -65,6 +66,7 @@ export function SEOHead({
     addMeta("og:title", title, true)
     addMeta("og:description", description || "", true)
     addMeta("og:image", ogImage, true)
+    addMeta("og:locale", "en_US", true)
     addMeta("og:url", canonical || window.location.href, true)
     addMeta("og:type", ogType, true)
     addMeta("og:site_name", SITE_NAME, true)

@@ -29,8 +29,10 @@ function sendToAnalytics(event: AnalyticsEvent) {
     localStorage.setItem("analytics_events", JSON.stringify(stored.slice(-100)))
   } catch { /* ignore */ }
 
-  // Google Analytics 4 (placeholder - add your measurement ID)
-  if (typeof window !== "undefined" && (window as any).gtag) {
+  // Google Analytics 4
+  // To enable, set VITE_GA_MEASUREMENT_ID in your .env file
+  const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID || ""
+  if (typeof window !== "undefined" && (window as any).gtag && gaId) {
     try {
       ;(window as any).gtag("event", event.name, {
         ...event.properties,
@@ -54,9 +56,10 @@ export function trackEvent(name: EventName, properties?: Record<string, string |
 export function trackPageView(path: string) {
   trackEvent("page_view", { path })
 
-  if (typeof window !== "undefined" && (window as any).gtag) {
+  const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID || ""
+  if (typeof window !== "undefined" && (window as any).gtag && gaId) {
     try {
-      ;(window as any).gtag("config", "G-XXXXXXXXXX", {
+      ;(window as any).gtag("config", gaId, {
         page_path: path,
       })
     } catch { /* ignore */ }

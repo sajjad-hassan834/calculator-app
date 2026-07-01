@@ -6,7 +6,7 @@ export function NotFoundPage() {
   return (
     <div className="bg-background min-h-[80vh] flex items-center justify-center">
       <SEOHead
-        title="404 — Page Not Found | FinanceCalculator.com"
+        title="404 — Page Not Found | FinanceCalc"
         description="The page you are looking for does not exist or has been moved."
       />
       <div className="max-w-md mx-auto px-4 text-center">

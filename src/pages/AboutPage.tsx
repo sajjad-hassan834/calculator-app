@@ -1,9 +1,15 @@
 import { Link } from "react-router"
 import { Calculator, Shield, Award, Users } from "lucide-react"
+import { SEOHead } from "../components/seo/SEOHead"
 
 export function AboutPage() {
   return (
     <div className="bg-background">
+      <SEOHead
+        title="About Us — FinanceCalc"
+        description="Learn about FinanceCalc — our mission to make financial calculations simple, accurate, and accessible to everyone. Free calculators, no sign-up required."
+        canonical="https://financecalc.com/about"
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
           <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -12,7 +18,7 @@ export function AboutPage() {
         </nav>
 
         <h1 className="font-['DM_Serif_Display',serif] text-3xl lg:text-4xl text-foreground mb-6">
-          About FinanceCalculator.com
+          About FinanceCalc
         </h1>
         <p className="text-muted-foreground text-lg leading-relaxed mb-10">
           We make financial calculations simple, accurate, and accessible to everyone — completely free.

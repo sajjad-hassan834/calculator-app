@@ -11,7 +11,7 @@ export function ErrorPage({ status = 500, message = "Something went wrong" }: Er
   return (
     <div className="bg-background min-h-[80vh] flex items-center justify-center">
       <SEOHead
-        title={`${status} — Error | FinanceCalculator.com`}
+        title={`${status} — Error | FinanceCalc`}
         description="An unexpected error occurred. Please try again later."
       />
       <div className="max-w-md mx-auto px-4 text-center">

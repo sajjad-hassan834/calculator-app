@@ -56,7 +56,7 @@ export function CookieBanner() {
             Accept All
           </button>
           <button
-            onClick={accept}
+            onClick={() => setVisible(false)}
             className="w-7 h-7 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors shrink-0"
             aria-label="Dismiss cookie notice"
           >

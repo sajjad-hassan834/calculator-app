@@ -30,7 +30,7 @@ export function generateBreadcrumbSchema(items: { label: string; path?: string }
       "@type": "ListItem",
       position: i + 1,
       name: item.label,
-      ...(item.path ? { item: `https://financecalculator.com${item.path}` } : {}),
+      ...(item.path ? { item: `https://financecalc.com${item.path}` } : {}),
     })),
   }
 }
@@ -54,13 +54,13 @@ export function generateWebSiteSchema(): object {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "FinanceCalculator.com",
-    url: "https://financecalculator.com",
+    name: "FinanceCalc",
+    url: "https://financecalc.com",
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://financecalculator.com/search?q={search_term_string}",
+        urlTemplate: "https://financecalc.com/search?q={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },

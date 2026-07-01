@@ -213,13 +213,13 @@ export function CalculatorPage() {
       <AdPlaceholder className="mx-auto max-w-7xl h-20 mb-8" />
 
       <section className="pb-16" id="calculator-section">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-              <div>
-                <h2 className="font-semibold text-foreground text-base">{meta.title}</h2>
-                <p className="text-xs text-muted-foreground mt-0.5">Results update in real time</p>
-              </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden" role="region" aria-label={`${meta.title} calculator`}>
+              <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+                <div>
+                  <h2 className="font-semibold text-foreground text-base">{meta.title}</h2>
+                  <p className="text-xs text-muted-foreground mt-0.5">Results update in real time</p>
+                </div>
               <div className="flex items-center gap-2">
                 <FavoriteButton meta={meta} />
                 <button onClick={copyResult} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors" aria-label="Copy results">
@@ -325,7 +325,8 @@ export function CalculatorPage() {
               </div>
 
               <div className="lg:col-span-2 p-6 space-y-4 bg-secondary/20">
-                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Results</div>
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4" id="calculator-results-heading">Results</div>
+                <div aria-live="polite" aria-atomic="true" aria-labelledby="calculator-results-heading" role="region">
                 <EnhancedResultCard
                   meta={meta}
                   results={results}
@@ -395,6 +396,7 @@ export function CalculatorPage() {
                     <ResultCard label="Target Amount" value={fmt$(values.svTarget)} />
                   )}
                 </div>
+              </div>
               </div>
             </div>
 

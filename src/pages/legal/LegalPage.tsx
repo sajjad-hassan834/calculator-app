@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router"
+import { SEOHead } from "../../components/seo/SEOHead"
 
 const LEGAL_CONTENT: Record<string, { title: string; lastUpdated: string; content: string[] }> = {
   privacy: {
@@ -71,6 +72,11 @@ export function LegalPage() {
 
   return (
     <div className="bg-background">
+      <SEOHead
+        title={`${content.title} — FinanceCalc`}
+        description={`Read FinanceCalc's ${content.title.toLowerCase()}. Learn about how we handle your data, terms of service, and legal information.`}
+        canonical={`https://financecalc.com/legal/${type}`}
+      />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
           <Link to="/" className="hover:text-foreground transition-colors">Home</Link>

@@ -39,7 +39,7 @@ function generateInsights(
           type: "warning",
           icon: AlertTriangle,
           title: "PMI May Apply",
-          text: `With a ${values.downPayment}% down payment (under 20%), you may need Private Mortgage Insurance (PMI), adding approximately $100-$300 to your monthly payment.`,
+          text: `With a ${values.downPct}% down payment (under 20%), you may need Private Mortgage Insurance (PMI), adding approximately $100-$300 to your monthly payment.`,
         })
       }
       insights.push({

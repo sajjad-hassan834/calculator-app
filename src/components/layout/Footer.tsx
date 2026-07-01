@@ -59,20 +59,22 @@ export function Footer() {
             </p>
             <div className="flex gap-2 mb-5">
               {[
-                { icon: Twitter, label: "Twitter" },
-                { icon: Linkedin, label: "LinkedIn" },
-                { icon: Youtube, label: "YouTube" },
-                { icon: Mail, label: "Email" },
+                { icon: Twitter, label: "Twitter", href: "https://x.com/financecalc", rel: "noopener noreferrer", target: "_blank" },
+                { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/financecalc", rel: "noopener noreferrer", target: "_blank" },
+                { icon: Youtube, label: "YouTube", href: "https://youtube.com/@financecalc", rel: "noopener noreferrer", target: "_blank" },
+                { icon: Mail, label: "Email", href: "mailto:contact@financecalc.com" },
               ].map((s) => {
                 const Icon = s.icon
                 return (
-                  <button
+                  <a
                     key={s.label}
+                    href={s.href}
                     className="w-8 h-8 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-200 hover:-translate-y-0.5"
                     aria-label={s.label}
+                    {...(s.target ? { target: s.target, rel: s.rel } : {})}
                   >
                     <Icon className="w-4 h-4" />
-                  </button>
+                  </a>
                 )
               })}
             </div>
