@@ -1,7 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router"
-import { Calculator, Search, Moon, Sun, Menu, X } from "lucide-react"
+import { Calculator, Search, Moon, Sun, Menu, X, Clock, Star } from "lucide-react"
 import { SearchOverlay } from "../shared/SearchOverlay"
+import { HistoryPanel } from "../shared/HistoryPanel"
+import { FavoritesPanel } from "../shared/FavoritesPanel"
+import { CurrencySelector } from "../shared/CurrencySelector"
+import { useCurrency } from "../../lib/CurrencyContext"
 
 const NAV_LINKS = [
   { label: "Calculators", path: "/" },
@@ -12,18 +16,32 @@ const NAV_LINKS = [
   { label: "Retirement", path: "/calculator/retirement" },
   { label: "Tax", path: "/calculator/tax" },
   { label: "Blog", path: "/blog" },
+  { label: "Help", path: "/help" },
 ]
 
 export function Header({
   darkMode,
   toggleDarkMode,
+  externalSearchOpen,
+  onExternalSearchClose,
 }: {
   darkMode: boolean
   toggleDarkMode: () => void
+  externalSearchOpen?: boolean
+  onExternalSearchClose?: () => void
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [historyOpen, setHistoryOpen] = useState(false)
+  const [favoritesOpen, setFavoritesOpen] = useState(false)
+  const { currency, setCurrency } = useCurrency()
   const navigate = useNavigate()
+
+  const effectiveSearchOpen = externalSearchOpen ?? searchOpen
+  const closeSearch = () => {
+    setSearchOpen(false)
+    onExternalSearchClose?.()
+  }
 
   return (
     <>
@@ -55,14 +73,31 @@ export function Header({
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
               <button
                 onClick={() => setSearchOpen(true)}
-                className="w-full flex items-center pl-9 pr-3 py-2 text-sm bg-gray-50 dark:bg-gray-900 border border-border/60 rounded-xl text-muted-foreground hover:text-foreground text-left transition-all duration-200 focus:ring-2 focus:ring-blue-600 focus:bg-white dark:focus:bg-gray-950 aria-expanded:ring-2 aria-expanded:ring-blue-600"
-                aria-label="Open search"
+                className="w-full flex items-center pl-9 pr-3 py-2 text-sm bg-gray-50 dark:bg-gray-900 border border-border/60 rounded-xl text-muted-foreground hover:text-foreground text-left transition-all duration-200 focus:ring-2 focus:ring-blue-600 focus:bg-white dark:focus:bg-gray-950"
+                aria-label="Open search (press / to search)"
               >
                 <span>Search calculators...</span>
               </button>
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
+              <CurrencySelector value={currency} onChange={setCurrency} />
+              <button
+                onClick={() => setHistoryOpen(true)}
+                className="w-9 h-9 rounded-xl bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-200 hover:shadow-sm"
+                aria-label="Calculation history"
+                title="History"
+              >
+                <Clock className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setFavoritesOpen(true)}
+                className="w-9 h-9 rounded-xl bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-200 hover:shadow-sm"
+                aria-label="Favorites"
+                title="Favorites"
+              >
+                <Star className="w-4 h-4" />
+              </button>
               <button
                 className="md:hidden w-9 h-9 rounded-xl bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-all duration-200 hover:shadow-sm"
                 onClick={() => setSearchOpen(true)}
@@ -79,7 +114,7 @@ export function Header({
               </button>
               <Link
                 to="/calculator/mortgage"
-                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-all duration-200 hover:shadow-xl hover:-translate-y-1 cursor-pointer"
+                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
               >
                 <Calculator className="w-4 h-4" />
                 <span>Calculate</span>
@@ -114,7 +149,9 @@ export function Header({
         )}
       </header>
 
-      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <SearchOverlay open={effectiveSearchOpen} onClose={closeSearch} />
+      <HistoryPanel open={historyOpen} onClose={() => setHistoryOpen(false)} />
+      <FavoritesPanel open={favoritesOpen} onClose={() => setFavoritesOpen(false)} />
     </>
   )
 }

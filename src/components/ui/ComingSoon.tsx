@@ -4,7 +4,7 @@ const FUTURE_FEATURES = [
   { icon: Clock, title: "Portfolio Tracker", desc: "Track all your investments in one place with real-time updates." },
   { icon: Clock, title: "Budget Planner", desc: "Create and manage monthly budgets with spending insights." },
   { icon: Clock, title: "AI Financial Assistant", desc: "Get personalized financial insights powered by AI." },
-  { icon: Clock, title: "Net Worth Tracker", desc: "Monitor your assets and liabilities over time." },
+  { icon: Clock, title: "Retirement Planner", desc: "Plan and optimize your retirement savings with projections." },
   { icon: Clock, title: "Inflation Calculator", desc: "See how inflation affects your purchasing power." },
   { icon: Clock, title: "Currency Converter", desc: "Real-time exchange rates for 170+ currencies." },
   { icon: Clock, title: "Goal Planner", desc: "Set and track multiple financial goals simultaneously." },

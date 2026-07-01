@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState, useId } from "react"
 import { fmtNum } from "../../lib/formatters"
-import { Info } from "lucide-react"
+import { Info, AlertTriangle } from "lucide-react"
 
 export function SliderInput({
   label,
@@ -13,6 +13,7 @@ export function SliderInput({
   onChange,
   formatDisplay,
   tooltip,
+  validate,
 }: {
   label: string
   value: number
@@ -24,13 +25,27 @@ export function SliderInput({
   onChange: (v: number) => void
   formatDisplay?: (v: number) => string
   tooltip?: string
+  validate?: (v: number) => string | null
 }) {
   const [showTooltip, setShowTooltip] = useState(false)
+  const [touched, setTouched] = useState(false)
+  const id = useId()
   const pct = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100))
   const displayVal = formatDisplay ? formatDisplay(value) : fmtNum(value)
+  const error = touched && validate ? validate(value) : null
 
-  const increment = () => onChange(Math.min(max, +(value + step).toFixed(2)))
-  const decrement = () => onChange(Math.max(min, +(value - step).toFixed(2)))
+  const increment = () => {
+    if (!touched) setTouched(true)
+    onChange(Math.min(max, +(value + step).toFixed(2)))
+  }
+  const decrement = () => {
+    if (!touched) setTouched(true)
+    onChange(Math.max(min, +(value - step).toFixed(2)))
+  }
+  const handleChange = (v: number) => {
+    if (!touched) setTouched(true)
+    onChange(v)
+  }
 
   return (
     <div className="space-y-2.5">
@@ -83,12 +98,15 @@ export function SliderInput({
               value={displayVal}
               inputMode="numeric"
               onChange={(e) => {
+                if (!touched) setTouched(true)
                 const raw = e.target.value.replaceAll(",", "")
                 const v = parseFloat(raw)
-                if (!isNaN(v)) onChange(Math.min(max, Math.max(min, v)))
+                if (!isNaN(v)) handleChange(Math.min(max, Math.max(min, v)))
               }}
-              className="bg-transparent text-right text-sm font-['JetBrains_Mono',monospace] font-medium w-20 outline-none text-foreground"
+              className={`bg-transparent text-right text-sm font-['JetBrains_Mono',monospace] font-medium w-20 outline-none text-foreground ${error ? "text-red-600 dark:text-red-400" : ""}`}
               aria-describedby={tooltip ? `${label}-desc` : undefined}
+              aria-invalid={!!error}
+              aria-errormessage={error ? `${id}-error` : undefined}
             />
             {suffix && <span className="text-muted-foreground text-xs font-medium">{suffix}</span>}
           </div>
@@ -128,6 +146,17 @@ export function SliderInput({
         <span>{prefix}{formatDisplay ? formatDisplay(min) : fmtNum(min)}{suffix}</span>
         <span>{prefix}{formatDisplay ? formatDisplay(max) : fmtNum(max)}{suffix}</span>
       </div>
+
+      {error && (
+        <div
+          id={`${id}-error`}
+          role="alert"
+          className="flex items-center gap-1.5 text-xs text-red-600 dark:text-red-400 animate-in slide-in-from-top-1 fade-in duration-200"
+        >
+          <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+          {error}
+        </div>
+      )}
     </div>
   )
 }

@@ -1,27 +1,9 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import { useNavigate } from "react-router"
-import { Search, X, TrendingUp, Clock, Star, ArrowRight, Trash2 } from "lucide-react"
-import { CATEGORIES, FEATURED } from "../../lib/data"
+import { Search, X, TrendingUp, Clock, Star, ArrowRight, Trash2, Sparkles } from "lucide-react"
+import { CATEGORIES } from "../../lib/data"
+import { SEARCH_INDEX } from "../../lib/searchData"
 import { useRecentSearches } from "../../hooks/useRecentSearches"
-
-const POPULAR_SEARCHES = [
-  "Mortgage", "Compound Interest", "Loan", "Retirement", "ROI",
-  "Savings Goal", "Tax", "Break Even", "Investment",
-]
-
-const ALL_CALCULATORS = FEATURED.map((c) => ({
-  id: c.id,
-  title: c.title,
-  category: "Featured",
-  path: `/calculator/${c.id}`,
-})).concat(
-  CATEGORIES.map((c) => ({
-    id: c.id,
-    title: c.label,
-    category: "Category",
-    path: `/category/${c.id}`,
-  }))
-)
 
 export function SearchOverlay({
   open,
@@ -49,13 +31,26 @@ export function SearchOverlay({
     setSelectedIndex(0)
   }, [query])
 
-  const filtered = query.trim()
-    ? ALL_CALCULATORS.filter(
-        (c) =>
-          c.title.toLowerCase().includes(query.toLowerCase()) ||
-          c.category.toLowerCase().includes(query.toLowerCase())
-      ).slice(0, 8)
-    : []
+  const filtered = useMemo(() => {
+    if (!query.trim()) return []
+    const q = query.toLowerCase().trim()
+    const scored = SEARCH_INDEX.map((entry) => {
+      let score = 0
+      const titleLower = entry.title.toLowerCase()
+      const descLower = entry.description.toLowerCase()
+      if (titleLower === q) score += 100
+      if (titleLower.startsWith(q)) score += 80
+      if (titleLower.includes(q)) score += 60
+      if (entry.synonyms.some((s) => s.toLowerCase().includes(q))) score += 50
+      if (entry.keywords.some((k) => k.toLowerCase().includes(q))) score += 40
+      if (descLower.includes(q)) score += 20
+      return { ...entry, score }
+    })
+      .filter((e) => e.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8)
+    return scored
+  }, [query])
 
   const handleNavigate = (path: string, q?: string) => {
     if (q) addSearch(q)
@@ -77,7 +72,7 @@ export function SearchOverlay({
         onClose()
       } else if (query.trim()) {
         addSearch(query)
-        const found = ALL_CALCULATORS.find((c) =>
+        const found = SEARCH_INDEX.find((c) =>
           c.title.toLowerCase().includes(query.toLowerCase())
         )
         if (found) {
@@ -106,7 +101,7 @@ export function SearchOverlay({
 
   const handlePopularClick = (s: string) => {
     addSearch(s)
-    const found = ALL_CALCULATORS.find((c) =>
+    const found = SEARCH_INDEX.find((c) =>
       c.title.toLowerCase().includes(s.toLowerCase())
     )
     if (found) {
@@ -143,6 +138,7 @@ export function SearchOverlay({
             aria-expanded={filtered.length > 0}
             aria-label="Search calculators"
             aria-autocomplete="list"
+            aria-controls="search-results"
           />
           <button
             onClick={onClose}
@@ -184,26 +180,27 @@ export function SearchOverlay({
             )}
 
             <div className="mb-4">
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                <TrendingUp className="w-3 h-3" /> Popular Searches
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {POPULAR_SEARCHES.map((s) => (
+              <span className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <TrendingUp className="w-3 h-3" /> Popular Calculators
+              </span>
+              <div className="grid grid-cols-2 gap-1.5">
+                {SEARCH_INDEX.slice(0, 8).map((entry) => (
                   <button
-                    key={s}
-                    onClick={() => handlePopularClick(s)}
-                    className="px-3 py-1.5 bg-secondary border border-border rounded-lg text-xs text-muted-foreground hover:text-foreground transition-colors"
+                    key={entry.id}
+                    onClick={() => handleNavigate(entry.path)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors text-left"
                   >
-                    {s}
+                    <Search className="w-3 h-3 shrink-0" />
+                    <span className="truncate">{entry.title}</span>
                   </button>
                 ))}
               </div>
             </div>
 
             <div>
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+              <span className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                 <Star className="w-3 h-3" /> Categories
-              </div>
+              </span>
               <div className="grid grid-cols-2 gap-1.5">
                 {CATEGORIES.map((c) => {
                   const Icon = c.icon
@@ -213,8 +210,8 @@ export function SearchOverlay({
                       onClick={() => handleNavigate(`/category/${c.id}`)}
                       className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors text-left"
                     >
-                      <Icon className="w-3.5 h-3.5" />
-                      {c.label}
+                      <Icon className="w-3.5 h-3.5 shrink-0" />
+                      <span className="truncate">{c.label}</span>
                     </button>
                   )
                 })}
@@ -222,7 +219,7 @@ export function SearchOverlay({
             </div>
           </div>
         ) : filtered.length > 0 ? (
-          <div className="p-2 max-h-80 overflow-y-auto" role="listbox">
+          <div className="p-2 max-h-80 overflow-y-auto" role="listbox" id="search-results">
             {filtered.map((item, i) => (
               <button
                 key={item.id}
@@ -236,11 +233,14 @@ export function SearchOverlay({
                     : "text-foreground hover:bg-secondary"
                 }`}
               >
-                <div className="flex items-center gap-3">
-                  <Search className="w-4 h-4 text-muted-foreground" />
-                  <span>{item.title}</span>
+                <div className="flex items-center gap-3 min-w-0">
+                  <Sparkles className="w-4 h-4 text-muted-foreground shrink-0" />
+                  <div className="min-w-0">
+                    <span className="truncate block">{item.title}</span>
+                    <span className="text-xs text-muted-foreground truncate block">{item.description}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   <span className="text-xs text-muted-foreground">{item.category}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>

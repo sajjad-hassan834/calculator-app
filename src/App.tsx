@@ -5,6 +5,9 @@ import { ScrollToTop } from "./components/layout/ScrollToTop"
 import { OwnerAuthGuard } from "./components/admin/OwnerAuthGuard"
 import { useDarkMode } from "./hooks/useDarkMode"
 import { CalculatorSkeleton } from "./components/ui/Skeleton"
+import { NotFoundPage } from "./pages/NotFoundPage"
+import { ErrorPage } from "./pages/ErrorPage"
+import { OfflinePage } from "./pages/OfflinePage"
 
 function AdminRouteWrapper({ children }: { children: React.ReactNode }) {
   const [darkMode] = useDarkMode()
@@ -18,6 +21,9 @@ const LegalPage = lazy(() => import("./pages/legal/LegalPage").then(m => ({ defa
 const AboutPage = lazy(() => import("./pages/AboutPage").then(m => ({ default: m.AboutPage })))
 const ContactPage = lazy(() => import("./pages/ContactPage").then(m => ({ default: m.ContactPage })))
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard").then(m => ({ default: m.AdminDashboard })))
+const HelpCenterPage = lazy(() => import("./pages/HelpCenterPage").then(m => ({ default: m.HelpCenterPage })))
+const BlogPage = lazy(() => import("./pages/BlogPage").then(m => ({ default: m.BlogPage })))
+const BlogArticlePage = lazy(() => import("./pages/BlogArticlePage").then(m => ({ default: m.BlogArticlePage })))
 
 function LayoutWrapper() {
   const [darkMode, toggleDarkMode] = useDarkMode()
@@ -61,9 +67,14 @@ export default function App() {
           <Route path="legal/:type" element={<Suspense fallback={<SuspenseFallback />}><LegalPage /></Suspense>} />
           <Route path="about" element={<Suspense fallback={<SuspenseFallback />}><AboutPage /></Suspense>} />
           <Route path="contact" element={<Suspense fallback={<SuspenseFallback />}><ContactPage /></Suspense>} />
+          <Route path="help" element={<Suspense fallback={<SuspenseFallback />}><HelpCenterPage /></Suspense>} />
+          <Route path="blog" element={<Suspense fallback={<SuspenseFallback />}><BlogPage /></Suspense>} />
+          <Route path="blog/:slug" element={<Suspense fallback={<SuspenseFallback />}><BlogArticlePage /></Suspense>} />
           <Route path="accessibility" element={<Suspense fallback={<SuspenseFallback />}><AboutPage /></Suspense>} />
-          <Route path="blog" element={<Suspense fallback={<SuspenseFallback />}><HomePage /></Suspense>} />
           <Route path="sitemap" element={<Suspense fallback={<SuspenseFallback />}><HomePage /></Suspense>} />
+          <Route path="offline" element={<Suspense fallback={<SuspenseFallback />}><OfflinePage /></Suspense>} />
+          <Route path="500" element={<Suspense fallback={<SuspenseFallback />}><ErrorPage status={500} message="Something went wrong" /></Suspense>} />
+          <Route path="*" element={<Suspense fallback={<SuspenseFallback />}><NotFoundPage /></Suspense>} />
         </Route>
       </Routes>
     </BrowserRouter>

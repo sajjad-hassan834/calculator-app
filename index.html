@@ -1,23 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinanceCalculator.com — Free Financial Calculators Online</title>
+    <meta name="description" content="Free, accurate financial calculators for mortgages, loans, investments, retirement, taxes, and more. Instant results, no sign-up required." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://financecalculator.com" />
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>FinanceCalculator.com — Free Financial Calculators Online</title>
-      <meta name="description" content="Free, accurate financial calculators for mortgages, loans, investments, retirement, taxes, and more. Instant results, no sign-up required." />
-      <meta name="robots" content="index, follow" />
-      <link rel="canonical" href="https://financecalculator.com" />
-      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
-      
-    </head>
+    <!-- Open Graph -->
+    <meta property="og:title" content="FinanceCalculator.com — Free Financial Calculators Online" />
+    <meta property="og:description" content="Free, accurate financial calculators for mortgages, loans, investments, retirement, taxes, and more. Instant results, no sign-up required." />
+    <meta property="og:image" content="https://financecalculator.com/og-image.png" />
+    <meta property="og:url" content="https://financecalculator.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FinanceCalculator.com" />
 
-    <body>
-      
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-      
-    </body>
-  </html>
-  
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FinanceCalculator.com — Free Financial Calculators Online" />
+    <meta name="twitter:description" content="Free, accurate financial calculators for mortgages, loans, investments, retirement, taxes, and more." />
+    <meta name="twitter:image" content="https://financecalculator.com/og-image.png" />
+
+    <!-- Preconnect to improve performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "FinanceCalculator.com",
+      "url": "https://financecalculator.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://financecalculator.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "FinanceCalculator.com",
+      "url": "https://financecalculator.com",
+      "description": "Free, accurate financial calculators for everyone.",
+      "foundingDate": "2018",
+      "sameAs": [
+        "https://twitter.com/financecalc",
+        "https://linkedin.com/company/financecalculator"
+      ]
+    }
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      html, body { height: 100%; margin: 0; }
+      #root { height: 100%; }
+      @media print {
+        header, footer, nav, .ad-placeholder { display: none !important; }
+        body { background: white; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -42,7 +42,7 @@ function CalculatorFAQ({
   )
 }
 
-const PER_CALCULATOR_FAQS: Record<string, FAQ[]> = {
+export const PER_CALCULATOR_FAQS: Record<string, FAQ[]> = {
   mortgage: [
     { q: "What is a good down payment for a mortgage?", a: "A 20% down payment is ideal because it eliminates the need for Private Mortgage Insurance (PMI). However, many lenders offer conventional loans with as little as 3-5% down. FHA loans require only 3.5% down but come with mortgage insurance premiums." },
     { q: "Should I choose a 15-year or 30-year mortgage?", a: "A 30-year mortgage offers lower monthly payments but significantly more total interest. A 15-year mortgage has higher monthly payments but you build equity much faster and pay far less interest. Use this calculator to compare both scenarios side by side." },

@@ -1,8 +1,9 @@
 import { useParams, Link } from "react-router"
 
-const LEGAL_CONTENT: Record<string, { title: string; content: string[] }> = {
+const LEGAL_CONTENT: Record<string, { title: string; lastUpdated: string; content: string[] }> = {
   privacy: {
     title: "Privacy Policy",
+    lastUpdated: "June 1, 2026",
     content: [
       "FinanceCalculator.com respects your privacy. We do not collect, store, or share any personal financial data you enter into our calculators.",
       "All calculations are performed locally in your browser. No data is transmitted to our servers.",
@@ -16,6 +17,7 @@ const LEGAL_CONTENT: Record<string, { title: string; content: string[] }> = {
   },
   terms: {
     title: "Terms of Service",
+    lastUpdated: "June 1, 2026",
     content: [
       "FinanceCalculator.com provides financial calculators and educational content for informational purposes only.",
       "All calculations are estimates based on standard financial formulas. They should not be considered as financial advice.",
@@ -28,6 +30,7 @@ const LEGAL_CONTENT: Record<string, { title: string; content: string[] }> = {
   },
   cookies: {
     title: "Cookie Policy",
+    lastUpdated: "June 1, 2026",
     content: [
       "FinanceCalculator.com uses cookies to enhance your browsing experience and provide essential functionality.",
       "Essential cookies: These are required for basic site functionality, such as remembering your dark mode preference.",
@@ -39,6 +42,7 @@ const LEGAL_CONTENT: Record<string, { title: string; content: string[] }> = {
   },
   disclaimer: {
     title: "Disclaimer",
+    lastUpdated: "June 1, 2026",
     content: [
       "The calculators and content on FinanceCalculator.com are for educational and informational purposes only.",
       "They do not constitute financial advice, investment advice, or a recommendation of any specific financial product or strategy.",
@@ -76,7 +80,8 @@ export function LegalPage() {
           <span className="text-foreground font-medium">{content.title}</span>
         </nav>
 
-        <h1 className="font-['DM_Serif_Display',serif] text-3xl text-foreground mb-8">{content.title}</h1>
+        <h1 className="font-['DM_Serif_Display',serif] text-3xl text-foreground mb-2">{content.title}</h1>
+        <p className="text-xs text-muted-foreground mb-8">Last updated: {content.lastUpdated}</p>
 
         <div className="space-y-4">
           {content.content.map((paragraph, i) => (

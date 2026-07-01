@@ -26,6 +26,7 @@ const FOOTER_LINKS = {
   Company: [
     { label: "About Us", path: "/about" },
     { label: "How It Works", path: "/about" },
+    { label: "Help Center", path: "/help" },
     { label: "Methodology", path: "/about" },
     { label: "Accessibility", path: "/accessibility" },
     { label: "Blog", path: "/blog" },

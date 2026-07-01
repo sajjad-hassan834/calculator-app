@@ -1,17 +1,59 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 
-export function useDarkMode() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window === "undefined") return false
+function getSystemPreference(): boolean {
+  if (typeof window === "undefined") return false
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+}
+
+function getStoredPreference(): boolean | null {
+  try {
     const stored = localStorage.getItem("theme")
-    if (stored) return stored === "dark"
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
+    if (stored === "dark") return true
+    if (stored === "light") return false
+    return null
+  } catch {
+    return null
+  }
+}
+
+function applyTheme(dark: boolean) {
+  if (dark) {
+    document.documentElement.classList.add("dark")
+  } else {
+    document.documentElement.classList.remove("dark")
+  }
+}
+
+export function useDarkMode(): [boolean, () => void] {
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const stored = getStoredPreference()
+    if (stored !== null) return stored
+    return getSystemPreference()
   })
 
   useEffect(() => {
-    localStorage.setItem("theme", dark ? "dark" : "light")
-    document.documentElement.classList.toggle("dark", dark)
-  }, [dark])
+    applyTheme(darkMode)
+  }, [darkMode])
 
-  return [dark, () => setDark((d) => !d)] as const
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+    const handler = (e: MediaQueryListEvent) => {
+      const stored = getStoredPreference()
+      if (stored === null) {
+        setDarkMode(e.matches)
+      }
+    }
+    mediaQuery.addEventListener("change", handler)
+    return () => mediaQuery.removeEventListener("change", handler)
+  }, [])
+
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode((prev) => {
+      const next = !prev
+      localStorage.setItem("theme", next ? "dark" : "light")
+      return next
+    })
+  }, [])
+
+  return [darkMode, toggleDarkMode]
 }
