@@ -82,6 +82,23 @@ export function SEOContentBlock({
           About the {meta.title}
         </h2>
 
+        <div className="flex flex-wrap items-center gap-3 mb-6">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-secondary/50 text-muted-foreground">
+            <BookOpen className="w-3.5 h-3.5" />
+            {meta.readingTime} read
+          </span>
+          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+            meta.difficulty === "Beginner" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" :
+            meta.difficulty === "Intermediate" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" :
+            "bg-red-500/10 text-red-600 dark:text-red-400"
+          }`}>
+            {meta.difficulty}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            Updated {meta.lastUpdated}
+          </span>
+        </div>
+
         <div className="space-y-6">
           <div className="bg-background border border-border rounded-xl p-6">
             <h3 className="font-semibold text-foreground mb-2">What This Calculator Does</h3>
@@ -97,6 +114,32 @@ export function SEOContentBlock({
             <h3 className="font-semibold text-foreground mb-2">How the Calculation Works</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">{meta.howItWorks}</p>
           </div>
+
+          {meta.whenToUse.length > 0 && (
+            <div className="bg-background border border-border rounded-xl p-5">
+              <h3 className="text-sm font-semibold text-foreground mb-3">When to Use This Calculator</h3>
+              <ul className="space-y-2">
+                {meta.whenToUse.map((item, i) => (
+                  <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                    <span className="text-primary mt-0.5">--</span> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {meta.benefits.length > 0 && (
+            <div className="bg-background border border-border rounded-xl p-5">
+              <h3 className="text-sm font-semibold text-foreground mb-3">Benefits</h3>
+              <ul className="space-y-2">
+                {meta.benefits.map((item, i) => (
+                  <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                    <span className="text-emerald-500 mt-0.5">--</span> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="bg-background border border-border rounded-xl p-6">
             <h3 className="font-semibold text-foreground mb-3">The Formula</h3>
@@ -211,6 +254,23 @@ export function SEOContentBlock({
               ))}
             </dl>
           </div>
+
+          {meta.relatedCategories.length > 0 && (
+            <div className="bg-background border border-border rounded-xl p-5">
+              <h3 className="text-sm font-semibold text-foreground mb-3">Related Categories</h3>
+              <div className="flex flex-wrap gap-2">
+                {meta.relatedCategories.map((cat, i) => (
+                  <a
+                    key={i}
+                    href={`/category/${cat.toLowerCase().replace(/\s+/g, "-")}`}
+                    className="inline-flex px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+                  >
+                    {cat}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="bg-background border border-border rounded-xl p-5">
             <h3 className="font-semibold text-foreground mb-3">Frequently Asked Questions</h3>

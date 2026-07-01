@@ -11,11 +11,15 @@ export interface CalcMeta {
   uses: string
   popular: boolean
   time: string
+  readingTime: string
+  difficulty: "Beginner" | "Intermediate" | "Advanced"
   formula: string
   explanation: string
   introduction: string
   whyMatters: string
   howItWorks: string
+  whenToUse: string[]
+  benefits: string[]
   variables: { name: string; symbol: string; desc: string }[]
   example: { desc: string; steps: string[] }
   interpretation: string
@@ -26,6 +30,7 @@ export interface CalcMeta {
   glossary: { term: string; def: string }[]
   references: { label: string; url: string }[]
   related: { label: string; path: string }[]
+  relatedCategories: string[]
   lastUpdated: string
   author: { name: string; role: string }
   reviewer: { name: string; role: string }
@@ -43,11 +48,25 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     uses: "2.4M",
     popular: true,
     time: "30 seconds",
+    readingTime: "8 min",
+    difficulty: "Intermediate",
     formula: "M = P × [r(1+r)ⁿ] / [(1+r)ⁿ−1]",
     explanation: "Where M is the monthly payment, P is the loan principal (home price minus down payment), r is the monthly interest rate (annual rate ÷ 12), and n is the total number of monthly payments (loan term × 12).",
     introduction: "The Mortgage Calculator helps you estimate your monthly home loan payments, understand how much interest you will pay over the life of the loan, and see your full amortization schedule. Whether you are a first-time homebuyer or refinancing, this tool gives you the numbers you need to make informed decisions.",
     whyMatters: "For most people, a mortgage is the largest financial commitment they will ever make. Understanding your monthly payment, total interest cost, and how extra payments affect your loan can save you tens of thousands of dollars. This calculator empowers you to compare different loan scenarios before committing.",
     howItWorks: "Enter the home price, down payment percentage, annual interest rate, and loan term. The calculator instantly computes your monthly payment using the standard amortization formula. It then generates a full year-by-year schedule showing your remaining balance, cumulative principal paid, and cumulative interest paid over the entire loan term.",
+    whenToUse: [
+      "Comparing different mortgage offers from multiple lenders",
+      "Deciding between a 15-year and 30-year loan term",
+      "Evaluating how different down payment amounts affect monthly payments",
+      "Planning for a home purchase within your budget",
+    ],
+    benefits: [
+      "Instant monthly payment estimates without talking to a lender",
+      "See total interest costs over the full loan term",
+      "Compare multiple scenarios side-by-side",
+      "Understand how extra payments can save thousands in interest",
+    ],
     variables: [
       { name: "Home Price", symbol: "H", desc: "Total purchase price of the home" },
       { name: "Down Payment %", symbol: "D", desc: "Percentage of home price paid upfront" },
@@ -111,6 +130,7 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
       { label: "Compound Interest", path: "/calculator/compound" },
       { label: "Savings Goal", path: "/calculator/savings" },
     ],
+    relatedCategories: ["Loans", "Real Estate", "Personal Finance"],
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },
@@ -126,9 +146,23 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     uses: "1.8M",
     popular: true,
     time: "20 seconds",
+    readingTime: "7 min",
+    difficulty: "Beginner",
     formula: "A = P × (1 + r/n)^(n×t)",
     explanation: "Where A is the future value, P is the principal (initial investment), r is the annual interest rate (as a decimal), n is the number of compounding periods per year, and t is the number of years.",
     introduction: "The Compound Interest Calculator demonstrates how your investments can grow exponentially over time. Albert Einstein reportedly called compound interest the eighth wonder of the world. This tool shows you exactly how your money can work for you.",
+    whenToUse: [
+      "Estimating long-term investment growth potential",
+      "Comparing different compounding frequencies",
+      "Understanding the impact of starting early vs late",
+      "Setting realistic expectations for retirement savings",
+    ],
+    benefits: [
+      "See the exponential power of compound growth visually",
+      "Compare daily, monthly, and annual compounding effects",
+      "Understand how time amplifies investment returns",
+      "Calculate exactly when your money will double",
+    ],
     whyMatters: "Compound interest is the foundation of long-term wealth building. Understanding how your money grows over time helps you make better decisions about saving, investing, and when to start. The earlier you start, the more powerful the effect — this calculator makes that visible instantly.",
     howItWorks: "Enter your initial principal, annual interest rate, investment period, and how often interest compounds. The calculator computes the future value using the compound interest formula and generates a year-by-year growth chart. See how your money grows and how much comes from interest vs your initial investment.",
     variables: [
@@ -191,6 +225,7 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
       { label: "Savings Goal", path: "/calculator/savings" },
       { label: "Retirement Planner", path: "/calculator/retirement" },
     ],
+    relatedCategories: ["Investments", "Savings", "Personal Finance"],
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },
@@ -206,9 +241,23 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     uses: "1.2M",
     popular: true,
     time: "20 seconds",
+    readingTime: "7 min",
+    difficulty: "Beginner",
     formula: "M = P × [r(1+r)ⁿ] / [(1+r)ⁿ−1]",
     explanation: "Where M is the monthly payment, P is the loan principal, r is the monthly interest rate (annual rate divided by 12), and n is the total number of monthly payments. This is the same standard amortization formula used for mortgages, adapted for shorter-term personal loans.",
     introduction: "The Loan Repayment Calculator helps you understand the true cost of borrowing. Whether you are considering a personal loan, auto loan, or debt consolidation, this tool shows your monthly payments, total interest, and full repayment schedule so you can borrow with confidence.",
+    whenToUse: [
+      "Comparing personal loan offers from different lenders",
+      "Deciding between loan terms (3-year vs 5-year)",
+      "Evaluating debt consolidation options",
+      "Planning an auto purchase and financing",
+    ],
+    benefits: [
+      "See the true cost of borrowing with total interest",
+      "Compare different loan terms side by side",
+      "Understand how your credit score affects costs",
+      "Plan monthly payments within your budget",
+    ],
     whyMatters: "Personal loans are one of the most common financial products, yet many borrowers do not fully understand the total cost. A lower monthly payment might hide a longer term that costs significantly more in interest. This calculator reveals the full picture before you sign.",
     howItWorks: "Enter the loan amount, annual interest rate, and loan term. The calculator instantly computes your monthly payment and total interest using the amortization formula. A year-by-year schedule shows your remaining balance and how much goes toward principal vs interest over time.",
     variables: [
@@ -271,6 +320,7 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
       { label: "Compound Interest", path: "/calculator/compound" },
       { label: "ROI Calculator", path: "/calculator/roi" },
     ],
+    relatedCategories: ["Loans", "Personal Finance", "Real Estate"],
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },
@@ -286,9 +336,23 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     uses: "870K",
     popular: false,
     time: "20 seconds",
+    readingTime: "6 min",
+    difficulty: "Beginner",
     formula: "PMT = (FV - PV) × r / [(1+r)ⁿ - 1]",
     explanation: "Where PMT is the monthly contribution needed, FV is the target amount (future value), PV is the current savings (present value), r is the monthly interest rate, and n is the number of months until the goal.",
     introduction: "The Savings Goal Calculator helps you create a realistic plan to reach any financial target — whether it is a down payment, emergency fund, vacation, or major purchase. Just tell us your goal and timeline, and we will tell you exactly what to save each month.",
+    whenToUse: [
+      "Planning a major purchase like a home or car",
+      "Building an emergency fund with a target amount",
+      "Saving for a vacation or wedding",
+      "Setting up a college education fund",
+    ],
+    benefits: [
+      "Get a concrete monthly savings target to follow",
+      "See how interest earnings accelerate your progress",
+      "Adjust timeline vs monthly amount to find your sweet spot",
+      "Track progress toward any financial goal",
+    ],
     whyMatters: "Without a clear savings plan, financial goals remain wishes. This calculator bridges the gap between where you are and where you want to be, giving you a concrete monthly target. Seeing the numbers makes goals feel achievable and helps you stay motivated.",
     howItWorks: "Enter your target amount, current savings, annual interest rate (APY), and goal timeline. The calculator determines the monthly contribution required, accounting for the interest your savings will earn along the way. It also estimates how long it will take to reach your goal at different savings rates.",
     variables: [
@@ -351,6 +415,7 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
       { label: "Investment Growth", path: "/calculator/investment" },
       { label: "Retirement Planner", path: "/calculator/retirement" },
     ],
+    relatedCategories: ["Savings", "Personal Finance", "Investments"],
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },
@@ -366,9 +431,23 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     uses: "940K",
     popular: false,
     time: "30 seconds",
+    readingTime: "9 min",
+    difficulty: "Intermediate",
     formula: "FV = PV×(1+r)ⁿ + PMT×[(1+r)ⁿ - 1]/r",
     explanation: "Where FV is the nest egg at retirement, PV is current savings, PMT is monthly contribution, r is the monthly return rate, and n is the number of months until retirement. The withdrawal calculation then determines sustainable monthly income during retirement.",
     introduction: "The Retirement Planner helps you determine if you are on track for a comfortable retirement. By projecting your current savings forward with regular contributions and expected returns, you can see your estimated nest egg and sustainable monthly withdrawal in retirement.",
+    whenToUse: [
+      "Assessing whether you are saving enough for retirement",
+      "Deciding how much to increase monthly contributions",
+      "Planning retirement age and lifestyle expectations",
+      "Evaluating the impact of delaying retirement savings",
+    ],
+    benefits: [
+      "See if you are on track for a comfortable retirement",
+      "Understand the true cost of delaying savings",
+      "Project sustainable monthly income in retirement",
+      "Adjust variables to find your optimal savings plan",
+    ],
     whyMatters: "Retirement may seem far away, but every year of delayed saving has an outsized impact due to compound growth. This calculator shows you whether your current savings rate is sufficient and what adjustments might be needed to reach your retirement goals.",
     howItWorks: "Enter your current age, planned retirement age, current savings, monthly contribution, expected annual return, and life expectancy. The calculator projects your savings growth until retirement, then calculates how much you can withdraw monthly throughout retirement without running out of money.",
     variables: [
@@ -434,6 +513,7 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
       { label: "Investment Growth", path: "/calculator/investment" },
       { label: "Savings Goal", path: "/calculator/savings" },
     ],
+    relatedCategories: ["Retirement", "Investments", "Personal Finance"],
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },
@@ -449,9 +529,23 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     uses: "760K",
     popular: false,
     time: "15 seconds",
+    readingTime: "6 min",
+    difficulty: "Intermediate",
     formula: "ROI = (Final Value - Initial Investment) / Initial Investment × 100%",
     explanation: "ROI measures the profitability of an investment as a percentage of the initial cost. Annualized ROI accounts for the holding period, giving a per-year return rate for fair comparison across investments of different durations.",
     introduction: "The ROI Calculator helps you evaluate the profitability of any investment or business decision. Whether you are comparing investment opportunities, evaluating a business purchase, or measuring past performance, ROI gives you a standardized metric for comparison.",
+    whenToUse: [
+      "Comparing different investment opportunities",
+      "Evaluating past investment performance",
+      "Assessing business project profitability",
+      "Making capital allocation decisions",
+    ],
+    benefits: [
+      "Standardized metric to compare any investment",
+      "Annualized ROI for fair cross-period comparison",
+      "Quick profitability assessment for business decisions",
+      "Clear profit and percentage results at a glance",
+    ],
     whyMatters: "ROI is the most widely used profitability metric in finance and business. It allows you to compare investments of different sizes and types on an equal footing. Understanding ROI helps you allocate capital to the highest-return opportunities.",
     howItWorks: "Enter your initial investment, final value, and the number of years held. The calculator computes total profit, total ROI percentage, and annualized ROI — which accounts for the time value of money and allows fair comparison across different time periods.",
     variables: [
@@ -512,6 +606,7 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
       { label: "Compound Interest", path: "/calculator/compound" },
       { label: "Break-Even Analysis", path: "/calculator/break-even" },
     ],
+    relatedCategories: ["Business", "Investments", "Personal Finance"],
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },
@@ -527,9 +622,23 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     uses: "620K",
     popular: false,
     time: "20 seconds",
+    readingTime: "7 min",
+    difficulty: "Beginner",
     formula: "FV = PV×(1+r)ⁿ + PMT×[(1+r)ⁿ - 1]/r",
     explanation: "Where FV is the future value, PV is the initial investment, PMT is the monthly contribution, r is the monthly rate of return (annual rate ÷ 12), and n is the total number of months.",
     introduction: "The Investment Growth Calculator shows how regular investing can build substantial wealth over time. Unlike the compound interest calculator which assumes a single deposit, this tool models the more realistic scenario of ongoing monthly investments.",
+    whenToUse: [
+      "Planning a regular investment strategy (DCA)",
+      "Projecting portfolio value with ongoing contributions",
+      "Setting up a monthly investment plan",
+      "Comparing lump-sum vs periodic investing approaches",
+    ],
+    benefits: [
+      "Models real-world investing with regular contributions",
+      "See the split between contributions and investment growth",
+      "Understand dollar-cost averaging benefits visually",
+      "Plan for long-term wealth accumulation goals",
+    ],
     whyMatters: "Most investors do not make a single lump-sum investment — they contribute regularly from their income. This calculator models real-world investing behavior, showing how consistent contributions combined with compound growth can create significant long-term wealth.",
     howItWorks: "Enter your initial investment, monthly contribution amount, expected annual return, and investment period. The calculator projects your portfolio value over time, showing the split between what you contributed and what came from investment growth.",
     variables: [
@@ -593,6 +702,7 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
       { label: "Retirement Planner", path: "/calculator/retirement" },
       { label: "ROI Calculator", path: "/calculator/roi" },
     ],
+    relatedCategories: ["Investments", "Retirement", "Personal Finance"],
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },
@@ -608,9 +718,23 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     uses: "680K",
     popular: false,
     time: "15 seconds",
+    readingTime: "8 min",
+    difficulty: "Intermediate",
     formula: "Total Tax = Σ(Taxable Income in Bracket × Bracket Rate)",
     explanation: "The US uses a progressive tax system where different portions of your income are taxed at different rates. Your marginal rate is the highest bracket you fall into, while your effective rate is the average rate across all income — always lower than the marginal rate.",
     introduction: "The Tax Calculator helps you estimate your federal income tax liability based on the current progressive tax bracket system. Understand how much you will owe, your effective tax rate, and how additional income would be taxed at your marginal rate.",
+    whenToUse: [
+      "Estimating annual tax liability before filing",
+      "Understanding your effective vs marginal tax rate",
+      "Planning retirement contributions to reduce taxable income",
+      "Evaluating the tax impact of a raise or bonus",
+    ],
+    benefits: [
+      "See exactly how progressive tax brackets work on your income",
+      "Understand the difference between marginal and effective rates",
+      "Plan tax-advantaged contributions to lower your bill",
+      "Quick estimates without waiting for tax software",
+    ],
     whyMatters: "Understanding your tax situation is essential for financial planning. Knowing your effective and marginal tax rates helps you make informed decisions about retirement contributions, investment choices, and major financial decisions that have tax implications.",
     howItWorks: "Enter your annual taxable income. The calculator applies the current federal tax brackets, computing the tax owed in each bracket. It shows your total tax, effective tax rate (average rate on all income), and marginal tax rate (rate on your next dollar of income).",
     variables: [
@@ -672,6 +796,7 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
       { label: "ROI Calculator", path: "/calculator/roi" },
       { label: "Break-Even Analysis", path: "/calculator/break-even" },
     ],
+    relatedCategories: ["Tax", "Personal Finance", "Business"],
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },
@@ -687,9 +812,23 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     uses: "410K",
     popular: false,
     time: "15 seconds",
+    readingTime: "7 min",
+    difficulty: "Beginner",
     formula: "Break-Even Units = Fixed Costs / (Price per Unit - Variable Cost per Unit)",
     explanation: "Break-even analysis determines the sales volume needed to cover all costs. The contribution margin (price minus variable cost) is the amount each unit contributes toward fixed costs and profit. Once fixed costs are covered, every additional unit sold generates profit.",
     introduction: "The Break-Even Analysis calculator helps businesses determine how many units they need to sell to cover their costs. This fundamental metric is essential for pricing decisions, business planning, and evaluating the viability of new products or services.",
+    whenToUse: [
+      "Launching a new product or service",
+      "Setting pricing strategy for your products",
+      "Evaluating business model viability",
+      "Determining minimum sales targets for profitability",
+    ],
+    benefits: [
+      "Know exactly how many units to sell to avoid losses",
+      "Understand your contribution margin per unit",
+      "Test pricing scenarios before committing",
+      "Set clear sales targets for your team",
+    ],
     whyMatters: "Every business needs to know its break-even point. It tells you the minimum sales volume required to avoid losses, helps you set pricing strategies, and provides a clear target for your sales team. Without this knowledge, businesses operate blindly.",
     howItWorks: "Enter your fixed costs (rent, salaries, equipment), price per unit, and variable cost per unit (materials, labor per unit). The calculator determines how many units you must sell to break even, the revenue at that point, and your contribution margin per unit.",
     variables: [
@@ -751,6 +890,7 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
       { label: "Investment Growth", path: "/calculator/investment" },
       { label: "Tax Calculator", path: "/calculator/tax" },
     ],
+    relatedCategories: ["Business", "Investments", "Personal Finance"],
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },

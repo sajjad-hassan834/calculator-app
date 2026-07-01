@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback, useEffect } from "react"
 import { useParams, Link } from "react-router"
 import {
   Copy, Check, Printer, Share2, Info, FileSpreadsheet, FileText,
-  ArrowLeft, GitCompare, Save, ArrowUp, Download, History, Star
+  ArrowLeft, GitCompare, ArrowUp, Download, Star
 } from "lucide-react"
 import { SliderInput } from "../../components/shared/SliderInput"
 import { TermSelector } from "../../components/shared/TermSelector"
@@ -47,7 +47,6 @@ export function CalculatorPage() {
 
   const { addEntry } = useCalculationHistory()
   const [shareOpen, setShareOpen] = useState(false)
-  const [saveIndicator, setSaveIndicator] = useState(false)
 
   if (!config) {
     return (
@@ -73,7 +72,6 @@ export function CalculatorPage() {
   const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark")
   const colors = getChartColors(isDark)
   const [copied, setCopied] = useState(false)
-  const [linkCopied, setLinkCopied] = useState(false)
   const [tableTab, setTableTab] = useState<"yearly" | "monthly">("yearly")
 
   const { values, setValue, results } = useCalculatorState(config)
@@ -513,7 +511,7 @@ export function CalculatorPage() {
 
       <AdPlaceholder className="mx-auto max-w-7xl h-20 mb-8" />
 
-      <AIInsights calcType={calcType} values={values} results={results} meta={meta} />
+      <AIInsights calcType={calcType} values={values} results={results} />
 
       <SEOContentBlock meta={meta} calcType={calcType} />
 
@@ -521,7 +519,7 @@ export function CalculatorPage() {
 
       <AdPlaceholder className="mx-auto max-w-7xl h-20 my-8" />
 
-      <RelatedContent currentId={calcType} relatedLinks={meta.related} />
+      <RelatedContent currentId={calcType} relatedLinks={meta.related} meta={meta} />
 
       <AdPlaceholder className="mx-auto max-w-7xl h-20 my-8" />
 

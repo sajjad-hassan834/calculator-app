@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router"
-import { Search, ChevronDown, ChevronUp, BookOpen, Mail, MessageCircle, HelpCircle, FileText, Shield, User } from "lucide-react"
+import { Search, ChevronDown, ChevronUp, BookOpen, Mail, HelpCircle, Shield, User, Star } from "lucide-react"
 import { SEOHead } from "../components/seo/SEOHead"
 
 const HELP_ARTICLES = [

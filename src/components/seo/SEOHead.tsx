@@ -76,13 +76,12 @@ export function SEOHead({
 
     // Structured data
     if (jsonLd?.length) {
-      const scripts = jsonLd.map((data) => {
+      jsonLd.forEach((data) => {
         const script = document.createElement("script")
         script.type = "application/ld+json"
         script.textContent = JSON.stringify(data)
         document.head.appendChild(script)
         cleanupFns.push(() => script.remove())
-        return script
       })
     }
 

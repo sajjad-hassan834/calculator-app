@@ -72,9 +72,9 @@ export const mortgageConfig: CalculatorConfig = {
   },
   pieChart: {
     title: "Principal vs Interest",
-    slices: [
-      { name: "Principal", valueKey: "principal", colorKey: "blue" },
-      { name: "Interest", valueKey: "totalInterest", colorKey: "amber" },
+    data: (v, r) => [
+      { name: "Principal", value: Math.round(r.principal) },
+      { name: "Interest", value: Math.round(r.totalInterest) },
     ],
   },
 }

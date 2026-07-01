@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router"
-import { Home, Calculator, TrendingUp, BookOpen, Clock, Star } from "lucide-react"
+import { useLocation } from "react-router"
+import { Home, Calculator, TrendingUp, Clock, Star } from "lucide-react"
 import { useState } from "react"
 import { HistoryPanel } from "./HistoryPanel"
 import { FavoritesPanel } from "./FavoritesPanel"

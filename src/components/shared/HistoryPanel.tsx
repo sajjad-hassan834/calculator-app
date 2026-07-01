@@ -1,4 +1,4 @@
-import { Clock, RotateCcw, Trash2, X, AlertCircle, ChevronRight } from "lucide-react"
+import { Clock, RotateCcw, Trash2, X } from "lucide-react"
 import { useCalculationHistory } from "../../hooks/useCalculationHistory"
 import { fmt$ } from "../../lib/formatters"
 import { useNavigate } from "react-router"

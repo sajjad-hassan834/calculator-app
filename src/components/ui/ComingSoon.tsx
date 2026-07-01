@@ -3,7 +3,6 @@ import { Clock, Lock } from "lucide-react"
 const FUTURE_FEATURES = [
   { icon: Clock, title: "Portfolio Tracker", desc: "Track all your investments in one place with real-time updates." },
   { icon: Clock, title: "Budget Planner", desc: "Create and manage monthly budgets with spending insights." },
-  { icon: Clock, title: "AI Financial Assistant", desc: "Get personalized financial insights powered by AI." },
   { icon: Clock, title: "Retirement Planner", desc: "Plan and optimize your retirement savings with projections." },
   { icon: Clock, title: "Inflation Calculator", desc: "See how inflation affects your purchasing power." },
   { icon: Clock, title: "Currency Converter", desc: "Real-time exchange rates for 170+ currencies." },

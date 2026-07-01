@@ -1,5 +1,5 @@
 import { Link } from "react-router"
-import { Calculator, Globe, Mail, Twitter, Linkedin, Youtube } from "lucide-react"
+import { Calculator, Globe, Mail, Twitter, Youtube, Linkedin } from "lucide-react"
 
 const FOOTER_LINKS = {
   Calculators: [

@@ -2,17 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router"
 import { lazy, Suspense } from "react"
 import { MainLayout } from "./components/layout/MainLayout"
 import { ScrollToTop } from "./components/layout/ScrollToTop"
-import { OwnerAuthGuard } from "./components/admin/OwnerAuthGuard"
 import { useDarkMode } from "./hooks/useDarkMode"
 import { CalculatorSkeleton } from "./components/ui/Skeleton"
 import { NotFoundPage } from "./pages/NotFoundPage"
 import { ErrorPage } from "./pages/ErrorPage"
 import { OfflinePage } from "./pages/OfflinePage"
-
-function AdminRouteWrapper({ children }: { children: React.ReactNode }) {
-  const [darkMode] = useDarkMode()
-  return <div className={darkMode ? "dark" : ""}>{children}</div>
-}
 
 const HomePage = lazy(() => import("./pages/HomePage").then(m => ({ default: m.HomePage })))
 const CalculatorPage = lazy(() => import("./pages/calculator/CalculatorPage").then(m => ({ default: m.CalculatorPage })))
@@ -20,7 +14,6 @@ const CategoryPage = lazy(() => import("./pages/category/CategoryPage").then(m =
 const LegalPage = lazy(() => import("./pages/legal/LegalPage").then(m => ({ default: m.LegalPage })))
 const AboutPage = lazy(() => import("./pages/AboutPage").then(m => ({ default: m.AboutPage })))
 const ContactPage = lazy(() => import("./pages/ContactPage").then(m => ({ default: m.ContactPage })))
-const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard").then(m => ({ default: m.AdminDashboard })))
 const HelpCenterPage = lazy(() => import("./pages/HelpCenterPage").then(m => ({ default: m.HelpCenterPage })))
 const BlogPage = lazy(() => import("./pages/BlogPage").then(m => ({ default: m.BlogPage })))
 const BlogArticlePage = lazy(() => import("./pages/BlogArticlePage").then(m => ({ default: m.BlogArticlePage })))
@@ -48,18 +41,6 @@ export default function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route
-          path="admin-portal"
-          element={
-            <Suspense fallback={<SuspenseFallback />}>
-              <AdminRouteWrapper>
-                <OwnerAuthGuard>
-                  <AdminDashboard />
-                </OwnerAuthGuard>
-              </AdminRouteWrapper>
-            </Suspense>
-          }
-        />
         <Route element={<LayoutWrapper />}>
           <Route index element={<Suspense fallback={<SuspenseFallback />}><HomePage /></Suspense>} />
           <Route path="calculator/:type" element={<Suspense fallback={<SuspenseFallback />}><CalculatorPage /></Suspense>} />
