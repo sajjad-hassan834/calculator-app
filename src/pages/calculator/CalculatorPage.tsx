@@ -1,8 +1,8 @@
-import { useState, useMemo, useCallback, useEffect } from "react"
+import { useState, useMemo, useCallback, useEffect, useRef } from "react"
 import { useParams, Link } from "react-router"
 import {
   Copy, Check, Printer, Share2, Info, FileSpreadsheet, FileText,
-  ArrowLeft, GitCompare, ArrowUp, Download, Star
+  ArrowLeft, ArrowUp, Download, MoreHorizontal, X
 } from "lucide-react"
 import { SliderInput } from "../../components/shared/SliderInput"
 import { TermSelector } from "../../components/shared/TermSelector"
@@ -12,7 +12,6 @@ import { Breadcrumbs } from "../../components/ui/Breadcrumbs"
 import { Badge } from "../../components/ui/Badge"
 import { InfoCard } from "../../components/ui/InfoCard"
 import { DataTable } from "../../components/ui/DataTable"
-import { AnimatedCounter } from "../../components/ui/AnimatedCounter"
 import { SEOContentBlock } from "../../components/shared/SEOContentBlock"
 import { TrustBadges } from "../../components/shared/TrustBadges"
 import { RelatedContent } from "../../components/shared/RelatedContent"
@@ -47,6 +46,20 @@ export function CalculatorPage() {
 
   const { addEntry } = useCalculationHistory()
   const [shareOpen, setShareOpen] = useState(false)
+  const [moreOpen, setMoreOpen] = useState(false)
+  const moreRef = useRef<HTMLDivElement>(null)
+
+  // Close "More" menu on outside click
+  useEffect(() => {
+    if (!moreOpen) return
+    const handleClick = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setMoreOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClick)
+    return () => document.removeEventListener("mousedown", handleClick)
+  }, [moreOpen])
 
   if (!config) {
     return (
@@ -215,75 +228,122 @@ export function CalculatorPage() {
       <section className="pb-16" id="calculator-section">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden" role="region" aria-label={`${meta.title} calculator`}>
-              <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-                <div>
-                  <h2 className="font-semibold text-foreground text-base">{meta.title}</h2>
-                  <p className="text-xs text-muted-foreground mt-0.5">Results update in real time</p>
+              {/* ── Card toolbar ─────────────────────────────────── */}
+              <div className="flex items-center gap-2 px-4 sm:px-6 py-3.5 border-b border-border min-w-0">
+                {/* Title group */}
+                <div className="flex-1 min-w-0 mr-2">
+                  <h2 className="font-semibold text-foreground text-sm sm:text-base truncate">{meta.title}</h2>
+                  <p className="text-xs text-muted-foreground mt-0.5 hidden sm:block">Results update in real time</p>
                 </div>
-              <div className="flex items-center gap-2">
-                <FavoriteButton meta={meta} />
-                <button onClick={copyResult} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors" aria-label="Copy results">
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  {copied ? "Copied" : "Copy"}
-                </button>
-                {config.csvData && (
-                  <button onClick={exportCSV} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors" aria-label="Export CSV">
-                    <FileSpreadsheet className="w-3.5 h-3.5" />
-                    <span className="hidden sm:block">CSV</span>
-                  </button>
-                )}
-                <button onClick={exportJSON} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors" aria-label="Export JSON">
-                  <Download className="w-3.5 h-3.5" />
-                  <span className="hidden sm:block">JSON</span>
-                </button>
-                {isTableVisible && config.tableData && (
+
+                {/* Primary actions — always visible */}
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <FavoriteButton meta={meta} />
+
                   <button
-                    onClick={() => {
-                      const td = config.tableData!(results)
-                      exportToExcel(td, `${calcType}-results`)
-                    }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors"
-                    aria-label="Export Excel"
+                    onClick={copyResult}
+                    className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label="Copy results"
                   >
-                    <FileSpreadsheet className="w-3.5 h-3.5" />
-                    <span className="hidden sm:block">Excel</span>
+                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
                   </button>
-                )}
-                <button
-                  onClick={() => exportToImage("calculator-section", `${calcType}-results`)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors"
-                  aria-label="Export as Image"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span className="hidden sm:block">Image</span>
-                </button>
-                <button onClick={() => window.print()} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors" aria-label="Print or export PDF">
-                  <Printer className="w-3.5 h-3.5" />
-                  <span className="hidden sm:block">Print</span>
-                </button>
-                <button onClick={() => window.print()} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors" aria-label="Export as PDF">
-                  <FileText className="w-3.5 h-3.5" />
-                  <span className="hidden sm:block">PDF</span>
-                </button>
-                <button
-                  onClick={() => setShareOpen(true)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors"
-                  aria-label="Share"
-                >
-                  <Share2 className="w-3.5 h-3.5" />
-                  <span className="hidden sm:block">Share</span>
-                </button>
-                <button
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground/50 cursor-not-allowed"
-                  disabled
-                  aria-label="Compare scenarios (coming soon)"
-                  title="Coming soon"
-                >
-                  <GitCompare className="w-3.5 h-3.5" />
-                  <span className="hidden sm:block">Compare</span>
-                </button>
+
+                  <button
+                    onClick={() => setShareOpen(true)}
+                    className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label="Share"
+                  >
+                    <Share2 className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Share</span>
+                  </button>
+
+                  <button
+                    onClick={() => window.print()}
+                    className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label="Print"
+                  >
+                    <Printer className="w-3.5 h-3.5" />
+                    <span className="hidden md:inline">Print</span>
+                  </button>
+
+                  {/* More dropdown — secondary export actions */}
+                  <div className="relative" ref={moreRef}>
+                    <button
+                      onClick={() => setMoreOpen((p) => !p)}
+                      aria-expanded={moreOpen}
+                      aria-haspopup="true"
+                      className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium bg-secondary border border-border rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+                      aria-label="More export options"
+                    >
+                      <MoreHorizontal className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">More</span>
+                    </button>
+
+                    {moreOpen && (
+                      <div
+                        className="absolute right-0 top-full mt-1.5 z-50 w-48 bg-card border border-border rounded-xl shadow-xl py-1.5 animate-in fade-in slide-in-from-top-1"
+                        role="menu"
+                      >
+                        <div className="flex items-center justify-between px-3 py-1.5 mb-1 border-b border-border">
+                          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Export</span>
+                          <button onClick={() => setMoreOpen(false)} className="text-muted-foreground hover:text-foreground" aria-label="Close menu">
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                        {config.csvData && (
+                          <button
+                            onClick={() => { exportCSV(); setMoreOpen(false) }}
+                            className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                            role="menuitem"
+                          >
+                            <FileSpreadsheet className="w-3.5 h-3.5" />
+                            Export CSV
+                          </button>
+                        )}
+                        <button
+                          onClick={() => { exportJSON(); setMoreOpen(false) }}
+                          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                          role="menuitem"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          Export JSON
+                        </button>
+                        {isTableVisible && config.tableData && (
+                          <button
+                            onClick={() => {
+                              const td = config.tableData!(results)
+                              exportToExcel(td, `${calcType}-results`)
+                              setMoreOpen(false)
+                            }}
+                            className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                            role="menuitem"
+                          >
+                            <FileSpreadsheet className="w-3.5 h-3.5" />
+                            Export Excel
+                          </button>
+                        )}
+                        <button
+                          onClick={() => { exportToImage("calculator-section", `${calcType}-results`); setMoreOpen(false) }}
+                          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                          role="menuitem"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          Save as Image
+                        </button>
+                        <button
+                          onClick={() => { window.print(); setMoreOpen(false) }}
+                          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                          role="menuitem"
+                        >
+                          <FileText className="w-3.5 h-3.5" />
+                          Export PDF
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
 
             <div className="grid lg:grid-cols-5 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-border">
               <div className="lg:col-span-3 p-6 space-y-6">
@@ -486,15 +546,15 @@ export function CalculatorPage() {
                 {tableTab === "monthly" && hasMonthly && config.monthlyTableData ? (
                   <DataTable
                     title="Monthly Breakdown (First 12 months)"
-                    columns={config.monthlyTableData(values, results).columns}
-                    data={config.monthlyTableData(values, results).rows}
+                    columns={config.monthlyTableData!(values, results).columns}
+                    data={config.monthlyTableData!(values, results).rows}
                     defaultRows={12}
                   />
                 ) : (
                   <DataTable
                     title="Year-by-Year Breakdown"
-                    columns={config.tableData(results).columns}
-                    data={config.tableData(results).rows}
+                    columns={config.tableData!(results).columns}
+                    data={config.tableData!(results).rows}
                     defaultRows={5}
                   />
                 )}

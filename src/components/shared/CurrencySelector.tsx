@@ -21,7 +21,8 @@ export function CurrencySelector({ value, onChange }: CurrencySelectorProps) {
     return () => document.removeEventListener("mousedown", handler)
   }, [])
 
-  const current = CURRENCIES.find((c) => c.code === value) || CURRENCIES[0]
+  const current = CURRENCIES.find((c) => c.code === value) || { code: value, symbol: value, name: "Custom", locale: "en-US" }
+  const [customValue, setCustomValue] = useState("")
 
   return (
     <div className="relative" ref={ref}>
@@ -32,8 +33,8 @@ export function CurrencySelector({ value, onChange }: CurrencySelectorProps) {
         aria-expanded={open}
       >
         <DollarSign className="w-3.5 h-3.5" />
-        <span>{current.code}</span>
-        <span className="text-muted-foreground/60">{current.symbol}</span>
+        <span className="max-w-[40px] truncate">{current.code}</span>
+        {current.symbol !== current.code && <span className="text-muted-foreground/60 ml-0.5">{current.symbol}</span>}
       </button>
 
       {open && (
@@ -64,6 +65,37 @@ export function CurrencySelector({ value, onChange }: CurrencySelectorProps) {
                 {currency.code === value && <Check className="w-4 h-4" />}
               </button>
             ))}
+            
+            {/* Custom Currency Input */}
+            <div className="p-2 mt-1 border-t border-border">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  if (customValue.trim()) {
+                    onChange(customValue.trim().toUpperCase())
+                    setOpen(false)
+                    setCustomValue("")
+                  }
+                }}
+                className="flex items-center gap-2"
+              >
+                <input
+                  type="text"
+                  placeholder="Custom (e.g. PKR)"
+                  value={customValue}
+                  onChange={(e) => setCustomValue(e.target.value)}
+                  className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+                  maxLength={5}
+                />
+                <button
+                  type="submit"
+                  disabled={!customValue.trim()}
+                  className="px-2 py-1.5 text-xs font-medium bg-primary text-primary-foreground rounded-md disabled:opacity-50"
+                >
+                  Set
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       )}

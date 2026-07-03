@@ -12,8 +12,6 @@ interface SEOHeadProps {
 
 const SITE_NAME = "FinanceCalculator.com"
 const DEFAULT_OG_IMAGE = "https://financecalc.com/og-image.png"
-const SITE_URL = "https://financecalc.com"
-
 export function SEOHead({
   title,
   description,

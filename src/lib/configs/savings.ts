@@ -25,11 +25,11 @@ export const savingsConfig: CalculatorConfig = {
       { key: "year", label: "Year" },
       { key: "balance", label: "Balance", format: "currency" },
     ],
-    rows: r.schedule.map(s => ({ year: s.year, balance: s.balance })),
+    rows: r.schedule.map((s: { year: number; balance: number }) => ({ year: s.year, balance: s.balance })),
   }),
   growthChart: {
     title: "Growth Over Time",
-    data: r => r.schedule.map(s => ({ ...s, value: s.balance })),
+    data: r => r.schedule.map((s: { year: number; balance: number; contributed: number }) => ({ ...s, value: s.balance })),
     lines: [
       { dataKey: "balance", name: "Balance", colorKey: "blue" },
     ],

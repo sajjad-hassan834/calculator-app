@@ -34,7 +34,6 @@ export function GrowthChart({
   isDark: boolean
   lines: { dataKey: string; name: string; color: string }[]
 }) {
-  const colors = getChartColors(isDark)
   return (
     <div className="h-56">
       <ResponsiveContainer width="100%" height="100%">

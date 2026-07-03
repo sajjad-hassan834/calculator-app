@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react"
-import type { CalculatorConfig, InputField } from "../lib/calculatorConfig"
+import type { CalculatorConfig } from "../lib/calculatorConfig"
 
 export function getDefaultValues(config: CalculatorConfig): Record<string, number> {
   return config.inputs.reduce<Record<string, number>>((acc, input) => {

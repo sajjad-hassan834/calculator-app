@@ -11,7 +11,7 @@ export interface CompoundResult {
   fv: number
   interest: number
   returnPct: number
-  growth: YearData[]
+  growth: { year: number; value: number; interest: number }[]
 }
 
 export interface LoanResult {

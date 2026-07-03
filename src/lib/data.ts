@@ -1,6 +1,6 @@
 import {
   Home, TrendingUp, PiggyBank, Shield, CreditCard, Percent,
-  BarChart2, Briefcase, GraduationCap, BookOpen, DollarSign, Building2,
+  BarChart2, Briefcase, GraduationCap, DollarSign, Building2,
 } from "lucide-react"
 
 export const CATEGORIES = [

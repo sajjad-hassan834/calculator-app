@@ -18,4 +18,16 @@ export const roiConfig: CalculatorConfig = {
     { key: "annualizedRoi", label: "Annualized ROI", format: "percent" },
   ],
   copyTemplate: r => `Profit: $${Math.round(r.profit).toLocaleString()} | Total ROI: ${r.roi.toFixed(1)}% | Annualized: ${r.annualizedRoi.toFixed(1)}%`,
+  growthChart: {
+    title: "ROI Overview",
+    data: () => [],
+    lines: [],
+  },
+  pieChart: {
+    title: "Profit vs Investment",
+    data: (v, r) => [
+      { name: "Initial Investment", value: Math.round(v.roiInvest) },
+      { name: "Profit", value: Math.max(0, Math.round(r.profit)) },
+    ],
+  },
 }

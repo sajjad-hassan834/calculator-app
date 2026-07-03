@@ -9,10 +9,8 @@ interface FAQ {
 
 function CalculatorFAQ({
   faqs,
-  calcType,
 }: {
   faqs: FAQ[]
-  calcType: string
 }) {
   const [open, setOpen] = useState<number | null>(0)
   return (
@@ -274,7 +272,7 @@ export function SEOContentBlock({
 
           <div className="bg-background border border-border rounded-xl p-5">
             <h3 className="font-semibold text-foreground mb-3">Frequently Asked Questions</h3>
-            <CalculatorFAQ faqs={faqs} calcType={calcType} />
+            <CalculatorFAQ faqs={faqs} />
           </div>
 
           <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4">

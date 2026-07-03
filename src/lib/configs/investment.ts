@@ -37,7 +37,7 @@ export const investmentConfig: CalculatorConfig = {
   },
   pieChart: {
     title: "Contributions vs Growth",
-    data: (v, r) => [
+    data: (_v, r) => [
       { name: "Contributions", value: Math.round(r.totalContributions) },
       { name: "Growth", value: Math.round(r.fv - r.totalContributions) },
     ],

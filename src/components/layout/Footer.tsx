@@ -25,13 +25,11 @@ const FOOTER_LINKS = {
   ],
   Company: [
     { label: "About Us", path: "/about" },
-    { label: "How It Works", path: "/about" },
     { label: "Help Center", path: "/help" },
-    { label: "Methodology", path: "/about" },
-    { label: "Accessibility", path: "/accessibility" },
     { label: "Blog", path: "/blog" },
     { label: "Contact", path: "/contact" },
     { label: "Sitemap", path: "/sitemap" },
+    { label: "Support Us ❤️", path: "/support" },
   ],
   Legal: [
     { label: "Privacy Policy", path: "/legal/privacy" },
@@ -88,9 +86,15 @@ export function Footer() {
               <ul className="space-y-2.5">
                 {links.map((l) => (
                   <li key={l.label}>
-                    <Link to={l.path} className="text-xs text-slate-500 hover:text-slate-300 transition-all duration-200">
-                      {l.label}
-                    </Link>
+                    {l.path.startsWith("http") ? (
+                      <a href={l.path} target="_blank" rel="noopener noreferrer" className="text-xs text-slate-500 hover:text-slate-300 transition-all duration-200">
+                        {l.label}
+                      </a>
+                    ) : (
+                      <Link to={l.path} className="text-xs text-slate-500 hover:text-slate-300 transition-all duration-200">
+                        {l.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -17,7 +17,7 @@ export function AnimatedCounter({
   format?: "currency" | "percent" | "number"
 }) {
   const [display, setDisplay] = useState(value)
-  const raf = useRef<number>()
+  const raf = useRef<number>(0)
   const prevValue = useRef(value)
 
   useEffect(() => {

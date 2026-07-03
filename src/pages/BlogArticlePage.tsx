@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router"
 import { ArrowLeft, Calendar, Clock, User, Share2, Printer } from "lucide-react"
 import { SEOHead } from "../components/seo/SEOHead"
-import { useState, useMemo } from "react"
+import { useMemo } from "react"
 
 const BLOG_CONTENT: Record<string, {
   title: string
@@ -96,7 +96,6 @@ const BLOG_CONTENT: Record<string, {
 
 export function BlogArticlePage() {
   const { slug } = useParams<{ slug: string }>()
-  const [copied, setCopied] = useState(false)
   const article = slug ? BLOG_CONTENT[slug] : null
 
   if (!article) {
@@ -168,10 +167,7 @@ export function BlogArticlePage() {
           <div className="flex items-center gap-2 ml-auto">
             <button
               onClick={() => {
-                navigator.clipboard.writeText(pageUrl).then(() => {
-                  setCopied(true)
-                  setTimeout(() => setCopied(false), 2000)
-                })
+                navigator.clipboard.writeText(pageUrl)
               }}
               className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
               aria-label="Copy link"

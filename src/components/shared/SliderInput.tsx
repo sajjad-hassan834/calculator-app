@@ -48,9 +48,9 @@ export function SliderInput({
   }
 
   return (
-    <div className="space-y-2.5">
-      <div className="flex justify-between items-center gap-2">
-        <label className="text-sm font-medium text-foreground flex items-center gap-1.5">
+    <div className="space-y-2.5 min-w-0">
+      <div className="flex flex-wrap justify-between items-center gap-x-2 gap-y-1">
+        <label className="text-sm font-medium text-foreground flex items-center gap-1.5 min-w-0 shrink">
           {label}
           {tooltip && (
             <span
@@ -99,11 +99,11 @@ export function SliderInput({
               inputMode="numeric"
               onChange={(e) => {
                 if (!touched) setTouched(true)
-                const raw = e.target.value.replaceAll(",", "")
+                const raw = e.target.value.replace(/,/g, "")
                 const v = parseFloat(raw)
                 if (!isNaN(v)) handleChange(Math.min(max, Math.max(min, v)))
               }}
-              className={`bg-transparent text-right text-sm font-['JetBrains_Mono',monospace] font-medium w-20 outline-none text-foreground ${error ? "text-red-600 dark:text-red-400" : ""}`}
+              className={`bg-transparent text-right text-sm font-['JetBrains_Mono',monospace] font-medium w-16 min-w-0 outline-none text-foreground ${error ? "text-red-600 dark:text-red-400" : ""}`}
               aria-describedby={tooltip ? `${label}-desc` : undefined}
               aria-invalid={!!error}
               aria-errormessage={error ? `${id}-error` : undefined}

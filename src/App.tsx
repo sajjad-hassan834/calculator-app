@@ -20,6 +20,7 @@ const BlogPage = lazy(() => import("./pages/BlogPage").then(m => ({ default: m.B
 const BlogArticlePage = lazy(() => import("./pages/BlogArticlePage").then(m => ({ default: m.BlogArticlePage })))
 const AccessibilityPage = lazy(() => import("./pages/AccessibilityPage").then(m => ({ default: m.AccessibilityPage })))
 const SitemapPage = lazy(() => import("./pages/SitemapPage").then(m => ({ default: m.SitemapPage })))
+const SupportPage = lazy(() => import("./pages/SupportPage").then(m => ({ default: m.SupportPage })))
 
 function LayoutWrapper() {
   const [darkMode, toggleDarkMode] = useDarkMode()
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="blog/:slug" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><BlogArticlePage /></ErrorBoundary></Suspense>} />
           <Route path="accessibility" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><AccessibilityPage /></ErrorBoundary></Suspense>} />
           <Route path="sitemap" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><SitemapPage /></ErrorBoundary></Suspense>} />
+          <Route path="support" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><SupportPage /></ErrorBoundary></Suspense>} />
           <Route path="offline" element={<Suspense fallback={<SuspenseFallback />}><OfflinePage /></Suspense>} />
           <Route path="500" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><ErrorPage status={500} message="Something went wrong" /></ErrorBoundary></Suspense>} />
           <Route path="*" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><NotFoundPage /></ErrorBoundary></Suspense>} />

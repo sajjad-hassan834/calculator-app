@@ -34,7 +34,7 @@ export const taxConfig: CalculatorConfig = {
   },
   pieChart: {
     title: "Tax by Bracket",
-    data: (v, r) => r.breakdown.map((b: any) => ({
+    data: (_v, r) => r.breakdown.map((b: any) => ({
       name: `${b.rate}%`,
       value: b.tax,
     })),

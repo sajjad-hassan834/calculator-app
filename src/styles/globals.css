@@ -1,4 +1,59 @@
-/* Accessibility: Reduced motion */
+/* ── Prevent horizontal overflow globally ─────────────────────────────── */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* ── Improved body readability ─────────────────────────────────────────── */
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve readability of muted supporting text */
+.text-muted-foreground {
+  line-height: 1.65;
+}
+
+/* Ensure code blocks don't cause overflow */
+code, pre {
+  overflow-x: auto;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+/* ── Mega menu slide animation ─────────────────────────────────────────── */
+@keyframes mega-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Tailwind animate-in helpers ───────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slide-in-from-top {
+  from { transform: translateY(-4px); }
+  to   { transform: translateY(0); }
+}
+.animate-in {
+  animation-duration: 150ms;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+}
+.fade-in          { animation-name: fade-in; }
+.slide-in-from-top-1 { animation-name: slide-in-from-top; }
+
+/* ── Accessibility: Reduced motion ─────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

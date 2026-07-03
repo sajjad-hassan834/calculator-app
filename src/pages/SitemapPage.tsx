@@ -2,10 +2,10 @@ import { Link } from "react-router"
 import { SEOHead } from "../components/seo/SEOHead"
 import { SEARCH_INDEX } from "../lib/searchData"
 import { CATEGORIES } from "../lib/data"
-import { Home, Calculator, Grid3X3, FileText, BookOpen, HelpCircle, Info, Mail } from "lucide-react"
+import { Home, Calculator, FileText, BookOpen, HelpCircle, Info, Mail } from "lucide-react"
 
 const ICON_MAP: Record<string, any> = {
-  Home, Calculator, Grid3X3, FileText, BookOpen, HelpCircle, Info, Mail,
+  Home, Calculator, FileText, BookOpen, HelpCircle, Info, Mail,
 }
 
 const STATIC_PAGES = [
@@ -103,14 +103,14 @@ export function SitemapPage() {
             <h2 className="font-['DM_Serif_Display',serif] text-xl text-foreground mb-4">Categories</h2>
             <div className="grid sm:grid-cols-2 gap-2">
               {CATEGORIES.map((cat) => {
-                const CatIcon = cat.icon ? ICON_MAP[cat.icon as string] : Grid3X3
+                const CatIcon = cat.icon
                 return (
                   <Link
                     key={cat.id}
                     to={`/category/${cat.id}`}
                     className="flex items-center gap-3 p-3 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors"
                   >
-                    {CatIcon && <CatIcon className="w-4 h-4 text-primary" />}
+                    <CatIcon className="w-4 h-4 text-primary" />
                     <span className="text-sm text-foreground">{cat.label}</span>
                   </Link>
                 )

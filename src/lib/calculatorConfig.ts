@@ -58,10 +58,10 @@ export interface CalculatorConfig {
   highlight: { label: string; valueKey: string; format?: "currency" | "number" }
   results: ResultCardDef[]
   copyTemplate: (results: any) => string
-  csvData?: (results: any) => { columns: { key: string; label: string; format?: string }[]; rows: Record<string, number>[] }
+  csvData?: (results: any) => { columns: { key: string; label: string; format?: "currency" | "number" | "percent" }[]; rows: Record<string, number>[] }
   hasMonthlyTable?: boolean
-  monthlyTableData?: (values: Record<string, number>, results: any) => { columns: { key: string; label: string; format?: string }[]; rows: Record<string, number>[] }
-  tableData?: (results: any) => { columns: { key: string; label: string; format?: string }[]; rows: Record<string, number>[] }
+  monthlyTableData?: (values: Record<string, number>, results: any) => { columns: { key: string; label: string; format?: "currency" | "number" | "percent" }[]; rows: Record<string, number>[] }
+  tableData?: (results: any) => { columns: { key: string; label: string; format?: "currency" | "number" | "percent" }[]; rows: Record<string, number>[] }
   growthChart: ChartDef
   pieChart: PieDef
 }

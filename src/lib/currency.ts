@@ -24,12 +24,13 @@ export const CURRENCIES: CurrencyOption[] = [
 ]
 
 export function getCurrencySymbol(code: string): string {
-  return CURRENCIES.find((c) => c.code === code)?.symbol || "$"
+  const currency = CURRENCIES.find((c) => c.code === code)
+  return currency ? currency.symbol : code
 }
 
 export function formatCurrency(amount: number, currencyCode: string): string {
   const currency = CURRENCIES.find((c) => c.code === currencyCode)
-  if (!currency) return `$${amount.toLocaleString()}`
+  if (!currency) return `${currencyCode} ${amount.toLocaleString(undefined, { maximumFractionDigits: amount % 1 === 0 ? 0 : 2 })}`
   try {
     return new Intl.NumberFormat(currency.locale, {
       style: "currency",

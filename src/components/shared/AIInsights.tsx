@@ -70,7 +70,6 @@ function generateInsights(
       const fv = results.fv || 0
       const principal = values.cpPrincipal || 0
       const rate = values.cpRate || 7
-      const years = values.cpYears || 10
       const interest = fv - principal
       insights.push({
         type: "insight",
@@ -251,7 +250,6 @@ function generateInsights(
       break
     }
     case "tax": {
-      const totalTax = results.totalTax || 0
       const effectiveRate = results.effectiveRate || 0
       const marginalRate = results.marginalRate || 0
       const income = values.taxIncome || 0

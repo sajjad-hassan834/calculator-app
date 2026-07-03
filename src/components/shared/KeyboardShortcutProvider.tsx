@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router"
 import { useKeyboardShortcuts } from "../../hooks/useKeyboardShortcuts"
 
 interface KeyboardShortcutProviderProps {
