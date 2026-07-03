@@ -1,4 +1,4 @@
-import { DollarSign, Check } from "lucide-react"
+import { Check } from "lucide-react"
 import { CURRENCIES } from "../../lib/currency"
 import { useState, useRef, useEffect } from "react"
 
@@ -31,7 +31,7 @@ export function CurrencySelector({ value, onChange }: CurrencySelectorProps) {
         aria-label={`Currency: ${current.code}`}
         aria-expanded={open}
       >
-        <DollarSign className="w-3.5 h-3.5" />
+        <span className="w-3.5 h-3.5 flex items-center justify-center text-xs font-medium">{current.symbol}</span>
         <span className="max-w-[40px] truncate">{current.code}</span>
         {current.symbol !== current.code && <span className="text-muted-foreground/60 ml-0.5">{current.symbol}</span>}
       </button>
