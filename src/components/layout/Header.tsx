@@ -2,9 +2,9 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { Link, useLocation } from "react-router"
 import {
   Calculator, Search, Moon, Sun, Menu, X, Clock, Star,
-  ChevronDown, BookOpen, HelpCircle, Info, Newspaper, ChevronRight,
+  ChevronDown, HelpCircle, Info, Newspaper, ChevronRight,
   Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent,
-  BarChart2, Briefcase, GraduationCap, DollarSign, Building2, Coffee
+  BarChart2, Briefcase, GraduationCap, DollarSign, Building2, Coffee,
 } from "lucide-react"
 import { SearchOverlay } from "../shared/SearchOverlay"
 import { HistoryPanel } from "../shared/HistoryPanel"

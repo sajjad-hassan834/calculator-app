@@ -1,16 +1,23 @@
-export function fmt$(n: number, compact = false, currencyCode = "USD"): string {
+let _activeCurrency = "USD"
+
+export function setActiveCurrency(cc: string) {
+  _activeCurrency = cc
+}
+
+export function fmt$(n: number, compact = false, currencyCode?: string): string {
+  const code = currencyCode || _activeCurrency
   if (compact) {
-    if (n >= 1_000_000) return `${getSymbol(currencyCode)}${(n / 1_000_000).toFixed(2)}M`
-    if (n >= 1_000) return `${getSymbol(currencyCode)}${(n / 1_000).toFixed(1)}K`
+    if (n >= 1_000_000) return `${getSymbol(code)}${(n / 1_000_000).toFixed(2)}M`
+    if (n >= 1_000) return `${getSymbol(code)}${(n / 1_000).toFixed(1)}K`
   }
   try {
-    return new Intl.NumberFormat(getLocale(currencyCode), {
+    return new Intl.NumberFormat(getLocale(code), {
       style: "currency",
-      currency: currencyCode,
+      currency: code,
       maximumFractionDigits: n % 1 === 0 ? 0 : 2,
     }).format(n)
   } catch {
-    return `${getSymbol(currencyCode)}${n.toLocaleString()}`
+    return `${getSymbol(code)}${n.toLocaleString()}`
   }
 }
 

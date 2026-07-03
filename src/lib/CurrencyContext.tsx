@@ -1,6 +1,7 @@
-import { createContext, useContext, useCallback } from "react"
+import { createContext, useContext, useCallback, useEffect } from "react"
 import { useLocalStorage } from "../hooks/useLocalStorage"
 import { formatCurrency, getCurrencySymbol } from "./currency"
+import { setActiveCurrency } from "./formatters"
 
 interface CurrencyContextValue {
   currency: string
@@ -18,6 +19,10 @@ const CurrencyContext = createContext<CurrencyContextValue>({
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const [currency, setCurrency] = useLocalStorage("preferredCurrency", "USD")
+
+  useEffect(() => {
+    setActiveCurrency(currency)
+  }, [currency])
 
   const format = useCallback(
     (amount: number) => formatCurrency(amount, currency),
