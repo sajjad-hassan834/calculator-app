@@ -1,164 +1,73 @@
-# FinanceCalc — Smart Financial Calculators
+# FinanceCalculator
 
-A modern, comprehensive financial calculator web application built with React 18, TypeScript, Vite 6, and Tailwind CSS 4. Features 9 interactive calculators with real-time results, interactive charts, AI-powered insights, and full export capabilities.
+A professional, modern, and comprehensive suite of financial calculators built with React, Vite, and Tailwind CSS. This platform provides users with essential tools to plan for mortgages, investments, savings goals, retirements, and more.
 
 ## Features
 
-- **9 Financial Calculators** — Mortgage, Compound Interest, Loan Repayment, Savings Goal, Retirement Planner, ROI, Investment Growth, Tax Estimator, Break-Even Analysis
-- **Real-time Results** — All calculations update instantly as you adjust inputs
-- **Interactive Charts** — Growth charts and pie breakdowns powered by Recharts
-- **AI-Powered Insights** — Contextual recommendations and warnings for each calculator
-- **Full Export Suite** — Copy, CSV, JSON, Excel (.xlsx), Image, PDF, and Share
-- **Dark Mode** — Persistent light/dark theme toggle
-- **Search** — Global calculator search with keyboard shortcut (`/`)
-- **Favorites & History** — Save favorite calculators, track calculation history
-- **Responsive** — Fully responsive from 320px mobile to 1440px desktop
-- **Accessibility** — ARIA labels, keyboard navigation, screen reader support
-- **Mega Menu** — Grouped calculator navigation with icons and descriptions
-- **SEO Optimized** — Dynamic meta tags, JSON-LD structured data, sitemap
-- **Currency Support** — Multi-currency formatting
+- **Comprehensive Calculators:** Includes Mortgage, Compound Interest, Loan Repayment, Savings Goals, Retirement Planner, ROI, Tax Estimator, Investment Growth, and Break-Even Analysis.
+- **Modern UI/UX:** Built with a sleek dark mode by default, glassmorphism effects, and highly responsive components.
+- **Interactive Charts:** Visualizes data instantly using Recharts to provide clear, actionable insights over time.
+- **Global Currency Support:** Fully customizable currency settings, including a "Custom" input for typing any currency symbol in the world.
+- **AI Financial Assistant:** A built-in chatbot assistant (educational guidance) designed to help users navigate financial concepts and tools.
+- **SEO Optimized:** Implements best practices for search engine optimization, including dynamic metadata and semantic HTML.
+- **Fully Responsive:** Beautifully designed to work across all devices, from mobile phones to large desktop screens.
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | React 18 |
-| Language | TypeScript 6.0 |
-| Build | Vite 6 |
-| Styling | Tailwind CSS 4 |
-| Routing | React Router 7 |
-| Charts | Recharts 2 |
-| Icons | Lucide React |
-| Animations | Motion (Framer Motion) |
-| UI Primitives | Radix UI (14 packages) |
-| Export | xlsx, html2canvas |
-| Notifications | Sonner |
-| Carousel | Embla |
-
-## Project Structure
-
-```
-src/
-├── App.tsx                    # Root component with all routes
-├── main.tsx                   # Entry point
-├── vite-env.d.ts              # Vite type declarations
-├── components/
-│   ├── layout/                # Header, MegaMenu, Footer, MainLayout, ScrollToTop
-│   ├── shared/                # AIInsights, ChartSection, SearchOverlay, etc.
-│   ├── seo/                   # SEOHead (meta tags, JSON-LD)
-│   └── ui/                    # Badge, Breadcrumbs, DataTable, InfoCard, etc.
-├── hooks/                     # Custom hooks (useCalculatorState, useFavorites, etc.)
-├── lib/
-│   ├── calculators/           # Pure calculation functions (mortgage, loan, etc.)
-│   ├── configs/               # CalculatorConfig definitions per calculator type
-│   ├── calculatorConfig.ts    # TypeScript interfaces for calculator configs
-│   ├── calculatorMeta.ts      # Metadata for all calculators
-│   ├── searchData.ts          # Search index for global search
-│   ├── exportUtils.ts         # CSV, JSON, Excel, Image export utilities
-│   ├── analytics.ts           # Analytics tracking
-│   ├── formatters.ts          # Currency, percentage, number formatting
-│   ├── currency.ts            # Currency conversion logic
-│   ├── CurrencyContext.tsx     # Currency provider context
-│   └── seo.ts                 # Schema generation utilities
-├── pages/
-│   ├── HomePage.tsx            # Homepage with Hero, categories, featured
-│   ├── Hero.tsx                # Hero section with search and category grid
-│   ├── CalculatorPage.tsx      # Dynamic calculator page (generic, config-driven)
-│   ├── CategoryPage.tsx        # Category listing page
-│   ├── BlogPage.tsx            # Blog listing
-│   ├── BlogArticlePage.tsx     # Individual blog article
-│   ├── AboutPage.tsx           # About page
-│   ├── ContactPage.tsx         # Contact page
-│   ├── HelpCenterPage.tsx      # Help center
-│   ├── SitemapPage.tsx         # Sitemap
-│   ├── LegalPage.tsx           # Legal/privacy/terms pages
-│   ├── NotFoundPage.tsx        # 404 page
-│   └── ErrorPage.tsx           # 500 error page
-├── types/
-│   └── calculator.ts           # Result type interfaces
-└── styles/
-    ├── globals.css             # Global styles
-    ├── index.css               # Main CSS entry
-    └── theme.css               # Theme variables
-```
-
-## Calculators
-
-| Route | Calculator | Category |
-|-------|-----------|----------|
-| `/calculator/mortgage` | Mortgage Calculator | Housing |
-| `/calculator/compound` | Compound Interest | Investing |
-| `/calculator/loan` | Loan Repayment | Personal Finance |
-| `/calculator/savings` | Savings Goal | Personal Finance |
-| `/calculator/retirement` | Retirement Planner | Investing |
-| `/calculator/roi` | ROI Calculator | Investing |
-| `/calculator/investment` | Investment Growth | Investing |
-| `/calculator/tax` | Tax Estimator | Personal Finance |
-| `/calculator/break-even` | Break-Even Analysis | Business |
+- **Frontend:** React 18, React Router v7
+- **Styling:** Tailwind CSS v4, Lucide React (Icons), Radix UI (Primitives)
+- **Build Tool:** Vite
+- **Data Visualization:** Recharts
+- **Deployment & Hosting:** Optimized for platforms like Vercel or Netlify
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
-- npm 9+ or pnpm
+Make sure you have Node.js installed on your machine. We recommend using `npm` for package management.
 
 ### Installation
 
-```bash
-npm install
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sajjad-hassan834/calculator-app.git
+   cd calculator-app
+   ```
 
-### Development
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-Starts the Vite dev server at `http://localhost:5173`.
+4. Open your browser and navigate to `http://localhost:5173`.
 
-### Build
+### Building for Production
 
+To create an optimized production build:
 ```bash
 npm run build
 ```
 
-Outputs to `dist/`.
+This will generate a `dist` folder containing the minified and optimized static assets, ready for deployment.
 
-### Type Checking
+## Project Structure
 
-```bash
-npx tsc --noEmit
-```
+- `src/components/` - Reusable UI components (layout, shared, specific tools)
+- `src/hooks/` - Custom React hooks for local storage and calculator states
+- `src/lib/` - Configuration files, formatters, and context providers
+- `src/pages/` - Main route pages and dynamic calculator rendering
+- `src/styles/` - Global CSS and Tailwind configurations
+- `src/types/` - TypeScript interface definitions
 
-## Routes
+## Support Us
 
-| Path | Page |
-|------|------|
-| `/` | Home |
-| `/calculator/:type` | Calculator |
-| `/category/:id` | Category |
-| `/blog` | Blog |
-| `/blog/:slug` | Blog Article |
-| `/about` | About |
-| `/contact` | Contact |
-| `/help` | Help Center |
-| `/accessibility` | Accessibility |
-| `/sitemap` | Sitemap |
-| `/legal/:type` | Legal (privacy, terms, cookies, disclaimer) |
-| `/offline` | Offline |
-| `/500` | Error Page |
-
-## Configuration
-
-Calculator configurations are in `src/lib/configs/`. Each config implements the `CalculatorConfig` interface from `src/lib/calculatorConfig.ts`, defining inputs, calculation function, results display, charts, export templates, and more.
-
-To add a new calculator:
-1. Create a calculation function in `src/lib/calculators/`
-2. Add metadata in `src/lib/calculatorMeta.ts`
-3. Create a config object in `src/lib/configs/`
-4. Export it from `src/lib/configs/index.ts`
+If you find this tool helpful, consider supporting our mission to keep high-quality financial education free! You can find the **Support Us** button in the top right header of the application.
 
 ## License
 
-MIT
+This project is intended for educational purposes. All rights reserved.
