@@ -25,14 +25,15 @@ import { fmt$, fmtPct, fmtNum } from "../../lib/formatters"
 import { getCalculatorConfig } from "../../lib/configs"
 import { useCalculatorState } from "../../hooks/useCalculatorState"
 import { useCalculationHistory } from "../../hooks/useCalculationHistory"
+import { useCurrency } from "../../lib/CurrencyContext"
 import { generateCalculatorSchema, generateBreadcrumbSchema, generateFAQSchema } from "../../lib/seo"
 import { PER_CALCULATOR_FAQS } from "../../components/shared/SEOContentBlock"
 import { exportToExcel, exportToImage } from "../../lib/exportUtils"
 import { trackEvent } from "../../lib/analytics"
 
-function fmtVal(v: number, format?: string): string {
+function fmtVal(v: number, format?: string, currencyCode = "USD"): string {
   switch (format) {
-    case "currency": return fmt$(v)
+    case "currency": return fmt$(v, false, currencyCode)
     case "percent": return fmtPct(v, 1)
     case "number": return fmtNum(v)
     default: return String(v)
@@ -44,6 +45,7 @@ export function CalculatorPage() {
   const calcType = type || "mortgage"
   const config = getCalculatorConfig(calcType)
 
+  const { currency } = useCurrency()
   const { addEntry } = useCalculationHistory()
   const [shareOpen, setShareOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
@@ -148,7 +150,7 @@ export function CalculatorPage() {
 
   const resultHighlight = {
     label: config.highlight.label,
-    value: fmtVal(results[config.highlight.valueKey], config.highlight.format),
+    value: fmtVal(results[config.highlight.valueKey], config.highlight.format, currency),
   }
 
   const isTableVisible = config.tableData != null
@@ -398,7 +400,7 @@ export function CalculatorPage() {
                     <ResultCard
                       key={r.key}
                       label={r.label}
-                      value={fmtVal(results[r.key], r.format)}
+                       value={fmtVal(results[r.key], r.format, currency)}
                       color={r.color}
                     />
                   ))}
@@ -430,8 +432,8 @@ export function CalculatorPage() {
                   )}
                   {calcType === "roi" && (
                     <>
-                      <ResultCard label="Initial Investment" value={fmt$(values.roiInvest)} />
-                      <ResultCard label="Final Value" value={fmt$(values.roiFinal)} />
+                      <ResultCard label="Initial Investment" value={fmt$(values.roiInvest, false, currency)} />
+                      <ResultCard label="Final Value" value={fmt$(values.roiFinal, false, currency)} />
                     </>
                   )}
                   {calcType === "investment" && (
@@ -443,17 +445,17 @@ export function CalculatorPage() {
                   )}
                   {calcType === "tax" && (
                     <>
-                      <ResultCard label="Taxable Income" value={fmt$(values.taxIncome)} />
+                      <ResultCard label="Taxable Income" value={fmt$(values.taxIncome, false, currency)} />
                     </>
                   )}
                   {calcType === "break-even" && (
                     <>
-                      <ResultCard label="Fixed Costs" value={fmt$(values.beFixed)} />
-                      <ResultCard label="Variable Costs" value={fmt$(results.units * values.beVariable)} />
+                      <ResultCard label="Fixed Costs" value={fmt$(values.beFixed, false, currency)} />
+                      <ResultCard label="Variable Costs" value={fmt$(results.units * values.beVariable, false, currency)} />
                     </>
                   )}
                   {calcType === "savings" && (
-                    <ResultCard label="Target Amount" value={fmt$(values.svTarget)} />
+                    <ResultCard label="Target Amount" value={fmt$(values.svTarget, false, currency)} />
                   )}
                 </div>
               </div>
@@ -472,7 +474,7 @@ export function CalculatorPage() {
                             <span className="text-foreground font-medium">{fmtPct(b.rate, 0)}</span>
                             <span className="text-muted-foreground ml-2">{b.label}</span>
                           </div>
-                          <span className="font-['JetBrains_Mono',monospace] text-muted-foreground">{fmt$(b.tax)}</span>
+                          <span className="font-['JetBrains_Mono',monospace] text-muted-foreground">{fmt$(b.tax, false, currency)}</span>
                         </div>
                       ))}
                     </div>
@@ -487,7 +489,7 @@ export function CalculatorPage() {
                         <div key={item.label} className="flex justify-between items-center p-3 bg-card border border-border rounded-lg text-sm">
                           <span className="text-muted-foreground">{item.label}</span>
                           <span className={`font-['JetBrains_Mono',monospace] font-medium ${item.emerald ? "text-emerald-600 dark:text-emerald-400" : "text-foreground"}`}>
-                            {fmt$(item.value)}
+                            {fmt$(item.value, false, currency)}
                           </span>
                         </div>
                       ))}
