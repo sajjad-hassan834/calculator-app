@@ -73,6 +73,8 @@ export function SEOHead({
     addMeta("twitter:title", title)
     addMeta("twitter:description", description || "")
     addMeta("twitter:image", ogImage)
+    addMeta("twitter:site", "@financecalc")
+    addMeta("twitter:creator", "@financecalc")
 
     // Structured data
     if (jsonLd?.length) {

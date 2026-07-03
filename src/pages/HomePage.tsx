@@ -9,7 +9,7 @@ import { useNavigate } from "react-router"
 import { FEATURED } from "../lib/data"
 import { ArrowRight } from "lucide-react"
 import { SEOHead } from "../components/seo/SEOHead"
-import { generateWebSiteSchema, generateFAQSchema } from "../lib/seo"
+import { generateWebSiteSchema, generateFAQSchema, generateOrganizationSchema } from "../lib/seo"
 import { FAQS } from "../lib/data"
 
 function Testimonials() {
@@ -131,7 +131,7 @@ export function HomePage() {
         title="Free Financial Calculators — Mortgage, Retirement, Investment & More | FinanceCalc"
         description="Use 100% free financial calculators for mortgage, compound interest, loans, retirement, savings, ROI, tax, and break-even analysis. Instant results, no sign-up required."
         canonical="https://financecalc.com"
-        jsonLd={[generateWebSiteSchema(), generateFAQSchema(FAQS)]}
+        jsonLd={[generateOrganizationSchema(), generateWebSiteSchema(), generateFAQSchema(FAQS)]}
       />
       <Hero />
       <TrendingNow />

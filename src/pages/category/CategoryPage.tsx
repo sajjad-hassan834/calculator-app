@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router"
 import { ArrowRight, Calculator, TrendingUp, Star } from "lucide-react"
 import { CATEGORIES, FEATURED } from "../../lib/data"
+import { Breadcrumbs } from "../../components/ui/Breadcrumbs"
 import { SEARCH_INDEX } from "../../lib/searchData"
 import { SEOHead } from "../../components/seo/SEOHead"
 
@@ -53,11 +54,7 @@ export function CategoryPage() {
         canonical={`https://financecalculator.com/category/${category.id}`}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
-        <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-          <Link to="/" className="hover:text-foreground transition-all duration-200">Home</Link>
-          <span>/</span>
-          <span className="text-foreground font-medium">{category.label}</span>
-        </nav>
+        <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: category.label }]} />
 
         <div className="flex items-start gap-5 mb-10">
           <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center shrink-0">

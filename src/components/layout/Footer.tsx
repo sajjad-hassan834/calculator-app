@@ -36,6 +36,10 @@ const FOOTER_LINKS = {
     { label: "Terms of Service", path: "/legal/terms" },
     { label: "Cookie Policy", path: "/legal/cookies" },
     { label: "Disclaimer", path: "/legal/disclaimer" },
+    { label: "Editorial Policy", path: "/legal/editorial" },
+    { label: "Review Policy", path: "/legal/review" },
+    { label: "Corrections Policy", path: "/legal/corrections" },
+    { label: "Sources & References", path: "/legal/sources" },
     { label: "Accessibility Statement", path: "/accessibility" },
   ],
 }
@@ -103,7 +107,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-          <span>2026 FinanceCalculator.com — All rights reserved.</span>
+          <span>{new Date().getFullYear()} FinanceCalculator.com — All rights reserved.</span>
           <span className="flex items-center gap-1.5">
             <Globe className="w-3.5 h-3.5" /> English (USD) &bull; Educational purposes only.
           </span>

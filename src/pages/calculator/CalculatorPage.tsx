@@ -26,7 +26,7 @@ import { getCalculatorConfig } from "../../lib/configs"
 import { useCalculatorState } from "../../hooks/useCalculatorState"
 import { useCalculationHistory } from "../../hooks/useCalculationHistory"
 import { useCurrency } from "../../lib/CurrencyContext"
-import { generateCalculatorSchema, generateBreadcrumbSchema, generateFAQSchema } from "../../lib/seo"
+import { generateCalculatorSchema, generateBreadcrumbSchema, generateFAQSchema, generateOrganizationSchema } from "../../lib/seo"
 import { PER_CALCULATOR_FAQS } from "../../components/shared/SEOContentBlock"
 import { exportToExcel, exportToImage } from "../../lib/exportUtils"
 import { trackEvent } from "../../lib/analytics"
@@ -173,6 +173,7 @@ export function CalculatorPage() {
 
   const jsonLd = useMemo(() => {
     const schemas: object[] = [
+      generateOrganizationSchema(),
       generateCalculatorSchema(meta, pageUrl),
       generateBreadcrumbSchema([
         { label: "Home", path: "/" },

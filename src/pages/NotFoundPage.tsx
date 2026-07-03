@@ -8,6 +8,7 @@ export function NotFoundPage() {
       <SEOHead
         title="404 — Page Not Found | FinanceCalc"
         description="The page you are looking for does not exist or has been moved."
+        noIndex
       />
       <div className="max-w-md mx-auto px-4 text-center">
         <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-6">

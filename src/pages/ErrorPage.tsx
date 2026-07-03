@@ -13,6 +13,7 @@ export function ErrorPage({ status = 500, message = "Something went wrong" }: Er
       <SEOHead
         title={`${status} — Error | FinanceCalc`}
         description="An unexpected error occurred. Please try again later."
+        noIndex
       />
       <div className="max-w-md mx-auto px-4 text-center">
         <div className="w-20 h-20 bg-red-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6">

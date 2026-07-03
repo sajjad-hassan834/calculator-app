@@ -1,5 +1,6 @@
-import { Shield, Lock, Award, User, Calendar, ExternalLink, BookOpen } from "lucide-react"
+import { Shield, Lock, Award, User, ExternalLink, BookOpen } from "lucide-react"
 import type { CalcMeta } from "../../lib/calculatorMeta"
+import { AuthorReviewBlock } from "./AuthorCard"
 
 export function TrustBadges({
   meta,
@@ -54,42 +55,16 @@ export function TrustBadges({
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-background border border-border rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
-              <User className="w-4 h-4 text-primary" /> Editorial Review
-            </h3>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0"
-                  aria-hidden="true"
-                >
-                  {meta.author.name.split(" ").map((n) => n[0]).join("")}
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-foreground">{meta.author.name}</div>
-                  <div className="text-xs text-muted-foreground">{meta.author.role}</div>
-                </div>
-              </div>
-              <div className="border-t border-border pt-4 flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-xs font-bold text-emerald-600 dark:text-emerald-400 shrink-0"
-                  aria-hidden="true"
-                >
-                  {meta.reviewer.name.split(" ").map((n) => n[0]).join("")}
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-foreground">{meta.reviewer.name}</div>
-                  <div className="text-xs text-muted-foreground">{meta.reviewer.role}</div>
-                </div>
-              </div>
-              <div className="border-t border-border pt-3 flex items-center gap-2 text-xs text-muted-foreground">
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Last updated: <span className="font-medium text-foreground">{meta.lastUpdated}</span></span>
-              </div>
-            </div>
-          </div>
+        <div className="mb-8">
+          <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
+            <User className="w-4 h-4 text-primary" /> Written & Reviewed By
+          </h3>
+          <AuthorReviewBlock
+            author={meta.author}
+            reviewer={meta.reviewer}
+            lastUpdated={meta.lastUpdated}
+          />
+        </div>
 
           <div className="bg-background border border-border rounded-xl p-5">
             <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
@@ -110,7 +85,6 @@ export function TrustBadges({
                 </li>
               ))}
             </ul>
-          </div>
         </div>
 
         <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4">

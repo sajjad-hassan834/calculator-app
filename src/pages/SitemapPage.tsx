@@ -22,6 +22,10 @@ const LEGAL_PAGES = [
   { path: "/legal/terms", label: "Terms of Service" },
   { path: "/legal/cookies", label: "Cookie Policy" },
   { path: "/legal/disclaimer", label: "Disclaimer" },
+  { path: "/legal/editorial", label: "Editorial Policy" },
+  { path: "/legal/review", label: "Review Policy" },
+  { path: "/legal/corrections", label: "Corrections Policy" },
+  { path: "/legal/sources", label: "Sources & References" },
 ]
 
 export function SitemapPage() {

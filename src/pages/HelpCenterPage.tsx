@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router"
 import { Search, ChevronDown, ChevronUp, BookOpen, Mail, HelpCircle, Shield, User, Star } from "lucide-react"
 import { SEOHead } from "../components/seo/SEOHead"
+import { Breadcrumbs } from "../components/ui/Breadcrumbs"
 
 const HELP_ARTICLES = [
   {
@@ -74,11 +75,7 @@ export function HelpCenterPage() {
         description="Find answers to common questions about using our financial calculators, features, privacy, and more."
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
-        <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-          <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-foreground font-medium">Help Center</span>
-        </nav>
+        <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "Help Center" }]} />
 
         <div className="text-center mb-10">
           <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">

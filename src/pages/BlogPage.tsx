@@ -1,6 +1,7 @@
 import { Link } from "react-router"
 import { SEOHead } from "../components/seo/SEOHead"
 import { Calendar, Clock, ArrowRight, TrendingUp, BookOpen, Home, PiggyBank, Shield, Percent } from "lucide-react"
+import { Breadcrumbs } from "../components/ui/Breadcrumbs"
 
 const BLOG_POSTS = [
   {
@@ -68,11 +69,7 @@ export function BlogPage() {
         description="Expert articles on mortgages, investing, retirement planning, taxes, and personal finance. Learn to make better financial decisions."
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
-        <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-          <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-foreground font-medium">Blog</span>
-        </nav>
+        <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "Blog" }]} />
 
         <div className="text-center mb-10">
           <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">

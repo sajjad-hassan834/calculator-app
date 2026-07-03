@@ -35,6 +35,7 @@ export function HistoryPanel({ open, onClose }: HistoryPanelProps) {
       role="dialog"
       aria-modal="true"
       aria-label="Calculation history"
+      onKeyDown={(e) => { if (e.key === "Escape") onClose() }}
     >
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-lg mx-4 bg-card border border-border rounded-2xl shadow-2xl overflow-hidden max-h-[70vh] flex flex-col">

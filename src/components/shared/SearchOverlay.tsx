@@ -118,6 +118,7 @@ export function SearchOverlay({
       role="dialog"
       aria-modal="true"
       aria-label="Search calculators"
+      onKeyDown={(e) => { if (e.key === "Escape") onClose() }}
     >
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
       <div

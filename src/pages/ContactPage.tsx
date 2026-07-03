@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { Link } from "react-router"
 import { Send, Check, AlertCircle } from "lucide-react"
 import { SEOHead } from "../components/seo/SEOHead"
+import { Breadcrumbs } from "../components/ui/Breadcrumbs"
 
 export function ContactPage() {
   const [sent, setSent] = useState(false)
@@ -36,11 +36,7 @@ export function ContactPage() {
         canonical="https://financecalc.com/contact"
       />
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
-        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-          <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
-          <span aria-hidden="true">/</span>
-          <span className="text-foreground font-medium" aria-current="page">Contact</span>
-        </nav>
+        <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "Contact" }]} />
 
         <h1 className="font-['DM_Serif_Display',serif] text-3xl text-foreground mb-2">Contact Us</h1>
         <p className="text-muted-foreground mb-8">Have a question, suggestion, or feedback? We'd love to hear from you.</p>

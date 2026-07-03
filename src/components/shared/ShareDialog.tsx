@@ -93,6 +93,7 @@ export function ShareDialog({ open, onClose, title, description, url }: ShareDia
       role="dialog"
       aria-modal="true"
       aria-label="Share"
+      onKeyDown={(e) => { if (e.key === "Escape") onClose() }}
     >
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-sm mx-4 bg-card border border-border rounded-2xl shadow-2xl overflow-hidden">

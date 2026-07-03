@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router"
 import { ArrowLeft, Calendar, Clock, User, Share2, Printer } from "lucide-react"
 import { SEOHead } from "../components/seo/SEOHead"
 import { useMemo } from "react"
+import { Breadcrumbs } from "../components/ui/Breadcrumbs"
+import { generateArticleSchema, generateOrganizationSchema, generateBreadcrumbSchema } from "../lib/seo"
 
 const BLOG_CONTENT: Record<string, {
   title: string
@@ -110,25 +112,21 @@ export function BlogArticlePage() {
 
   const pageUrl = `https://financecalculator.com/blog/${slug}`
 
-  const articleJsonLd = useMemo(() => [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.description,
-    author: {
-      "@type": "Person",
-      name: article.author,
-    },
-    datePublished: article.date,
-    publisher: {
-      "@type": "Organization",
-      name: "FinanceCalculator.com",
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": pageUrl,
-    },
-  }], [article, pageUrl])
+  const articleJsonLd = useMemo(() => [
+    generateOrganizationSchema(),
+    generateBreadcrumbSchema([
+      { label: "Home", path: "/" },
+      { label: "Blog", path: "/blog" },
+      { label: article.title },
+    ]),
+    generateArticleSchema({
+      headline: article.title,
+      description: article.description,
+      datePublished: article.date,
+      authorName: article.author,
+      url: pageUrl,
+    }),
+  ], [article, pageUrl])
 
   return (
     <div className="bg-background min-h-screen">
@@ -140,6 +138,7 @@ export function BlogArticlePage() {
         jsonLd={articleJsonLd}
       />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
+        <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "Blog", path: "/blog" }, { label: article.title }]} />
         <Link to="/blog" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
           <ArrowLeft className="w-4 h-4" /> Back to Blog
         </Link>

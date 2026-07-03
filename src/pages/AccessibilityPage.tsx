@@ -1,5 +1,6 @@
 import { SEOHead } from "../components/seo/SEOHead"
 import { Shield, Keyboard, Eye, Ear, MousePointer, Type } from "lucide-react"
+import { Breadcrumbs } from "../components/ui/Breadcrumbs"
 
 const FEATURES = [
   {
@@ -43,6 +44,7 @@ export function AccessibilityPage() {
         canonical="https://financecalc.com/accessibility"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "Accessibility" }]} />
         {/* Header */}
         <div className="mb-12">
           <h1 className="font-['DM_Serif_Display',serif] text-3xl sm:text-4xl text-foreground mb-4">
