@@ -1,5 +1,6 @@
-import { useState, useId } from "react"
+import { useState, useId, useRef, useCallback } from "react"
 import { fmtNum } from "../../lib/formatters"
+import { useCurrency } from "../../lib/CurrencyContext"
 import { Info, AlertTriangle } from "lucide-react"
 
 export function SliderInput({
@@ -27,25 +28,25 @@ export function SliderInput({
   tooltip?: string
   validate?: (v: number) => string | null
 }) {
+  const { symbol } = useCurrency()
   const [showTooltip, setShowTooltip] = useState(false)
   const [touched, setTouched] = useState(false)
+  const [editing, setEditing] = useState(false)
+  const [raw, setRaw] = useState("")
+  const inputRef = useRef<HTMLInputElement>(null)
   const id = useId()
   const pct = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100))
-  const displayVal = formatDisplay ? formatDisplay(value) : fmtNum(value)
+  const disp = formatDisplay ? formatDisplay(value) : fmtNum(value)
   const error = touched && validate ? validate(value) : null
 
-  const increment = () => {
-    if (!touched) setTouched(true)
-    onChange(Math.min(max, +(value + step).toFixed(2)))
-  }
-  const decrement = () => {
-    if (!touched) setTouched(true)
-    onChange(Math.max(min, +(value - step).toFixed(2)))
-  }
-  const handleChange = (v: number) => {
+  const sym = (s: string | undefined) => s?.replace(/\$/g, symbol) ?? ""
+
+  const commit = useCallback((v: number) => {
     if (!touched) setTouched(true)
     onChange(v)
-  }
+  }, [touched, onChange])
+
+  const isDecimal = step < 1
 
   return (
     <div className="space-y-2.5 min-w-0">
@@ -84,7 +85,7 @@ export function SliderInput({
         <div className="flex items-center gap-1">
           <button
             type="button"
-            onClick={decrement}
+            onClick={() => commit(Math.max(min, +(value - step).toFixed(2)))}
             className="w-7 h-7 rounded-lg bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
             aria-label={`Decrease ${label}`}
             tabIndex={-1}
@@ -92,16 +93,24 @@ export function SliderInput({
             -
           </button>
           <div className="flex items-center gap-1 bg-secondary rounded-lg px-3 py-1.5 border border-border">
-            {prefix && <span className="text-muted-foreground text-xs font-medium">{prefix}</span>}
+            {prefix && <span className="text-muted-foreground text-xs font-medium">{sym(prefix)}</span>}
             <input
+              ref={inputRef}
               type="text"
-              value={displayVal}
-              inputMode="numeric"
+              value={editing ? raw : disp}
+              inputMode={isDecimal ? "decimal" : "numeric"}
+              onFocus={() => { setEditing(true); setRaw(String(value)) }}
+              onBlur={() => { setEditing(false); setRaw("") }}
               onChange={(e) => {
                 if (!touched) setTouched(true)
-                const raw = e.target.value.replace(/,/g, "")
-                const v = parseFloat(raw)
-                if (!isNaN(v)) handleChange(Math.min(max, Math.max(min, v)))
+                const s = e.target.value.replace(/,/g, "")
+                if (s === "" || s === "-" || s === "." || /^-?\d*\.?\d*$/.test(s)) {
+                  setRaw(s)
+                }
+                const v = parseFloat(s)
+                if (!isNaN(v) && s !== "" && s !== "." && s !== "-") {
+                  commit(Math.min(max, Math.max(min, v)))
+                }
               }}
               className={`bg-transparent text-right text-sm font-['JetBrains_Mono',monospace] font-medium w-16 min-w-0 outline-none text-foreground ${error ? "text-red-600 dark:text-red-400" : ""}`}
               aria-describedby={tooltip ? `${label}-desc` : undefined}
@@ -112,7 +121,7 @@ export function SliderInput({
           </div>
           <button
             type="button"
-            onClick={increment}
+            onClick={() => commit(Math.min(max, +(value + step).toFixed(2)))}
             className="w-7 h-7 rounded-lg bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
             aria-label={`Increase ${label}`}
             tabIndex={-1}
@@ -132,7 +141,7 @@ export function SliderInput({
           max={max}
           step={step}
           value={value}
-          onChange={(e) => onChange(parseFloat(e.target.value))}
+          onChange={(e) => commit(parseFloat(e.target.value))}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           style={{ zIndex: 2 }}
           aria-label={label}
@@ -143,8 +152,8 @@ export function SliderInput({
         />
       </div>
       <div className="flex justify-between text-xs text-muted-foreground font-['JetBrains_Mono',monospace]">
-        <span>{prefix}{formatDisplay ? formatDisplay(min) : fmtNum(min)}{suffix}</span>
-        <span>{prefix}{formatDisplay ? formatDisplay(max) : fmtNum(max)}{suffix}</span>
+        <span>{sym(prefix)}{formatDisplay ? formatDisplay(min) : fmtNum(min)}{suffix}</span>
+        <span>{sym(prefix)}{formatDisplay ? formatDisplay(max) : fmtNum(max)}{suffix}</span>
       </div>
 
       {error && (

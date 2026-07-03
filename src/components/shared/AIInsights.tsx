@@ -1,5 +1,6 @@
 import { useMemo } from "react"
 import { TrendingUp, AlertTriangle, Sparkles } from "lucide-react"
+import { useCurrency } from "../../lib/CurrencyContext"
 
 interface AIInsightsProps {
   calcType: string
@@ -311,9 +312,13 @@ function generateInsights(
 }
 
 export function AIInsights({ calcType, values, results }: AIInsightsProps) {
+  const { symbol } = useCurrency()
   const insights = useMemo(
-    () => generateInsights(calcType, values, results),
-    [calcType, values, results]
+    () => generateInsights(calcType, values, results).map(i => ({
+      ...i,
+      text: i.text.replace(/\$/g, symbol),
+    })),
+    [calcType, values, results, symbol]
   )
 
   return (
