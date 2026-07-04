@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Simple vs Compound Interest</text>
+  <rect x="24" y="46" width="168" height="130" rx="12" fill="white" stroke="#E2E8F0"/>
+  <text x="36" y="68" font-family="system-ui" font-size="12" font-weight="600" fill="#0F172A">Simple Interest</text>
+  <rect x="36" y="78" width="144" height="1" fill="#E2E8F0"/>
+  <path d="M36 100 L60 100 L80 92 L100 92 L120 84 L140 84 L160 76" stroke="#2563EB" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <text x="36" y="120" font-family="system-ui" font-size="10" fill="#64748B">Linear growth</text>
+  <text x="36" y="136" font-family="system-ui" font-size="10" fill="#64748B">Interest on principal only</text>
+  <text x="36" y="152" font-family="system-ui" font-size="10" fill="#64748B">$10,000 &rarr; $34,000 (30yr)</text>
+  <rect x="208" y="46" width="168" height="130" rx="12" fill="white" stroke="#E2E8F0"/>
+  <text x="220" y="68" font-family="system-ui" font-size="12" font-weight="600" fill="#0F172A">Compound Interest</text>
+  <rect x="220" y="78" width="144" height="1" fill="#E2E8F0"/>
+  <path d="M220 100 L240 96 L260 88 L280 74 L300 56 L320 42 L340 36" stroke="#0D9488" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <text x="220" y="120" font-family="system-ui" font-size="10" fill="#64748B">Exponential growth</text>
+  <text x="220" y="136" font-family="system-ui" font-size="10" fill="#64748B">Interest on interest</text>
+  <text x="220" y="152" font-family="system-ui" font-size="10" fill="#64748B">$10,000 &rarr; $100,627 (30yr)</text>
+  <rect x="24" y="186" width="352" height="100" rx="12" fill="white" stroke="#E2E8F0"/>
+  <text x="40" y="208" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Comparison over 30 years ($10,000 at 8%)</text>
+  <rect x="40" y="218" width="320" height="1" fill="#E2E8F0"/>
+  <rect x="40" y="232" width="200" height="8" rx="4" fill="#2563EB" opacity="0.3"/>
+  <text x="250" y="240" font-family="system-ui" font-size="9" fill="#64748B">Simple: $34,000</text>
+  <rect x="40" y="250" width="200" height="8" rx="4" fill="#0D9488"/>
+  <text x="250" y="258" font-family="system-ui" font-size="9" fill="#0D9488">Compound: $100,627</text>
+  <text x="40" y="278" font-family="system-ui" font-size="9" fill="#64748B">Compound earns $66,627 more over the same period</text>
+</svg>

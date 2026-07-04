@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Editorial Process</text>
+  <rect x="24" y="48" width="352" height="36" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="66" r="10" fill="#2563EB"/>
+  <text x="45" y="70" font-family="system-ui" font-size="8" font-weight="700" fill="white">1</text>
+  <text x="64" y="64" font-family="system-ui" font-size="10" fill="#0F172A">Research</text>
+  <text x="64" y="78" font-family="system-ui" font-size="8" fill="#64748B">Financial literature &amp; regulations</text>
+  <rect x="24" y="96" width="352" height="36" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="114" r="10" fill="#2563EB"/>
+  <text x="45" y="118" font-family="system-ui" font-size="8" font-weight="700" fill="white">2</text>
+  <text x="64" y="112" font-family="system-ui" font-size="10" fill="#0F172A">Develop</text>
+  <text x="64" y="126" font-family="system-ui" font-size="8" fill="#64748B">Build formulas and calculator logic</text>
+  <rect x="24" y="144" width="352" height="36" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="162" r="10" fill="#2563EB"/>
+  <text x="45" y="166" font-family="system-ui" font-size="8" font-weight="700" fill="white">3</text>
+  <text x="64" y="160" font-family="system-ui" font-size="10" fill="#0F172A">Review</text>
+  <text x="64" y="174" font-family="system-ui" font-size="8" fill="#64748B">Peer review by financial experts</text>
+  <rect x="24" y="192" width="352" height="36" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="210" r="10" fill="#2563EB"/>
+  <text x="45" y="214" font-family="system-ui" font-size="8" font-weight="700" fill="white">4</text>
+  <text x="64" y="208" font-family="system-ui" font-size="10" fill="#0F172A">Publish</text>
+  <text x="64" y="222" font-family="system-ui" font-size="8" fill="#64748B">Release with full documentation</text>
+  <rect x="24" y="240" width="352" height="44" rx="10" fill="#0D9488" opacity="0.05"/>
+  <text x="40" y="262" font-family="system-ui" font-size="10" font-weight="600" fill="#0D9488">Quarterly Updates</text>
+  <text x="40" y="276" font-family="system-ui" font-size="9" fill="#64748B">Tax rates, market data, regulatory changes reviewed every quarter</text>
+</svg>

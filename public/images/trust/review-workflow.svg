@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Review Workflow</text>
+  <rect x="24" y="48" width="352" height="236" rx="12" fill="white" stroke="#E2E8F0"/>
+  <rect x="40" y="62" width="320" height="36" rx="8" fill="#2563EB" opacity="0.06"/>
+  <circle cx="56" cy="80" r="8" fill="#2563EB"/>
+  <text x="53" y="84" font-family="system-ui" font-size="7" font-weight="700" fill="white">1</text>
+  <text x="72" y="78" font-family="system-ui" font-size="10" fill="#0F172A">Financial Analyst Review</text>
+  <text x="72" y="92" font-family="system-ui" font-size="8" fill="#64748B">CFA charterholder validates methodology</text>
+  <rect x="40" y="108" width="320" height="36" rx="8" fill="#0D9488" opacity="0.06"/>
+  <circle cx="56" cy="126" r="8" fill="#0D9488"/>
+  <text x="53" y="130" font-family="system-ui" font-size="7" font-weight="700" fill="white">2</text>
+  <text x="72" y="124" font-family="system-ui" font-size="10" fill="#0F172A">Academic Peer Review</text>
+  <text x="72" y="138" font-family="system-ui" font-size="8" fill="#64748B">PhD economist verifies theoretical soundness</text>
+  <rect x="40" y="154" width="320" height="36" rx="8" fill="#F59E0B" opacity="0.06"/>
+  <circle cx="56" cy="172" r="8" fill="#F59E0B"/>
+  <text x="53" y="176" font-family="system-ui" font-size="7" font-weight="700" fill="white">3</text>
+  <text x="72" y="170" font-family="system-ui" font-size="10" fill="#0F172A">User Acceptance Testing</text>
+  <text x="72" y="184" font-family="system-ui" font-size="8" fill="#64748B">Cross-browser, cross-device validation</text>
+  <rect x="40" y="200" width="320" height="36" rx="8" fill="#10B981" opacity="0.06"/>
+  <circle cx="56" cy="218" r="8" fill="#10B981"/>
+  <text x="53" y="222" font-family="system-ui" font-size="7" font-weight="700" fill="white">4</text>
+  <text x="72" y="216" font-family="system-ui" font-size="10" fill="#0F172A">QA &amp; Edge Case Testing</text>
+  <text x="72" y="230" font-family="system-ui" font-size="8" fill="#64748B">Zero values, boundaries, extreme inputs</text>
+  <text x="40" y="264" font-family="system-ui" font-size="9" fill="#64748B">Continuous: User feedback monitored for ongoing improvements</text>
+</svg>

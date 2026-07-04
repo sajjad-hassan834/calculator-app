@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <circle cx="120" cy="60" r="45" fill="#7C3AED" opacity="0.06"/>
+  <circle cx="120" cy="60" r="30" fill="#7C3AED" opacity="0.1"/>
+  <circle cx="120" cy="60" r="15" fill="#7C3AED" opacity="0.2"/>
+  <text x="116" y="64" font-family="system-ui" font-size="12" font-weight="700" fill="white">$</text>
+  <text x="120" y="118" font-family="system-ui" font-size="13" font-weight="600" fill="#0F172A" text-anchor="middle">Personal Loan</text>
+  <text x="120" y="134" font-family="system-ui" font-size="10" fill="#64748B" text-anchor="middle">Borrow smart, repay faster</text>
+  <rect x="24" y="152" width="352" height="48" rx="10" fill="white" stroke="#E2E8F0"/>
+  <text x="40" y="174" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Loan Amount</text>
+  <text x="160" y="174" font-family="system-ui" font-size="11" font-weight="700" fill="#7C3AED">$25,000</text>
+  <rect x="260" y="158" width="100" height="32" rx="8" fill="#7C3AED" opacity="0.1"/>
+  <text x="310" y="178" font-family="system-ui" font-size="11" font-weight="600" fill="#7C3AED" text-anchor="middle">Apply Now</text>
+  <rect x="24" y="212" width="168" height="72" rx="10" fill="white" stroke="#E2E8F0"/>
+  <text x="40" y="234" font-family="system-ui" font-size="10" fill="#64748B">Monthly Payment</text>
+  <text x="40" y="256" font-family="system-ui" font-size="20" font-weight="700" fill="#0F172A">$512</text>
+  <text x="40" y="272" font-family="system-ui" font-size="9" fill="#64748B">5-year term at 8.5%</text>
+  <rect x="208" y="212" width="168" height="72" rx="10" fill="white" stroke="#E2E8F0"/>
+  <text x="224" y="234" font-family="system-ui" font-size="10" fill="#64748B">Total Interest</text>
+  <text x="224" y="256" font-family="system-ui" font-size="20" font-weight="700" fill="#F43F5E">$5,780</text>
+  <text x="224" y="272" font-family="system-ui" font-size="9" fill="#64748B">Over the full term</text>
+</svg>

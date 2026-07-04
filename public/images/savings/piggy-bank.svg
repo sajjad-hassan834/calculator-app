@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <ellipse cx="180" cy="140" rx="80" ry="64" fill="#F59E0B" opacity="0.1"/>
+  <ellipse cx="180" cy="140" rx="55" ry="44" fill="#F59E0B" opacity="0.08"/>
+  <ellipse cx="180" cy="130" rx="48" ry="36" fill="white" stroke="#F59E0B" stroke-width="2" stroke-opacity="0.3"/>
+  <ellipse cx="192" cy="116" rx="20" ry="14" fill="#F59E0B" opacity="0.1"/>
+  <circle cx="196" cy="114" r="3" fill="#0F172A"/>
+  <ellipse cx="160" cy="158" rx="6" ry="8" fill="#F59E0B" opacity="0.3"/>
+  <text x="168" y="146" font-family="system-ui" font-size="10" font-weight="700" fill="#92400E">$</text>
+  <rect x="270" y="80" width="110" height="140" rx="12" fill="white" stroke="#E2E8F0"/>
+  <text x="284" y="104" font-family="system-ui" font-size="12" font-weight="600" fill="#0F172A">Piggy Bank</text>
+  <rect x="284" y="114" width="82" height="1" fill="#E2E8F0"/>
+  <circle cx="296" cy="132" r="6" fill="#F59E0B" opacity="0.2"/>
+  <text x="310" y="136" font-family="system-ui" font-size="10" fill="#64748B">Save automatically</text>
+  <circle cx="296" cy="154" r="6" fill="#10B981" opacity="0.2"/>
+  <text x="310" y="158" font-family="system-ui" font-size="10" fill="#64748B">Watch it grow</text>
+  <circle cx="296" cy="176" r="6" fill="#2563EB" opacity="0.2"/>
+  <text x="310" y="180" font-family="system-ui" font-size="10" fill="#64748B">Reach your goal</text>
+  <rect x="284" y="200" width="82" height="1" fill="#E2E8F0"/>
+  <text x="284" y="214" font-family="system-ui" font-size="9" fill="#64748B">Simple, consistent saving</text>
+</svg>

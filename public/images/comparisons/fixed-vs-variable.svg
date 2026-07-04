@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Fixed vs Variable Mortgage</text>
+  <rect x="24" y="48" width="168" height="236" rx="12" fill="white" stroke="#E2E8F0"/>
+  <rect x="36" y="60" width="60" height="24" rx="6" fill="#2563EB" opacity="0.1"/>
+  <text x="66" y="76" font-family="system-ui" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle">Fixed</text>
+  <rect x="36" y="90" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="108" font-family="system-ui" font-size="10" fill="#64748B">Interest Rate</text>
+  <text x="160" y="108" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">6.5%</text>
+  <text x="36" y="126" font-family="system-ui" font-size="10" fill="#64748B">Monthly Payment</text>
+  <text x="160" y="126" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$1,864</text>
+  <rect x="36" y="136" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="154" font-family="system-ui" font-size="10" fill="#64748B">Payment Stability</text>
+  <text x="160" y="154" font-family="system-ui" font-size="10" font-weight="600" fill="#10B981">Guaranteed</text>
+  <text x="36" y="174" font-family="system-ui" font-size="10" fill="#64748B">Rate Changes</text>
+  <text x="160" y="174" font-family="system-ui" font-size="10" font-weight="600" fill="#10B981">Never</text>
+  <text x="36" y="194" font-family="system-ui" font-size="10" fill="#64748B">Initial Rate</text>
+  <text x="160" y="194" font-family="system-ui" font-size="10" font-weight="600" fill="#64748B">Higher</text>
+  <rect x="36" y="204" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="222" font-family="system-ui" font-size="10" fill="#64748B">Best For</text>
+  <text x="36" y="240" font-family="system-ui" font-size="9" fill="#64748B">Long-term owners</text>
+  <text x="36" y="256" font-family="system-ui" font-size="9" fill="#64748B">Budget certainty</text>
+  <text x="36" y="272" font-family="system-ui" font-size="9" fill="#64748B">Risk-averse borrowers</text>
+  <rect x="208" y="48" width="168" height="236" rx="12" fill="white" stroke="#E2E8F0"/>
+  <rect x="220" y="60" width="60" height="24" rx="6" fill="#F59E0B" opacity="0.1"/>
+  <text x="250" y="76" font-family="system-ui" font-size="12" font-weight="700" fill="#F59E0B" text-anchor="middle">Variable</text>
+  <rect x="220" y="90" width="144" height="1" fill="#E2E8F0"/>
+  <text x="220" y="108" font-family="system-ui" font-size="10" fill="#64748B">Interest Rate</text>
+  <text x="344" y="108" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">5.5% (initial)</text>
+  <text x="220" y="126" font-family="system-ui" font-size="10" fill="#64748B">Monthly Payment</text>
+  <text x="344" y="126" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$1,701</text>
+  <rect x="220" y="136" width="144" height="1" fill="#E2E8F0"/>
+  <text x="220" y="154" font-family="system-ui" font-size="10" fill="#64748B">Payment Stability</text>
+  <text x="344" y="154" font-family="system-ui" font-size="10" font-weight="600" fill="#F43F5E">Variable</text>
+  <text x="220" y="174" font-family="system-ui" font-size="10" fill="#64748B">Rate Changes</text>
+  <text x="344" y="174" font-family="system-ui" font-size="10" font-weight="600" fill="#F59E0B">Adjusts annually</text>
+  <text x="220" y="194" font-family="system-ui" font-size="10" fill="#64748B">Initial Rate</text>
+  <text x="344" y="194" font-family="system-ui" font-size="10" font-weight="600" fill="#64748B">Lower</text>
+  <rect x="220" y="204" width="144" height="1" fill="#E2E8F0"/>
+  <text x="220" y="222" font-family="system-ui" font-size="10" fill="#64748B">Best For</text>
+  <text x="220" y="240" font-family="system-ui" font-size="9" fill="#64748B">Short-term owners</text>
+  <text x="220" y="256" font-family="system-ui" font-size="9" fill="#64748B">Lower initial payment</text>
+  <text x="220" y="272" font-family="system-ui" font-size="9" fill="#64748B">Risk-tolerant borrowers</text>
+</svg>

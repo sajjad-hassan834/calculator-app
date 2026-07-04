@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Calculation Methodology</text>
+  <rect x="24" y="48" width="168" height="112" rx="10" fill="white" stroke="#E2E8F0"/>
+  <rect x="36" y="60" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="80" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Standard Formulas</text>
+  <text x="36" y="98" font-family="system-ui" font-size="9" fill="#64748B">All calculators use</text>
+  <text x="36" y="112" font-family="system-ui" font-size="9" fill="#64748B">widely accepted</text>
+  <text x="36" y="126" font-family="system-ui" font-size="9" fill="#64748B">financial formulas</text>
+  <text x="36" y="144" font-family="system-ui" font-size="9" fill="#64748B">from academic texts</text>
+  <rect x="208" y="48" width="168" height="112" rx="10" fill="white" stroke="#E2E8F0"/>
+  <rect x="220" y="60" width="144" height="1" fill="#E2E8F0"/>
+  <text x="220" y="80" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Transparent Code</text>
+  <text x="220" y="98" font-family="system-ui" font-size="9" fill="#64748B">Open methodology</text>
+  <text x="220" y="112" font-family="system-ui" font-size="9" fill="#64748B">documentation for</text>
+  <text x="220" y="126" font-family="system-ui" font-size="9" fill="#64748B">every calculator</text>
+  <text x="220" y="144" font-family="system-ui" font-size="9" fill="#64748B">formula and process</text>
+  <rect x="24" y="172" width="168" height="112" rx="10" fill="white" stroke="#E2E8F0"/>
+  <rect x="36" y="184" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="204" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Cross-Validated</text>
+  <text x="36" y="222" font-family="system-ui" font-size="9" fill="#64748B">Results checked</text>
+  <text x="36" y="236" font-family="system-ui" font-size="9" fill="#64748B">against multiple</text>
+  <text x="36" y="250" font-family="system-ui" font-size="9" fill="#64748B">independent sources</text>
+  <text x="36" y="268" font-family="system-ui" font-size="9" fill="#64748B">and calculators</text>
+  <rect x="208" y="172" width="168" height="112" rx="10" fill="white" stroke="#E2E8F0"/>
+  <rect x="220" y="184" width="144" height="1" fill="#E2E8F0"/>
+  <text x="220" y="204" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Financial Rounding</text>
+  <text x="220" y="222" font-family="system-ui" font-size="9" fill="#64748B">Standard industry</text>
+  <text x="220" y="236" font-family="system-ui" font-size="9" fill="#64748B">rounding conventions</text>
+  <text x="220" y="250" font-family="system-ui" font-size="9" fill="#64748B">2 decimal places</text>
+  <text x="220" y="268" font-family="system-ui" font-size="9" fill="#64748B">for currency</text>
+</svg>

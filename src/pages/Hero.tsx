@@ -48,51 +48,64 @@ export function Hero() {
         />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 lg:pt-28 lg:pb-24">
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-300 text-xs font-medium">
-              <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
-              Trusted by 12 million users worldwide
+          <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center">
+            <div>
+              <div className="flex mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-300 text-xs font-medium">
+                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
+                  Trusted by 12 million users worldwide
+                </div>
+              </div>
+
+              <h1 className="font-['DM_Serif_Display',serif] text-4xl sm:text-5xl lg:text-5xl text-white leading-tight mb-5 max-w-xl">
+                Smart Financial Calculations
+                <span className="block italic text-blue-300">for Every Goal</span>
+              </h1>
+              <p className="text-slate-400 text-lg max-w-md mb-8 leading-relaxed">
+                Free, accurate, and instant. From mortgages to investments — get the numbers
+                you need to make confident decisions.
+              </p>
+
+              <div className="relative max-w-md mb-8">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <button
+                  onClick={() => setSearchOpen(true)}
+                  className="w-full text-left pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-slate-400 text-base outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition"
+                >
+                  Search any calculator...
+                </button>
+                <button
+                  onClick={() => setSearchOpen(true)}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-all duration-200 hover:shadow-xl hover:-translate-y-[calc(50%+2px)] cursor-pointer"
+                >
+                  Search
+                </button>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-8">
+                {POPULAR.map((p) => (
+                  <button
+                    key={p.label}
+                    onClick={() => navigate(p.path)}
+                    className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm text-slate-300 hover:text-white transition-all duration-200 hover:-translate-y-1 cursor-pointer"
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="hidden lg:block">
+              <img
+                src="/images/homepage/hero-finance.svg"
+                alt="Financial calculator dashboard illustration showing portfolio value, savings goals, and growth charts"
+                className="w-full h-auto"
+                loading="eager"
+              />
             </div>
           </div>
 
-          <h1 className="font-['DM_Serif_Display',serif] text-4xl sm:text-5xl lg:text-6xl text-white text-center leading-tight mb-5 max-w-3xl mx-auto">
-            Smart Financial Calculations
-            <span className="block italic text-blue-300">for Every Goal</span>
-          </h1>
-          <p className="text-center text-slate-400 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-            Free, accurate, and instant. From mortgages to investments — get the numbers
-            you need to make confident decisions.
-          </p>
-
-          <div className="relative max-w-lg mx-auto mb-10">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="w-full text-left pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-slate-400 text-base outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition"
-            >
-              Search any calculator...
-            </button>
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-all duration-200 hover:shadow-xl hover:-translate-y-[calc(50%+2px)] cursor-pointer"
-            >
-              Search
-            </button>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {POPULAR.map((p) => (
-              <button
-                key={p.label}
-                onClick={() => navigate(p.path)}
-                className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm text-slate-300 hover:text-white transition-all duration-200 hover:-translate-y-1 cursor-pointer"
-              >
-                {p.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 mt-8">
             {CATEGORIES.map((cat) => {
               const Icon = cat.icon
               return (

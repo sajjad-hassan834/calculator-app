@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">APR vs APY</text>
+  <rect x="24" y="48" width="168" height="180" rx="12" fill="white" stroke="#E2E8F0"/>
+  <rect x="36" y="60" width="60" height="24" rx="6" fill="#2563EB" opacity="0.1"/>
+  <text x="66" y="76" font-family="system-ui" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle">APR</text>
+  <text x="36" y="100" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Annual Percentage Rate</text>
+  <rect x="36" y="110" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="128" font-family="system-ui" font-size="10" fill="#64748B">Simple interest rate</text>
+  <text x="36" y="146" font-family="system-ui" font-size="10" fill="#64748B">Excludes compounding</text>
+  <text x="36" y="164" font-family="system-ui" font-size="10" fill="#64748B">Used for loans</text>
+  <text x="36" y="182" font-family="system-ui" font-size="10" fill="#64748B">Lower is better</text>
+  <rect x="36" y="196" width="60" height="24" rx="6" fill="#2563EB" opacity="0.15"/>
+  <text x="66" y="212" font-family="system-ui" font-size="11" font-weight="700" fill="#2563EB" text-anchor="middle">8.5%</text>
+  <rect x="208" y="48" width="168" height="180" rx="12" fill="white" stroke="#E2E8F0"/>
+  <rect x="220" y="60" width="60" height="24" rx="6" fill="#0D9488" opacity="0.1"/>
+  <text x="250" y="76" font-family="system-ui" font-size="12" font-weight="700" fill="#0D9488" text-anchor="middle">APY</text>
+  <text x="220" y="100" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Annual Percentage Yield</text>
+  <rect x="220" y="110" width="144" height="1" fill="#E2E8F0"/>
+  <text x="220" y="128" font-family="system-ui" font-size="10" fill="#64748B">Compound interest rate</text>
+  <text x="220" y="146" font-family="system-ui" font-size="10" fill="#64748B">Includes compounding</text>
+  <text x="220" y="164" font-family="system-ui" font-size="10" fill="#64748B">Used for savings</text>
+  <text x="220" y="182" font-family="system-ui" font-size="10" fill="#64748B">Higher is better</text>
+  <rect x="220" y="196" width="60" height="24" rx="6" fill="#0D9488" opacity="0.15"/>
+  <text x="250" y="212" font-family="system-ui" font-size="11" font-weight="700" fill="#0D9488" text-anchor="middle">8.87%</text>
+  <rect x="24" y="240" width="352" height="44" rx="10" fill="#2563EB" opacity="0.04"/>
+  <text x="40" y="262" font-family="system-ui" font-size="10" fill="#64748B">Key Difference: APY accounts for compound interest, APR does not</text>
+  <text x="40" y="276" font-family="system-ui" font-size="9" fill="#64748B">Same 8.5% rate = 8.5% APR but 8.87% APY with monthly compounding</text>
+</svg>

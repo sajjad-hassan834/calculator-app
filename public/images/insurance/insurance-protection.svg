@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <rect x="140" y="30" width="120" height="90" rx="12" fill="#0D9488" opacity="0.06"/>
+  <rect x="155" y="42" width="90" height="66" rx="6" fill="white" stroke="#0D9488" stroke-width="1.5" stroke-opacity="0.3"/>
+  <rect x="165" y="52" width="70" height="48" rx="4" fill="#0D9488" opacity="0.08"/>
+  <path d="M200 56 L185 66 L195 66 L195 88 L205 88 L205 66 L215 66 Z" fill="#0D9488" opacity="0.2"/>
+  <path d="M200 60 L190 67 L197 67 L197 84 L203 84 L203 67 L210 67 Z" fill="#0D9488"/>
+  <text x="200" y="134" font-family="system-ui" font-size="13" font-weight="600" fill="#0F172A" text-anchor="middle">Insurance Protection</text>
+  <text x="200" y="150" font-family="system-ui" font-size="10" fill="#64748B" text-anchor="middle">Protect what matters most</text>
+  <rect x="24" y="168" width="168" height="116" rx="10" fill="white" stroke="#E2E8F0"/>
+  <text x="40" y="190" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Life Insurance</text>
+  <rect x="40" y="200" width="140" height="1" fill="#E2E8F0"/>
+  <text x="40" y="218" font-family="system-ui" font-size="10" fill="#64748B">Coverage Amount</text>
+  <text x="150" y="218" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$500K</text>
+  <text x="40" y="238" font-family="system-ui" font-size="10" fill="#64748B">Monthly Premium</text>
+  <text x="150" y="238" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$38</text>
+  <text x="40" y="258" font-family="system-ui" font-size="10" fill="#64748B">Term Length</text>
+  <text x="150" y="258" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">20 years</text>
+  <text x="40" y="274" font-family="system-ui" font-size="9" fill="#64748B">Level term policy</text>
+  <rect x="208" y="168" width="168" height="116" rx="10" fill="white" stroke="#E2E8F0"/>
+  <text x="224" y="190" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Health Insurance</text>
+  <rect x="224" y="200" width="140" height="1" fill="#E2E8F0"/>
+  <text x="224" y="218" font-family="system-ui" font-size="10" fill="#64748B">Deductible</text>
+  <text x="340" y="218" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$3,000</text>
+  <text x="224" y="238" font-family="system-ui" font-size="10" fill="#64748B">Out of Pocket Max</text>
+  <text x="340" y="238" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$6,000</text>
+  <text x="224" y="258" font-family="system-ui" font-size="10" fill="#64748B">Monthly Premium</text>
+  <text x="340" y="258" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$420</text>
+</svg>

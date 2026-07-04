@@ -1,0 +1,5 @@
+export { FeaturedImage } from "./FeaturedImage"
+export { FormulaInfographic } from "./FormulaInfographic"
+export { EducationalIllustration } from "./EducationalIllustration"
+export { TrustInfographic } from "./TrustInfographic"
+export { ComparisonChart } from "./ComparisonChart"

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Income Tax Workflow</text>
+  <rect x="24" y="48" width="352" height="34" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="65" r="10" fill="#8B5CF6"/>
+  <text x="45" y="69" font-family="system-ui" font-size="8" font-weight="700" fill="white">1</text>
+  <text x="64" y="63" font-family="system-ui" font-size="10" fill="#0F172A">Calculate Gross Income</text>
+  <text x="64" y="76" font-family="system-ui" font-size="8" fill="#64748B">Wages + investments + other</text>
+  <path d="M200 82 L200 90" stroke="#94A3B8" stroke-width="1.5"/>
+  <rect x="24" y="92" width="352" height="34" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="109" r="10" fill="#8B5CF6"/>
+  <text x="45" y="113" font-family="system-ui" font-size="8" font-weight="700" fill="white">2</text>
+  <text x="64" y="107" font-family="system-ui" font-size="10" fill="#0F172A">Subtract Adjustments</text>
+  <text x="64" y="120" font-family="system-ui" font-size="8" fill="#64748B">401(k), HSA, IRA contributions</text>
+  <path d="M200 126 L200 134" stroke="#94A3B8" stroke-width="1.5"/>
+  <rect x="24" y="136" width="352" height="34" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="153" r="10" fill="#8B5CF6"/>
+  <text x="45" y="157" font-family="system-ui" font-size="8" font-weight="700" fill="white">3</text>
+  <text x="64" y="151" font-family="system-ui" font-size="10" fill="#0F172A">Adjusted Gross Income</text>
+  <text x="64" y="164" font-family="system-ui" font-size="8" fill="#64748B">AGI = Gross - Adjustments</text>
+  <path d="M200 170 L200 178" stroke="#94A3B8" stroke-width="1.5"/>
+  <rect x="24" y="180" width="352" height="34" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="197" r="10" fill="#8B5CF6"/>
+  <text x="45" y="201" font-family="system-ui" font-size="8" font-weight="700" fill="white">4</text>
+  <text x="64" y="195" font-family="system-ui" font-size="10" fill="#0F172A">Subtract Deductions</text>
+  <text x="64" y="208" font-family="system-ui" font-size="8" fill="#64748B">Standard or itemized deductions</text>
+  <path d="M200 214 L200 222" stroke="#94A3B8" stroke-width="1.5"/>
+  <rect x="24" y="224" width="352" height="34" rx="8" fill="white" stroke="#2563EB" stroke-width="1.5"/>
+  <circle cx="48" cy="241" r="10" fill="#2563EB"/>
+  <text x="45" y="245" font-family="system-ui" font-size="8" font-weight="700" fill="white">5</text>
+  <text x="64" y="239" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">Taxable Income</text>
+  <text x="64" y="252" font-family="system-ui" font-size="8" fill="#64748B">Apply progressive brackets</text>
+  <rect x="280" y="228" width="80" height="24" rx="6" fill="#0D9488" opacity="0.1"/>
+  <text x="320" y="244" font-family="system-ui" font-size="10" font-weight="600" fill="#0D9488" text-anchor="middle">Done!</text>
+</svg>

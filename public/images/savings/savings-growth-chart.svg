@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Savings Growth</text>
+  <rect x="24" y="46" width="352" height="200" rx="12" fill="white" stroke="#E2E8F0"/>
+  <line x1="52" y1="50" x2="52" y2="220" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="52" y1="220" x2="350" y2="220" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="40" y="224" font-family="system-ui" font-size="8" fill="#94A3B8">0</text>
+  <text x="100" y="224" font-family="system-ui" font-size="8" fill="#94A3B8">5</text>
+  <text x="160" y="224" font-family="system-ui" font-size="8" fill="#94A3B8">10</text>
+  <text x="220" y="224" font-family="system-ui" font-size="8" fill="#94A3B8">15</text>
+  <text x="280" y="224" font-family="system-ui" font-size="8" fill="#94A3B8">20</text>
+  <text x="340" y="224" font-family="system-ui" font-size="8" fill="#94A3B8">25</text>
+  <text x="36" y="56" font-family="system-ui" font-size="8" fill="#94A3B8" text-anchor="end">$50K</text>
+  <text x="36" y="100" font-family="system-ui" font-size="8" fill="#94A3B8" text-anchor="end">$40K</text>
+  <text x="36" y="140" font-family="system-ui" font-size="8" fill="#94A3B8" text-anchor="end">$30K</text>
+  <text x="36" y="180" font-family="system-ui" font-size="8" fill="#94A3B8" text-anchor="end">$20K</text>
+  <path d="M52 210 L100 190 L140 165 L180 135 L220 100 L260 70 L300 55 L340 48" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M52 210 L100 190 L140 165 L180 135 L220 100 L260 70 L300 55 L340 48" fill="url(#savingsChartGrad)" opacity="0.1"/>
+  <defs>
+    <linearGradient id="savingsChartGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+  <circle cx="260" cy="70" r="5" fill="#F59E0B" stroke="white" stroke-width="2"/>
+  <text x="260" y="62" font-family="system-ui" font-size="9" font-weight="600" fill="#F59E0B" text-anchor="middle">$40K</text>
+  <rect x="270" y="50" width="80" height="40" rx="6" fill="#F59E0B" opacity="0.05"/>
+  <text x="280" y="68" font-family="system-ui" font-size="8" fill="#64748B">$200/mo @ 4%</text>
+  <text x="280" y="82" font-family="system-ui" font-size="8" fill="#64748B">25 year projection</text>
+</svg>

@@ -27,7 +27,7 @@ import { useCalculatorState } from "../../hooks/useCalculatorState"
 import { useCalculationHistory } from "../../hooks/useCalculationHistory"
 import { useCurrency } from "../../lib/CurrencyContext"
 import { generateCalculatorSchema, generateBreadcrumbSchema, generateFAQSchema, generateOrganizationSchema } from "../../lib/seo"
-import { PER_CALCULATOR_FAQS } from "../../components/shared/SEOContentBlock"
+import { getCalculatorFAQs } from "../../components/shared/SEOContentBlock"
 import { exportToExcel, exportToImage } from "../../lib/exportUtils"
 import { trackEvent } from "../../lib/analytics"
 
@@ -43,7 +43,8 @@ function fmtVal(v: number, format?: string, currencyCode = "USD"): string {
 export function CalculatorPage() {
   const { type } = useParams<{ type: string }>()
   const calcType = type || "mortgage"
-  const config = getCalculatorConfig(calcType)
+  const isBasic = calcType === "basic"
+  const config = isBasic ? null : getCalculatorConfig(calcType)
 
   const { currency } = useCurrency()
   const { addEntry } = useCalculationHistory()
@@ -63,7 +64,7 @@ export function CalculatorPage() {
     return () => document.removeEventListener("mousedown", handleClick)
   }, [moreOpen])
 
-  if (!config) {
+  if (!config && !isBasic) {
     return (
       <div className="py-20 text-center">
         <h1 className="text-2xl font-semibold text-foreground">Calculator not found</h1>
@@ -73,7 +74,59 @@ export function CalculatorPage() {
     )
   }
 
-  const meta = config.meta
+  const meta = isBasic ? CALCULATOR_META.basic : config!.meta
+
+  if (isBasic) {
+    const basicUrl = `https://financecalculator.com/calculator/basic`
+    const Icon = meta.icon
+    return (
+      <div className="bg-background">
+        <SEOHead
+          title="Basic Calculator — Free Online Arithmetic Calculator | FinanceCalculator.com"
+          description={meta.desc}
+          canonical={basicUrl}
+          jsonLd={[
+            generateOrganizationSchema(),
+            generateCalculatorSchema(meta, basicUrl),
+            generateBreadcrumbSchema([
+              { label: "Home", path: "/" },
+              { label: "Basic", path: "/category/basic" },
+              { label: "Basic Calculator" },
+            ]),
+          ]}
+          ogType="website"
+        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+          <Breadcrumbs items={[
+            { label: "Home", path: "/" },
+            { label: "Basic", path: "/category/basic" },
+            { label: "Basic Calculator" },
+          ]} />
+          <div className="flex items-center gap-4 mb-6">
+            <Link to="/" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <ArrowLeft className="w-4 h-4" /> Back
+            </Link>
+          </div>
+          <div className="text-center mb-8">
+            <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Icon className="w-7 h-7 text-primary" />
+            </div>
+            <h1 className="font-['DM_Serif_Display',serif] text-3xl lg:text-4xl text-foreground mb-2">
+              Basic Calculator
+            </h1>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-base">{meta.desc}</p>
+          </div>
+        </div>
+        <section className="pb-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-sm mx-auto">
+              <BasicCalculator />
+            </div>
+          </div>
+        </section>
+      </div>
+    )
+  }
 
   useEffect(() => {
     try {
@@ -89,7 +142,7 @@ export function CalculatorPage() {
   const [copied, setCopied] = useState(false)
   const [tableTab, setTableTab] = useState<"yearly" | "monthly">("yearly")
 
-  const { values, setValue, results } = useCalculatorState(config)
+  const { values, setValue, results } = useCalculatorState(config!)
 
   // Save to history when results change
   useEffect(() => {
@@ -169,7 +222,7 @@ export function CalculatorPage() {
   const pieData = useMemo(() => config.pieChart.data(values, results), [config, values, results])
 
   const pageUrl = `https://financecalculator.com/calculator/${calcType}`
-  const faqs = PER_CALCULATOR_FAQS[calcType] || []
+  const faqs = getCalculatorFAQs(calcType)
 
   const jsonLd = useMemo(() => {
     const schemas: object[] = [

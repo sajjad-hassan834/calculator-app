@@ -24,3 +24,5 @@ export const CALCULATOR_CONFIGS: Record<string, CalculatorConfig> = {
 export function getCalculatorConfig(id: string): CalculatorConfig | undefined {
   return CALCULATOR_CONFIGS[id]
 }
+
+export const CALCULATOR_IDS = Object.keys(CALCULATOR_CONFIGS)

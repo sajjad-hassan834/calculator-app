@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <rect x="140" y="24" width="120" height="90" rx="12" fill="#2563EB" opacity="0.06"/>
+  <rect x="155" y="36" width="40" height="40" rx="8" fill="#2563EB" opacity="0.1"/>
+  <rect x="160" y="41" width="30" height="30" rx="4" fill="white"/>
+  <text x="175" y="60" font-family="system-ui" font-size="14" font-weight="700" fill="#2563EB" text-anchor="middle">R</text>
+  <text x="205" y="54" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">Retire</text>
+  <text x="205" y="68" font-family="system-ui" font-size="9" fill="#64748B">On your terms</text>
+  <rect x="155" y="88" width="90" height="18" rx="4" fill="#2563EB" opacity="0.15"/>
+  <text x="200" y="101" font-family="system-ui" font-size="9" font-weight="600" fill="#2563EB" text-anchor="middle">Plan your future</text>
+  <rect x="24" y="128" width="168" height="156" rx="12" fill="white" stroke="#E2E8F0"/>
+  <rect x="36" y="140" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="162" font-family="system-ui" font-size="11" fill="#64748B">Current Age</text>
+  <text x="150" y="162" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">35</text>
+  <rect x="36" y="172" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="194" font-family="system-ui" font-size="11" fill="#64748B">Retire At</text>
+  <text x="150" y="194" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">65</text>
+  <rect x="36" y="204" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="226" font-family="system-ui" font-size="11" fill="#64748B">Current Savings</text>
+  <text x="150" y="226" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">$50,000</text>
+  <rect x="36" y="236" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="258" font-family="system-ui" font-size="11" fill="#64748B">Monthly Contribution</text>
+  <text x="150" y="258" font-family="system-ui" font-size="11" font-weight="600" fill="#0F172A">$500</text>
+  <rect x="36" y="268" width="144" height="1" fill="#E2E8F0"/>
+  <rect x="208" y="128" width="168" height="156" rx="12" fill="white" stroke="#E2E8F0"/>
+  <text x="224" y="148" font-family="system-ui" font-size="12" font-weight="600" fill="#0F172A">Your Nest Egg</text>
+  <rect x="224" y="156" width="140" height="1" fill="#E2E8F0"/>
+  <text x="224" y="178" font-family="system-ui" font-size="10" fill="#64748B">Projected at 65</text>
+  <text x="224" y="204" font-family="system-ui" font-size="24" font-weight="700" fill="#2563EB">$1,240,000</text>
+  <text x="224" y="226" font-family="system-ui" font-size="10" fill="#64748B">Monthly withdrawal</text>
+  <text x="224" y="250" font-family="system-ui" font-size="16" font-weight="700" fill="#0D9488">$4,133</text>
+  <text x="224" y="270" font-family="system-ui" font-size="9" fill="#64748B">Using 4% rule</text>
+</svg>

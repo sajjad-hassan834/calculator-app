@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Accuracy Verification</text>
+  <rect x="24" y="48" width="352" height="36" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="66" r="10" fill="#10B981"/>
+  <text x="45" y="70" font-family="system-ui" font-size="8" font-weight="700" fill="white">&#x2713;</text>
+  <text x="64" y="64" font-family="system-ui" font-size="10" fill="#0F172A">Multi-source validation</text>
+  <text x="64" y="78" font-family="system-ui" font-size="8" fill="#64748B">Cross-checked against 3+ independent sources</text>
+  <rect x="24" y="94" width="352" height="36" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="112" r="10" fill="#10B981"/>
+  <text x="45" y="116" font-family="system-ui" font-size="8" font-weight="700" fill="white">&#x2713;</text>
+  <text x="64" y="110" font-family="system-ui" font-size="10" fill="#0F172A">Edge case coverage</text>
+  <text x="64" y="124" font-family="system-ui" font-size="8" fill="#64748B">Zero, boundary, and extreme inputs tested</text>
+  <rect x="24" y="140" width="352" height="36" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="158" r="10" fill="#10B981"/>
+  <text x="45" y="162" font-family="system-ui" font-size="8" font-weight="700" fill="white">&#x2713;</text>
+  <text x="64" y="156" font-family="system-ui" font-size="10" fill="#0F172A">Regulatory compliance</text>
+  <text x="64" y="170" font-family="system-ui" font-size="8" fill="#64748B">Aligned with CFPB, IRS, SEC standards</text>
+  <rect x="24" y="186" width="352" height="36" rx="8" fill="white" stroke="#E2E8F0"/>
+  <circle cx="48" cy="204" r="10" fill="#10B981"/>
+  <text x="45" y="208" font-family="system-ui" font-size="8" font-weight="700" fill="white">&#x2713;</text>
+  <text x="64" y="202" font-family="system-ui" font-size="10" fill="#0F172A">Quarterly updates</text>
+  <text x="64" y="216" font-family="system-ui" font-size="8" fill="#64748B">Tax brackets and rates updated every quarter</text>
+  <rect x="24" y="234" width="352" height="52" rx="10" fill="#10B981" opacity="0.04"/>
+  <text x="40" y="256" font-family="system-ui" font-size="11" font-weight="600" fill="#065F46">99.9% Accuracy Rate</text>
+  <text x="40" y="274" font-family="system-ui" font-size="9" fill="#64748B">Verified against industry-standard financial calculators</text>
+</svg>

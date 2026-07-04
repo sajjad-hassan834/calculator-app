@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <rect x="120" y="50" width="160" height="130" rx="10" fill="#2563EB" opacity="0.06"/>
+  <polygon points="200,65 135,105 265,105" fill="#2563EB" opacity="0.15"/>
+  <rect x="155" y="105" width="90" height="75" rx="4" fill="white" stroke="#2563EB" stroke-width="1.5" stroke-opacity="0.2"/>
+  <rect x="175" y="120" width="20" height="20" rx="3" fill="#2563EB" opacity="0.2"/>
+  <rect x="205" y="140" width="24" height="30" rx="3" fill="#2563EB" opacity="0.2"/>
+  <rect x="175" y="140" width="20" height="30" rx="3" fill="#2563EB" opacity="0.1"/>
+  <text x="200" y="198" font-family="system-ui" font-size="13" font-weight="600" fill="#0F172A" text-anchor="middle">House Financing</text>
+  <text x="200" y="212" font-family="system-ui" font-size="10" fill="#64748B" text-anchor="middle">Understand your home loan options</text>
+  <rect x="24" y="228" width="168" height="56" rx="10" fill="white" stroke="#E2E8F0"/>
+  <circle cx="52" cy="256" r="10" fill="#2563EB" opacity="0.1"/>
+  <text x="48" y="260" font-family="system-ui" font-size="10" font-weight="700" fill="#2563EB">%</text>
+  <text x="72" y="252" font-family="system-ui" font-size="12" font-weight="600" fill="#0F172A">Interest Rate</text>
+  <text x="72" y="268" font-family="system-ui" font-size="10" fill="#64748B">Compare rates from lenders</text>
+  <rect x="208" y="228" width="168" height="56" rx="10" fill="white" stroke="#E2E8F0"/>
+  <circle cx="236" cy="256" r="10" fill="#0D9488" opacity="0.1"/>
+  <text x="232" y="260" font-family="system-ui" font-size="10" font-weight="700" fill="#0D9488">$</text>
+  <text x="256" y="252" font-family="system-ui" font-size="12" font-weight="600" fill="#0F172A">Down Payment</text>
+  <text x="256" y="268" font-family="system-ui" font-size="10" fill="#64748B">20% avoids PMI</text>
+</svg>

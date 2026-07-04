@@ -1,4 +1,4 @@
-import { Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent, BarChart2 } from "lucide-react"
+import { Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent, BarChart2, Calculator } from "lucide-react"
 
 export interface CalcMeta {
   id: string
@@ -894,5 +894,85 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     lastUpdated: "June 2026",
     author: { name: "Sarah Chen", role: "Senior Financial Analyst" },
     reviewer: { name: "Dr. James Mitchell", role: "PhD Economics, Certified Financial Planner" },
+  },
+  basic: {
+    id: "basic",
+    title: "Basic Calculator",
+    desc: "Perform standard arithmetic operations with a clean, interactive dual-display calculator. Supports keyboard input and saves your calculation history.",
+    shortDesc: "Standard arithmetic calculator with expression display and history.",
+    icon: Calculator,
+    category: "Basic",
+    gradient: "from-slate-600 to-slate-800",
+    uses: "5.1M",
+    popular: true,
+    time: "Instant",
+    readingTime: "2 min",
+    difficulty: "Beginner",
+    formula: "Standard arithmetic operations (+, -, ×, ÷)",
+    explanation: "A basic calculator supporting addition, subtraction, multiplication, and division with a running expression display and calculation history.",
+    introduction: "The Basic Calculator handles all your everyday arithmetic needs. With a clean dual-line display showing your running expression, color-coded buttons for quick visual identification, and full keyboard support, it is the most accessible calculator on the site.",
+    whyMatters: "Quick, reliable arithmetic is essential for everyday life — from splitting bills to calculating discounts. This calculator is designed for speed and accuracy with zero friction.",
+    howItWorks: "Type numbers using the on-screen buttons or your keyboard. The top line shows the expression as you build it, and the bottom line shows the current input or result. Press = or Enter to evaluate. All completed calculations are saved in your history drawer.",
+    whenToUse: [
+      "Quick everyday arithmetic",
+      "Checking restaurant bill splits",
+      "Calculating discounts and sales tax",
+      "Any time you need a fast, reliable calculator",
+    ],
+    benefits: [
+      "Instant results with live expression display",
+      "Full keyboard support for power users",
+      "Calculation history persists across sessions",
+      "Color-coded buttons for quick visual scanning",
+    ],
+    variables: [],
+    example: {
+      desc: "Calculate 45 × 12 + 30:",
+      steps: [
+        "Type 45",
+        "Press × (or * on keyboard)",
+        "Type 12",
+        "Press +",
+        "Type 30",
+        "Press = (or Enter)",
+        "Result: 570",
+      ],
+    },
+    interpretation: "The running expression display shows your full calculation: 45 × 12 + 30 = 570. You can review the expression before pressing equals to catch mistakes.",
+    advantages: [
+      "Keyboard-accessible for fast data entry",
+      "History drawer stores last 10 calculations",
+      "Dual-line display reduces input errors",
+      "Works offline with full functionality",
+    ],
+    limitations: [
+      "Supports basic arithmetic only (no scientific functions)",
+      "Maximum precision of 12 significant digits",
+      "History stored in local browser storage only",
+    ],
+    commonMistakes: [
+      "Forgetting to clear before starting a new calculation",
+      "Operator precedence is left-to-right, not PEMDAS",
+    ],
+    tips: [
+      "Use keyboard for faster input (0-9, +, -, *, /, Enter, Backspace, Escape)",
+      "Click on a history entry to recall a previous result",
+      "Press AC or Escape to clear the current calculation",
+    ],
+    glossary: [
+      { term: "Expression", def: "The mathematical statement being built, shown on the top display line." },
+      { term: "Operand", def: "A number used in a calculation." },
+      { term: "Operator", def: "A symbol representing a mathematical operation (+, -, ×, ÷)." },
+    ],
+    references: [],
+    related: [
+      { label: "Compound Interest", path: "/calculator/compound" },
+      { label: "Savings Goal", path: "/calculator/savings" },
+      { label: "ROI Calculator", path: "/calculator/roi" },
+    ],
+    relatedCategories: ["Basic", "Personal Finance"],
+    lastUpdated: "July 2026",
+    author: { name: "Development Team", role: "Principal Frontend Engineer" },
+    reviewer: { name: "UX Team", role: "UX Expert" },
   },
 }

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <circle cx="200" cy="60" r="40" fill="#0D9488" opacity="0.08"/>
+  <circle cx="200" cy="60" r="28" fill="#0D9488" opacity="0.12"/>
+  <circle cx="200" cy="60" r="16" fill="#0D9488" opacity="0.2"/>
+  <circle cx="200" cy="60" r="7" fill="#0D9488"/>
+  <text x="196" y="63" font-family="system-ui" font-size="8" font-weight="700" fill="white">$</text>
+  <text x="150" y="120" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Smart Saving</text>
+  <text x="150" y="137" font-family="system-ui" font-size="10" fill="#64748B" text-anchor="middle">Build your financial future</text>
+  <rect x="24" y="156" width="352" height="48" rx="12" fill="white" stroke="#E2E8F0"/>
+  <circle cx="52" cy="180" r="10" fill="#2563EB" opacity="0.1"/>
+  <text x="48" y="184" font-family="system-ui" font-size="10" font-weight="700" fill="#2563EB">&#x25B6;</text>
+  <text x="72" y="177" font-family="system-ui" font-size="12" font-weight="600" fill="#0F172A">Emergency Fund</text>
+  <text x="72" y="192" font-family="system-ui" font-size="10" fill="#64748B">3-6 months of expenses recommended</text>
+  <rect x="260" y="164" width="56" height="28" rx="8" fill="#0D9488" opacity="0.1"/>
+  <text x="268" y="183" font-family="system-ui" font-size="11" font-weight="600" fill="#0D9488">$15K</text>
+  <rect x="24" y="216" width="352" height="48" rx="12" fill="white" stroke="#E2E8F0"/>
+  <circle cx="52" cy="240" r="10" fill="#F59E0B" opacity="0.1"/>
+  <text x="48" y="244" font-family="system-ui" font-size="10" font-weight="700" fill="#F59E0B">&#x2605;</text>
+  <text x="72" y="237" font-family="system-ui" font-size="12" font-weight="600" fill="#0F172A">Goal Tracker</text>
+  <text x="72" y="252" font-family="system-ui" font-size="10" fill="#64748B">Track progress toward any savings target</text>
+  <rect x="300" y="232" width="64" height="16" rx="4" fill="#E2E8F0"/>
+  <rect x="300" y="232" width="40" height="16" rx="4" fill="#F59E0B"/>
+  <text x="304" y="244" font-family="system-ui" font-size="8" font-weight="600" fill="white">62%</text>
+  <rect x="100" y="276" width="200" height="1" fill="#E2E8F0"/>
+</svg>

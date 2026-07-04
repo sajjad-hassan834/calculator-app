@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="16" fill="#F8FAFC"/>
+  <text x="200" y="30" font-family="system-ui" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">Traditional vs Roth IRA</text>
+  <rect x="24" y="48" width="168" height="236" rx="12" fill="white" stroke="#E2E8F0"/>
+  <rect x="36" y="60" width="80" height="24" rx="6" fill="#2563EB" opacity="0.1"/>
+  <text x="76" y="76" font-family="system-ui" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle">Traditional</text>
+  <rect x="36" y="90" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="108" font-family="system-ui" font-size="10" fill="#64748B">Tax Treatment</text>
+  <text x="36" y="126" font-family="system-ui" font-size="9" fill="#2563EB">Deductible now</text>
+  <text x="36" y="144" font-family="system-ui" font-size="10" fill="#64748B">Tax at Withdrawal</text>
+  <text x="36" y="162" font-family="system-ui" font-size="9" fill="#F43F5E">Ordinary income tax</text>
+  <rect x="36" y="174" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="192" font-family="system-ui" font-size="10" fill="#64748B">Contribution Limit</text>
+  <text x="160" y="192" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$7,000</text>
+  <text x="36" y="210" font-family="system-ui" font-size="10" fill="#64748B">Income Limit</text>
+  <text x="160" y="210" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">None</text>
+  <rect x="36" y="222" width="144" height="1" fill="#E2E8F0"/>
+  <text x="36" y="240" font-family="system-ui" font-size="10" fill="#64748B">Best When</text>
+  <text x="36" y="258" font-family="system-ui" font-size="9" fill="#64748B">Higher income now</text>
+  <text x="36" y="274" font-family="system-ui" font-size="9" fill="#64748B">Lower income later</text>
+  <rect x="208" y="48" width="168" height="236" rx="12" fill="white" stroke="#E2E8F0"/>
+  <rect x="220" y="60" width="60" height="24" rx="6" fill="#0D9488" opacity="0.1"/>
+  <text x="250" y="76" font-family="system-ui" font-size="12" font-weight="700" fill="#0D9488" text-anchor="middle">Roth IRA</text>
+  <rect x="220" y="90" width="144" height="1" fill="#E2E8F0"/>
+  <text x="220" y="108" font-family="system-ui" font-size="10" fill="#64748B">Tax Treatment</text>
+  <text x="220" y="126" font-family="system-ui" font-size="9" fill="#F43F5E">After-tax now</text>
+  <text x="220" y="144" font-family="system-ui" font-size="10" fill="#64748B">Tax at Withdrawal</text>
+  <text x="220" y="162" font-family="system-ui" font-size="9" fill="#10B981">Tax-free forever</text>
+  <rect x="220" y="174" width="144" height="1" fill="#E2E8F0"/>
+  <text x="220" y="192" font-family="system-ui" font-size="10" fill="#64748B">Contribution Limit</text>
+  <text x="344" y="192" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$7,000</text>
+  <text x="220" y="210" font-family="system-ui" font-size="10" fill="#64748B">Income Limit</text>
+  <text x="344" y="210" font-family="system-ui" font-size="10" font-weight="600" fill="#0F172A">$161K (single)</text>
+  <rect x="220" y="222" width="144" height="1" fill="#E2E8F0"/>
+  <text x="220" y="240" font-family="system-ui" font-size="10" fill="#64748B">Best When</text>
+  <text x="220" y="258" font-family="system-ui" font-size="9" fill="#64748B">Lower income now</text>
+  <text x="220" y="274" font-family="system-ui" font-size="9" fill="#64748B">Higher income later</text>
+</svg>
