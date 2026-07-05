@@ -4,13 +4,13 @@ import { FeaturedCalculators } from "./FeaturedCalculators"
 import { FAQSection } from "./FAQSection"
 import { ComingSoonSection } from "../components/ui/ComingSoon"
 import { AdPlaceholder } from "../components/ui/AdPlaceholder"
-import { TrendingUp, Star, FileSearch, Shield, Award, CheckCircle2, ArrowRight, BookOpen } from "lucide-react"
+import { TrendingUp, Star, FileSearch, Shield, Award, CheckCircle2, ArrowRight, BookOpen, Clock } from "lucide-react"
 import { useNavigate } from "react-router"
-import { FEATURED } from "../lib/data"
 import { SEOHead } from "../components/seo/SEOHead"
 import { generateWebSiteSchema, generateFAQSchema, generateOrganizationSchema } from "../lib/seo"
 import { FAQS } from "../lib/data"
-import { EXPANDED_CONTENT } from "../lib/expandedContent"
+import { usePopularCalculators, useFeaturedCalculators } from "../hooks/queries/useCalculators"
+import { useTestimonials } from "../hooks/queries/useSettings"
 
 const SITE_TRUST_STATS = [
   { label: "Monthly Calculations", value: "9.7M+", description: "Performed across all calculators" },
@@ -43,24 +43,46 @@ function TrustStats() {
             </div>
           ))}
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { quote: "This site saved me thousands on my mortgage. I used the calculator to compare terms and negotiate with my bank.", name: "Michael R.", role: "Homeowner" },
-            { quote: "The compound interest calculator showed me exactly why I should start investing now instead of waiting.", name: "Priya K.", role: "Software Engineer" },
-            { quote: "I use the retirement planner every quarter to track if I am on target. It is simple but powerful.", name: "David L.", role: "Teacher" },
-          ].map((t) => (
-            <div key={t.name} className="bg-background border border-border rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
-              <Star className="w-5 h-5 text-amber-400 mb-3" />
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
-              <div>
-                <div className="text-sm font-medium text-foreground">{t.name}</div>
-                <div className="text-xs text-muted-foreground">{t.role}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <TestimonialsSection />
       </div>
     </section>
+  )
+}
+
+function TestimonialsSection() {
+  const { data: testimonials, isLoading } = useTestimonials()
+
+  if (isLoading) {
+    return (
+      <div className="grid md:grid-cols-3 gap-6">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="h-32 bg-secondary rounded-2xl animate-pulse" />
+        ))}
+      </div>
+    )
+  }
+
+  const displayTestimonials = testimonials && testimonials.length > 0
+    ? testimonials.slice(0, 3)
+    : [
+        { author_name: "Michael R.", author_title: "Homeowner", content: "This site saved me thousands on my mortgage. I used the calculator to compare terms and negotiate with my bank.", rating: 5, is_featured: true },
+        { author_name: "Priya K.", author_title: "Software Engineer", content: "The compound interest calculator showed me exactly why I should start investing now instead of waiting.", rating: 5, is_featured: true },
+        { author_name: "David L.", author_title: "Teacher", content: "I use the retirement planner every quarter to track if I am on target. It is simple but powerful.", rating: 5, is_featured: true },
+      ]
+
+  return (
+    <div className="grid md:grid-cols-3 gap-6">
+      {displayTestimonials.map((t) => (
+        <div key={t.author_name} className="bg-background border border-border rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
+          <Star className="w-5 h-5 text-amber-400 mb-3" />
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">&ldquo;{t.content}&rdquo;</p>
+          <div>
+            <div className="text-sm font-medium text-foreground">{t.author_name}</div>
+            <div className="text-xs text-muted-foreground">{t.author_title}</div>
+          </div>
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -89,53 +111,40 @@ function EditorialStandards() {
   )
 }
 
-function FeaturedGuides() {
-  const navigate = useNavigate()
-  const allGuides = Object.values(EXPANDED_CONTENT).flatMap((c) => c.relatedGuides)
-  const featured = allGuides.slice(0, 4)
-
-  return (
-    <section className="py-16 bg-card border-y border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <h2 className="font-['DM_Serif_Display',serif] text-2xl lg:text-3xl text-foreground mb-1">Featured Guides</h2>
-            <p className="text-sm text-muted-foreground">Deepen your financial knowledge</p>
-          </div>
-          <button className="hidden sm:flex items-center gap-1.5 text-sm text-primary font-medium hover:underline transition-all duration-200">
-            View all <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-        <div className="grid sm:grid-cols-2 gap-4">
-          {featured.map((guide, i) => (
-            <button
-              key={guide.title}
-              onClick={() => navigate(guide.url)}
-              className="group text-left bg-background border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out cursor-pointer"
-            >
-              <div className="h-32 bg-gradient-to-br from-primary/5 via-primary/[0.02] to-background flex items-center justify-center overflow-hidden">
-                <img
-                  src={`/images/homepage/financial-planning.svg`}
-                  alt=""
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-5">
-                <h3 className="font-semibold text-foreground text-sm mb-1.5 group-hover:text-primary transition-colors">{guide.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{guide.description}</p>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function TrendingNow() {
   const navigate = useNavigate()
-  const trending = FEATURED.slice(0, 4)
+  const { data: calculators, isLoading } = usePopularCalculators(4)
+
+  if (isLoading) {
+    return (
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-6 w-48 bg-secondary rounded-full animate-pulse mb-8" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="h-20 bg-secondary rounded-2xl animate-pulse" />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  const GRADIENT_MAP: Record<string, string> = {
+    mortgage: "from-blue-600 to-blue-800",
+    compound: "from-emerald-600 to-emerald-800",
+    loan: "from-purple-600 to-purple-800",
+    savings: "from-amber-500 to-amber-700",
+    retirement: "from-rose-600 to-rose-800",
+    roi: "from-teal-600 to-teal-800",
+    investment: "from-cyan-600 to-cyan-800",
+    tax: "from-indigo-600 to-indigo-800",
+    "break-even": "from-orange-600 to-orange-800",
+  }
+
+  const trending = (calculators || []).slice(0, 4)
+  const usesFormatter = (count: number) => count > 1000 ? `${(count / 1000).toFixed(1)}M` : `${count.toLocaleString()}`
+
   return (
     <section className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,19 +158,19 @@ function TrendingNow() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {trending.map((c) => {
-            const Icon = c.icon
+            const gradient = GRADIENT_MAP[c.slug] || "from-primary to-primary/70"
             return (
               <button
                 key={c.id}
-                onClick={() => navigate(`/calculator/${c.id}`)}
+                onClick={() => navigate(`/calculator/${c.slug}`)}
                 className="flex items-center gap-4 bg-card border border-border rounded-2xl p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-left cursor-pointer"
               >
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center shrink-0`}>
-                  <Icon className="w-5 h-5 text-white" />
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center shrink-0`}>
+                  <TrendingUp className="w-5 h-5 text-white" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-sm font-semibold text-foreground truncate">{c.title}</div>
-                  <div className="text-xs text-muted-foreground mt-0.5">{c.uses} uses</div>
+                  <div className="text-sm font-semibold text-foreground truncate">{c.name}</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">{usesFormatter(c.view_count)} uses</div>
                 </div>
               </button>
             )
@@ -188,7 +197,7 @@ function LearningResources() {
             <h2 className="font-['DM_Serif_Display',serif] text-2xl lg:text-3xl text-foreground mb-1">Learning Resources</h2>
             <p className="text-sm text-muted-foreground">Deepen your financial knowledge</p>
           </div>
-          <button className="hidden sm:flex items-center gap-1.5 text-sm text-primary font-medium hover:underline transition-all duration-200">
+          <button className="hidden sm:flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
             View all <ArrowRight className="w-4 h-4" />
           </button>
         </div>
@@ -209,6 +218,50 @@ function LearningResources() {
               </button>
             )
           })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function FeaturedGuides() {
+  const navigate = useNavigate()
+  const { data: calculators } = useFeaturedCalculators()
+
+  if (!calculators || calculators.length === 0) return null
+
+  const featured = calculators.slice(0, 4)
+
+  return (
+    <section className="py-16 bg-card border-y border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-end justify-between mb-8">
+          <div>
+            <h2 className="font-['DM_Serif_Display',serif] text-2xl lg:text-3xl text-foreground mb-1">Featured Calculators</h2>
+            <p className="text-sm text-muted-foreground">Our most popular financial tools</p>
+          </div>
+          <button className="hidden sm:flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+            View all <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {featured.map((calc) => (
+            <button
+              key={calc.id}
+              onClick={() => navigate(`/calculator/${calc.slug}`)}
+              className="group text-left bg-background border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out cursor-pointer"
+            >
+              <div className="h-32 bg-gradient-to-br from-primary/5 via-primary/[0.02] to-background flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-4xl font-bold text-primary/20 font-['DM_Serif_Display',serif]">{calc.name.charAt(0)}</span>
+                </div>
+              </div>
+              <div className="p-5">
+                <h3 className="font-semibold text-foreground text-sm mb-1.5 group-hover:text-primary transition-colors">{calc.name}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{calc.short_description || calc.description}</p>
+              </div>
+            </button>
+          ))}
         </div>
       </div>
     </section>

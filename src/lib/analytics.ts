@@ -1,3 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000"
+
 type EventName =
   | "page_view"
   | "calculator_used"
@@ -19,6 +21,67 @@ interface AnalyticsEvent {
 
 const EVENT_QUEUE: AnalyticsEvent[] = []
 
+function getSessionId(): string {
+  let sid = sessionStorage.getItem("analytics_session_id")
+  if (!sid) {
+    sid = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    sessionStorage.setItem("analytics_session_id", sid)
+  }
+  return sid
+}
+
+async function sendToBackend(event: AnalyticsEvent) {
+  try {
+    const sessionId = getSessionId()
+    switch (event.name) {
+      case "page_view": {
+        await fetch(`${API_URL}/api/v1/analytics/track/page-view`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            page_type: event.properties?.page_type || "unknown",
+            page_id: event.properties?.page_id || null,
+            url: event.properties?.path || window.location.pathname,
+            referrer: document.referrer || null,
+            session_id: sessionId,
+            time_on_page: null,
+          }),
+        })
+        break
+      }
+      case "calculator_used": {
+        await fetch(`${API_URL}/api/v1/analytics/track/calculator-usage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            calculator_id: event.properties?.calculator_id || null,
+            calculator_slug: event.properties?.calculator_slug || null,
+            session_id: sessionId,
+            time_on_page: event.properties?.time_on_page || null,
+          }),
+        })
+        break
+      }
+      case "search_used": {
+        await fetch(`${API_URL}/api/v1/analytics/track/search`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: event.properties?.query || "",
+            result_count: event.properties?.result_count || 0,
+            session_id: sessionId,
+            clicked_result: event.properties?.clicked_result || null,
+            clicked_result_type: event.properties?.clicked_result_type || null,
+          }),
+        })
+        break
+      }
+    }
+  } catch {
+    // silently fail - analytics should never block the app
+  }
+}
+
 function sendToAnalytics(event: AnalyticsEvent) {
   if (typeof window === "undefined") return
 
@@ -30,7 +93,6 @@ function sendToAnalytics(event: AnalyticsEvent) {
   } catch { /* ignore */ }
 
   // Google Analytics 4
-  // To enable, set VITE_GA_MEASUREMENT_ID in your .env file
   const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID || ""
   if (typeof window !== "undefined" && (window as any).gtag && gaId) {
     try {
@@ -40,6 +102,9 @@ function sendToAnalytics(event: AnalyticsEvent) {
       })
     } catch { /* ignore */ }
   }
+
+  // Backend tracking API (fire and forget)
+  sendToBackend(event)
 }
 
 export function trackEvent(name: EventName, properties?: Record<string, string | number | boolean>) {
@@ -54,7 +119,7 @@ export function trackEvent(name: EventName, properties?: Record<string, string |
 }
 
 export function trackPageView(path: string) {
-  trackEvent("page_view", { path })
+  trackEvent("page_view", { path, page_type: "page" })
 
   const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID || ""
   if (typeof window !== "undefined" && (window as any).gtag && gaId) {

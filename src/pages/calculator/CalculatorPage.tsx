@@ -30,6 +30,8 @@ import { generateCalculatorSchema, generateBreadcrumbSchema, generateFAQSchema, 
 import { getCalculatorFAQs } from "../../components/shared/SEOContentBlock"
 import { exportToExcel, exportToImage } from "../../lib/exportUtils"
 import { trackEvent } from "../../lib/analytics"
+import { enrichMetaFromApi } from "../../lib/calculatorService"
+import { CALCULATOR_META, type CalcMeta } from "../../lib/calculatorMeta"
 
 function fmtVal(v: number, format?: string, currencyCode = "USD"): string {
   switch (format) {
@@ -64,6 +66,13 @@ export function CalculatorPage() {
     return () => document.removeEventListener("mousedown", handleClick)
   }, [moreOpen])
 
+  const [enrichedMeta, setEnrichedMeta] = useState<CalcMeta | null>(null)
+
+  useEffect(() => {
+    if (isBasic || !config) return
+    enrichMetaFromApi(calcType, config.meta).then(setEnrichedMeta)
+  }, [calcType, isBasic, config])
+
   if (!config && !isBasic) {
     return (
       <div className="py-20 text-center">
@@ -74,7 +83,7 @@ export function CalculatorPage() {
     )
   }
 
-  const meta = isBasic ? CALCULATOR_META.basic : config!.meta
+  const meta = isBasic ? CALCULATOR_META.basic : (enrichedMeta || config!.meta)
 
   if (isBasic) {
     const basicUrl = `https://financecalculator.com/calculator/basic`

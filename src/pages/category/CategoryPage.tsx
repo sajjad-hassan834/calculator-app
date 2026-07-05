@@ -1,12 +1,21 @@
 import { useParams, Link } from "react-router"
 import { ArrowRight, Calculator, TrendingUp, Star, BookOpen, FileText } from "lucide-react"
-import { CATEGORIES, FEATURED } from "../../lib/data"
 import { Breadcrumbs } from "../../components/ui/Breadcrumbs"
-import { SEARCH_INDEX } from "../../lib/searchData"
 import { SEOHead } from "../../components/seo/SEOHead"
-import { EducationalIllustration } from "../../components/visual/EducationalIllustration"
-import { FeaturedImage } from "../../components/visual/FeaturedImage"
-import { EXPANDED_CONTENT } from "../../lib/expandedContent"
+import { useCategoryBySlug } from "../../hooks/queries/useCategories"
+import { useCategories } from "../../hooks/queries/useCategories"
+
+const GRADIENT_MAP: Record<string, string> = {
+  mortgage: "from-blue-600 to-blue-800",
+  compound: "from-emerald-600 to-emerald-800",
+  loan: "from-purple-600 to-purple-800",
+  savings: "from-amber-500 to-amber-700",
+  retirement: "from-rose-600 to-rose-800",
+  roi: "from-teal-600 to-teal-800",
+  investment: "from-cyan-600 to-cyan-800",
+  tax: "from-indigo-600 to-indigo-800",
+  "break-even": "from-orange-600 to-orange-800",
+}
 
 const CATEGORY_EDUCATION: Record<string, { overview: string; keyInsight: string }> = {
   mortgage: {
@@ -39,34 +48,32 @@ const CATEGORY_EDUCATION: Record<string, { overview: string; keyInsight: string 
   },
 }
 
-function getCalculatorIdsForCategory(categoryId: string): string[] {
-  const map: Record<string, string[]> = {
-    mortgage: ["mortgage"],
-    investments: ["compound", "roi", "investment"],
-    loans: ["loan", "mortgage"],
-    savings: ["savings", "compound"],
-    retirement: ["retirement", "compound"],
-    tax: ["tax"],
-    business: ["roi", "break-even"],
-  }
-  return map[categoryId] || []
-}
-
-const CATEGORY_IMAGE_MAP: Record<string, { src: string; alt: string }> = {
-  mortgage: { src: "/images/homepage/hero-finance.svg", alt: "Mortgage calculator dashboard showing payments and amortization" },
-  investments: { src: "/images/investments/investment-portfolio.svg", alt: "Investment portfolio with asset allocation breakdown" },
-  loans: { src: "/images/loan/personal-loan.svg", alt: "Personal loan calculator illustration" },
-  savings: { src: "/images/savings/savings-goal.svg", alt: "Savings goal tracker illustration" },
-  retirement: { src: "/images/retirement/retirement-planning.svg", alt: "Retirement planning illustration" },
-  tax: { src: "/images/tax/tax-filing.svg", alt: "Tax filing and bracket illustration" },
-  business: { src: "/images/business/business-growth.svg", alt: "Business growth chart illustration" },
-}
-
 export function CategoryPage() {
   const { id } = useParams<{ id: string }>()
-  const category = CATEGORIES.find((c) => c.id === id)
+  const { data: category, isLoading, isError } = useCategoryBySlug(id)
+  const { data: allCategories } = useCategories()
 
-  if (!category) {
+  if (isLoading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+        <div className="h-6 w-32 bg-secondary rounded-full animate-pulse mb-8" />
+        <div className="flex items-start gap-5 mb-10">
+          <div className="w-16 h-16 bg-secondary rounded-2xl animate-pulse" />
+          <div className="flex-1">
+            <div className="h-8 w-64 bg-secondary rounded-full animate-pulse mb-2" />
+            <div className="h-4 w-96 bg-secondary rounded-full animate-pulse" />
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="h-48 bg-secondary rounded-2xl animate-pulse" />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (isError || !category) {
     return (
       <div className="py-20 text-center">
         <h1 className="text-2xl font-semibold text-foreground">Category not found</h1>
@@ -76,57 +83,30 @@ export function CategoryPage() {
     )
   }
 
-  const Icon = category.icon
-
-  const allCalcs = SEARCH_INDEX.filter((c) => {
-    const categoryName = category.label.toLowerCase()
-    if (categoryName === "loans" || categoryName === "mortgage") {
-      return c.category.toLowerCase() === "mortgage" || c.category.toLowerCase() === "loans"
-    }
-    return c.category.toLowerCase() === categoryName ||
-      c.category.toLowerCase().includes(categoryName) ||
-      categoryName.includes(c.category.toLowerCase())
-  })
-
-  const featuredCalcs = FEATURED.filter((c) => {
-    if (category.id === "mortgage") return c.id === "mortgage" || c.id === "loan"
-    if (category.id === "investments") return ["compound", "roi", "investment"].includes(c.id)
-    if (category.id === "loans") return ["loan", "mortgage"].includes(c.id)
-    if (category.id === "savings") return ["savings", "compound"].includes(c.id)
-    if (category.id === "retirement") return ["retirement", "compound"].includes(c.id)
-    if (category.id === "tax") return ["tax"].includes(c.id)
-    if (category.id === "business") return ["roi", "break-even"].includes(c.id)
-    return c.id === category.id
-  })
-
-  const otherCategories = CATEGORIES.filter((c) => c.id !== category.id)
-  const calcCount = allCalcs.length || featuredCalcs.length
-  const displayCalcs = allCalcs.length > 0 ? allCalcs : featuredCalcs
-
-  const calcIds = getCalculatorIdsForCategory(category.id)
-  const relatedGuides = calcIds.flatMap((cid) => EXPANDED_CONTENT[cid]?.relatedGuides || [])
-  const featuredGuides = relatedGuides.slice(0, 4)
-  const education = CATEGORY_EDUCATION[category.id]
+  const calculators = category.calculators || []
+  const education = CATEGORY_EDUCATION[category.slug] || CATEGORY_EDUCATION[category.slug.replace(/-/g, "")]
+  const otherCategories = (allCategories || []).filter((c) => c.slug !== category.slug)
+  const calcCount = calculators.length || category.calculator_count
 
   return (
     <div className="bg-background min-h-screen">
       <SEOHead
-        title={`${category.label} Calculators — Free Online Tools | FinanceCalculator.com`}
-        description={category.desc}
-        canonical={`https://financecalculator.com/category/${category.id}`}
+        title={`${category.name} Calculators — Free Online Tools | FinanceCalculator.com`}
+        description={`Free ${category.name.toLowerCase()} calculators and tools. ${category.description || ""}`}
+        canonical={`https://financecalculator.com/category/${category.slug}`}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
-        <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: category.label }]} />
+        <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: category.name }]} />
 
         <div className="flex items-start gap-5 mb-10">
           <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center shrink-0">
-            <Icon className="w-8 h-8 text-primary" />
+            <Calculator className="w-8 h-8 text-primary" />
           </div>
           <div>
             <h1 className="font-['DM_Serif_Display',serif] text-3xl lg:text-4xl text-foreground">
-              {category.label} Calculators
+              {category.name} Calculators
             </h1>
-            <p className="text-muted-foreground mt-1.5">{category.desc}</p>
+            <p className="text-muted-foreground mt-1.5">{category.description}</p>
             <div className="flex items-center gap-4 mt-3 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <Calculator className="w-4 h-4" />
@@ -134,7 +114,7 @@ export function CategoryPage() {
               </span>
               <span className="flex items-center gap-1.5">
                 <TrendingUp className="w-4 h-4" />
-                <span>{category.count || calcCount * 1000}+ monthly users</span>
+                <span>Free to use</span>
               </span>
             </div>
           </div>
@@ -143,7 +123,7 @@ export function CategoryPage() {
 
       <section className="pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {displayCalcs.length > 0 && (
+          {calculators.length > 0 && (
             <>
               <div className="flex items-center gap-2 mb-5">
                 <Star className="w-4 h-4 text-primary" />
@@ -152,11 +132,10 @@ export function CategoryPage() {
                 </h2>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {displayCalcs.map((calc) => {
-                  const CalcIcon = FEATURED.find((f) => f.id === calc.id)?.icon || Calculator
-                  const gradient = FEATURED.find((f) => f.id === calc.id)?.gradient || "from-primary to-primary/70"
-                  const uses = FEATURED.find((f) => f.id === calc.id)?.uses || ""
-                  const path = `/calculator/${calc.id}`
+                {calculators.map((calc) => {
+                  const gradient = GRADIENT_MAP[calc.slug] || "from-primary to-primary/70"
+                  const uses = calc.view_count ? `${(calc.view_count / 1000).toFixed(1)}K` : ""
+                  const path = `/calculator/${calc.slug}`
                   return (
                     <Link
                       key={calc.id}
@@ -164,10 +143,10 @@ export function CategoryPage() {
                       className="group relative text-left bg-card border border-border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden"
                     >
                       <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-4`}>
-                        <CalcIcon className="w-5 h-5 text-white" />
+                        <Calculator className="w-5 h-5 text-white" />
                       </div>
-                      <h3 className="font-semibold text-foreground mb-1.5">{calc.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2">{"desc" in calc ? calc.desc : calc.description}</p>
+                      <h3 className="font-semibold text-foreground mb-1.5">{calc.name}</h3>
+                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2">{calc.short_description || calc.description}</p>
                       <div className="flex items-center justify-between">
                         {uses && <span className="text-xs text-muted-foreground font-['JetBrains_Mono',monospace]">{uses} uses</span>}
                         <span className="flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity ml-auto">
@@ -181,7 +160,7 @@ export function CategoryPage() {
             </>
           )}
 
-          {displayCalcs.length === 0 && (
+          {calculators.length === 0 && (
             <div className="text-center py-16 bg-card border border-border rounded-2xl">
               <Calculator className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
               <p className="text-muted-foreground font-medium">No calculators available in this category yet</p>
@@ -194,15 +173,6 @@ export function CategoryPage() {
       {education && (
         <section className="pb-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {CATEGORY_IMAGE_MAP[category.id] && (
-              <div className="mb-6">
-                <FeaturedImage
-                  src={CATEGORY_IMAGE_MAP[category.id].src}
-                  alt={CATEGORY_IMAGE_MAP[category.id].alt}
-                  aspectRatio="21/8"
-                />
-              </div>
-            )}
             <div className="grid md:grid-cols-3 gap-6">
               <div className="md:col-span-2 bg-card border border-border rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-3">
@@ -217,36 +187,16 @@ export function CategoryPage() {
                   </p>
                 </div>
               </div>
-              {calcIds.length > 0 && (
+              {calculators.slice(0, 3).length > 0 && (
                 <div className="space-y-3">
-                  {calcIds.slice(0, 3).map((cid) => (
-                    <EducationalIllustration key={cid} calculatorId={cid} />
+                  {calculators.slice(0, 3).map((calc) => (
+                    <div key={calc.id} className="bg-card border border-border rounded-xl p-4">
+                      <div className="text-xs font-semibold text-foreground mb-1">{calc.name}</div>
+                      <p className="text-xs text-muted-foreground line-clamp-3">{calc.description || calc.short_description}</p>
+                    </div>
                   ))}
                 </div>
               )}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {featuredGuides.length > 0 && (
-        <section className="pb-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-2 mb-5">
-              <FileText className="w-4 h-4 text-primary" />
-              <h2 className="text-sm font-semibold text-foreground uppercase tracking-wider">Related Guides</h2>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {featuredGuides.map((guide) => (
-                <Link
-                  key={guide.title}
-                  to={guide.url}
-                  className="group bg-card border border-border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out"
-                >
-                  <h3 className="font-semibold text-foreground text-sm mb-1.5 group-hover:text-primary transition-colors">{guide.title}</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{guide.description}</p>
-                </Link>
-              ))}
             </div>
           </div>
         </section>
@@ -260,19 +210,16 @@ export function CategoryPage() {
               <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">Browse Other Categories</h3>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {otherCategories.slice(0, 12).map((cat) => {
-                const CatIcon = cat.icon
-                return (
-                  <Link
-                    key={cat.id}
-                    to={`/category/${cat.id}`}
-                    className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-background border border-border text-sm text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all duration-200"
-                  >
-                    <CatIcon className="w-4 h-4 shrink-0" />
-                    <span className="truncate">{cat.label}</span>
-                  </Link>
-                )
-              })}
+              {otherCategories.slice(0, 12).map((cat) => (
+                <Link
+                  key={cat.slug}
+                  to={`/category/${cat.slug}`}
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-background border border-border text-sm text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all duration-200"
+                >
+                  <Calculator className="w-4 h-4 shrink-0" />
+                  <span className="truncate">{cat.name}</span>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
