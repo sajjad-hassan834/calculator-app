@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000"
+import { api } from "../services/api"
 
 type EventName =
   | "page_view"
@@ -35,44 +35,32 @@ async function sendToBackend(event: AnalyticsEvent) {
     const sessionId = getSessionId()
     switch (event.name) {
       case "page_view": {
-        await fetch(`${API_URL}/api/v1/analytics/track/page-view`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            page_type: event.properties?.page_type || "unknown",
-            page_id: event.properties?.page_id || null,
-            url: event.properties?.path || window.location.pathname,
-            referrer: document.referrer || null,
-            session_id: sessionId,
-            time_on_page: null,
-          }),
+        await api.post("/api/v1/analytics/track/page-view", {
+          page_type: event.properties?.page_type || "unknown",
+          page_id: event.properties?.page_id || null,
+          url: event.properties?.path || window.location.pathname,
+          referrer: document.referrer || null,
+          session_id: sessionId,
+          time_on_page: null,
         })
         break
       }
       case "calculator_used": {
-        await fetch(`${API_URL}/api/v1/analytics/track/calculator-usage`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            calculator_id: event.properties?.calculator_id || null,
-            calculator_slug: event.properties?.calculator_slug || null,
-            session_id: sessionId,
-            time_on_page: event.properties?.time_on_page || null,
-          }),
+        await api.post("/api/v1/analytics/track/calculator-usage", {
+          calculator_id: event.properties?.calculator_id || null,
+          calculator_slug: event.properties?.calculator_slug || null,
+          session_id: sessionId,
+          time_on_page: event.properties?.time_on_page || null,
         })
         break
       }
       case "search_used": {
-        await fetch(`${API_URL}/api/v1/analytics/track/search`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            query: event.properties?.query || "",
-            result_count: event.properties?.result_count || 0,
-            session_id: sessionId,
-            clicked_result: event.properties?.clicked_result || null,
-            clicked_result_type: event.properties?.clicked_result_type || null,
-          }),
+        await api.post("/api/v1/analytics/track/search", {
+          query: event.properties?.query || "",
+          result_count: event.properties?.result_count || 0,
+          session_id: sessionId,
+          clicked_result: event.properties?.clicked_result || null,
+          clicked_result_type: event.properties?.clicked_result_type || null,
         })
         break
       }
