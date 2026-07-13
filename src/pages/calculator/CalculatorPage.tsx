@@ -32,6 +32,7 @@ import { exportToExcel, exportToImage } from "../../lib/exportUtils"
 import { trackEvent } from "../../lib/analytics"
 import { enrichMetaFromApi } from "../../lib/calculatorService"
 import { CALCULATOR_META, type CalcMeta } from "../../lib/calculatorMeta"
+import { BasicCalculator } from "../../components/calculator/BasicCalculator"
 
 function fmtVal(v: number, format?: string, currencyCode = "USD"): string {
   switch (format) {

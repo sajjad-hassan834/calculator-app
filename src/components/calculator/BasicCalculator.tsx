@@ -1,5 +1,5 @@
 import { useReducer, useEffect, useRef, useCallback, useState } from "react"
-import { HistoryIcon } from "lucide-react"
+import { History } from "lucide-react"
 import { useLocalStorage } from "../../hooks/useLocalStorage"
 import { HistoryDrawer, type CalcHistoryEntry } from "./HistoryDrawer"
 
@@ -284,6 +284,13 @@ export function BasicCalculator() {
   const [history, setHistory] = useLocalStorage<CalcHistoryEntry[]>("basicCalcHistory", [])
   const [historyOpen, setHistoryOpen] = useState(false)
   const prevJustEvaluated = useRef(false)
+  const expressionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (expressionRef.current) {
+      expressionRef.current.scrollLeft = expressionRef.current.scrollWidth
+    }
+  }, [state.expression])
 
   useEffect(() => {
     if (state.justEvaluated && !prevJustEvaluated.current && state.pendingExpression) {
@@ -300,37 +307,53 @@ export function BasicCalculator() {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key >= "0" && e.key <= "9") {
+      const tag = (e.target as HTMLElement).tagName
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return
+
+      let key = e.key
+
+      if (e.code.startsWith("Numpad")) {
+        const numpadMap: Record<string, string> = {
+          Numpad0: "0", Numpad1: "1", Numpad2: "2", Numpad3: "3",
+          Numpad4: "4", Numpad5: "5", Numpad6: "6", Numpad7: "7",
+          Numpad8: "8", Numpad9: "9", NumpadDecimal: ".",
+          NumpadAdd: "+", NumpadSubtract: "-", NumpadMultiply: "*",
+          NumpadDivide: "/", NumpadEnter: "Enter",
+        }
+        key = numpadMap[e.code] || key
+      }
+
+      if (/^[0-9]$/.test(key)) {
         e.preventDefault()
-        dispatch({ type: "DIGIT", digit: e.key })
+        dispatch({ type: "DIGIT", digit: key })
         return
       }
-      if (e.key === ".") {
+      if (key === ".") {
         e.preventDefault()
         dispatch({ type: "DECIMAL" })
         return
       }
-      if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+      if (["+", "-", "*", "/"].includes(key)) {
         e.preventDefault()
-        dispatch({ type: "OPERATOR", op: e.key })
+        dispatch({ type: "OPERATOR", op: key })
         return
       }
-      if (e.key === "Enter" || e.key === "=") {
+      if (key === "Enter" || key === "=") {
         e.preventDefault()
         dispatch({ type: "EVALUATE" })
         return
       }
-      if (e.key === "Backspace") {
+      if (key === "Backspace") {
         e.preventDefault()
         dispatch({ type: "BACKSPACE" })
         return
       }
-      if (e.key === "Escape") {
+      if (key === "Escape") {
         e.preventDefault()
         dispatch({ type: "CLEAR" })
         return
       }
-      if (e.key === "%") {
+      if (key === "%") {
         e.preventDefault()
         dispatch({ type: "PERCENT" })
         return
@@ -344,40 +367,48 @@ export function BasicCalculator() {
     dispatch({ type: "RECALL", value })
   }, [])
 
+  const isDefaultState = state.display === "0" && !state.operator && !state.firstOperand && !state.error
+
   return (
-    <>
+    <div className="relative">
       <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden" role="region" aria-label="Basic calculator">
-        <div className="px-5 pt-5 pb-2 bg-background/50 border-b border-border">
+        <div className="px-5 pt-5 pb-3 bg-background/50 border-b border-border space-y-1">
           <div
-            className="text-right text-sm text-muted-foreground font-mono truncate h-5 leading-5"
+            ref={expressionRef}
+            className="text-right text-sm text-muted-foreground/60 font-mono truncate h-5 leading-5 overflow-x-auto scrollbar-none"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             aria-label="Expression"
           >
-            {state.expression || "\u00A0"}
+            {state.expression || <span className="opacity-0">placeholder</span>}
           </div>
           <div
-            className={`text-right text-3xl sm:text-4xl font-semibold font-mono tracking-tight transition-colors ${
-              state.error ? "text-destructive" : state.justEvaluated ? "text-primary" : "text-foreground"
+            className={`text-right text-3xl sm:text-4xl font-semibold font-mono tracking-tight transition-all duration-150 ${
+              state.error
+                ? "text-destructive"
+                : state.justEvaluated
+                ? "text-primary"
+                : "text-foreground"
             }`}
             aria-live="polite"
             aria-atomic="true"
           >
-            {state.display}
+            {state.error || state.display}
           </div>
         </div>
 
         <div className="p-3 grid grid-cols-4 gap-2">
           <CalcButton
-            label="AC"
-            ariaLabel="Clear all"
+            label={isDefaultState ? "AC" : "C"}
+            ariaLabel={isDefaultState ? "Clear all" : "Clear"}
             variant="clear"
             onClick={() => dispatch({ type: "CLEAR" })}
           />
 
           <CalcButton
-            label="±"
-            ariaLabel="Toggle sign"
-            variant="utility"
-            onClick={() => dispatch({ type: "TOGGLE_SIGN" })}
+            label="⌫"
+            ariaLabel="Backspace"
+            variant="delete"
+            onClick={() => dispatch({ type: "BACKSPACE" })}
           />
 
           <CalcButton
@@ -454,10 +485,15 @@ export function BasicCalculator() {
         <div className="px-4 pb-3">
           <button
             onClick={() => setHistoryOpen(true)}
-            className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-colors"
+            className="group relative flex items-center justify-center gap-1.5 w-full py-2 text-xs font-medium text-muted-foreground/60 hover:text-foreground hover:bg-secondary/50 rounded-lg transition-all duration-150"
           >
-            <HistoryIcon className="w-3.5 h-3.5" />
+            <History className="w-3.5 h-3.5 transition-transform duration-150 group-hover:scale-110" />
             History
+            {history.length > 0 && (
+              <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-primary/10 text-[10px] font-semibold text-primary">
+                {history.length}
+              </span>
+            )}
           </button>
         </div>
       </div>
@@ -470,11 +506,11 @@ export function BasicCalculator() {
         onClear={() => setHistory([])}
         onRemove={(id) => setHistory((prev) => prev.filter((e) => e.id !== id))}
       />
-    </>
+    </div>
   )
 }
 
-type ButtonVariant = "number" | "operator" | "clear" | "equals" | "utility"
+type ButtonVariant = "number" | "operator" | "clear" | "delete" | "equals" | "utility"
 
 interface CalcButtonProps {
   label: string
@@ -486,15 +522,26 @@ interface CalcButtonProps {
 
 const variantStyles: Record<ButtonVariant, string> = {
   number:
-    "bg-secondary text-foreground hover:bg-secondary/80",
+    "bg-secondary text-foreground hover:bg-secondary/70 active:bg-secondary/90 shadow-sm",
   operator:
-    "bg-accent text-accent-foreground hover:bg-accent/80",
+    "bg-accent text-accent-foreground hover:bg-accent/70 active:bg-accent/90 shadow-sm",
   clear:
-    "bg-amber-500/15 text-amber-600 dark:text-amber-400 hover:bg-amber-500/25",
+    "bg-amber-500/15 text-amber-600 dark:text-amber-400 hover:bg-amber-500/25 active:bg-amber-500/35",
+  delete:
+    "bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20 active:bg-red-500/30",
   equals:
-    "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
+    "bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/110 shadow-md",
   utility:
-    "bg-secondary/60 text-muted-foreground hover:bg-secondary/80",
+    "bg-secondary/50 text-muted-foreground hover:bg-secondary/70 active:bg-secondary/90",
+}
+
+const sizeStyles: Record<ButtonVariant, string> = {
+  number: "text-lg sm:text-xl",
+  operator: "text-lg sm:text-xl",
+  clear: "text-base sm:text-lg",
+  delete: "text-lg sm:text-xl",
+  equals: "text-xl sm:text-2xl",
+  utility: "text-base sm:text-lg",
 }
 
 function CalcButton({ label, ariaLabel, variant, onClick, className = "" }: CalcButtonProps) {
@@ -503,11 +550,13 @@ function CalcButton({ label, ariaLabel, variant, onClick, className = "" }: Calc
       onClick={onClick}
       aria-label={ariaLabel || label}
       className={`
-        h-14 sm:h-16 rounded-xl text-lg sm:text-xl font-medium
-        active:scale-95 focus-visible:ring-2 focus-visible:ring-ring
-        transition-all duration-100 select-none
+        h-14 sm:h-16 rounded-xl font-medium
+        active:scale-95 active:shadow-none
+        focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background
+        select-none cursor-pointer
+        transition-all duration-100 ease-out
         ${variantStyles[variant]}
-        ${variant === "equals" ? "text-lg sm:text-2xl" : ""}
+        ${sizeStyles[variant]}
         ${className}
       `}
     >

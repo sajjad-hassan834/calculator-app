@@ -1,4 +1,6 @@
+import * as Dialog from "@radix-ui/react-dialog"
 import { X, Trash2, Clock, Calculator } from "lucide-react"
+import { motion, AnimatePresence } from "motion/react"
 
 export interface CalcHistoryEntry {
   id: string
@@ -27,107 +29,122 @@ interface HistoryDrawerProps {
 }
 
 export function HistoryDrawer({ open, onClose, onRecall, history, onClear, onRemove }: HistoryDrawerProps) {
-
   return (
-    <>
-      {open && (
-        <div
-          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
-          onClick={onClose}
-          aria-hidden="true"
-        />
-      )}
+    <Dialog.Root open={open} onOpenChange={(o) => !o && onClose()}>
+      <AnimatePresence>
+        {open && (
+          <Dialog.Portal forceMount>
+            <Dialog.Overlay asChild>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+              />
+            </Dialog.Overlay>
 
-      <div
-        className={`fixed top-0 right-0 z-50 h-full w-80 max-w-[85vw] bg-card border-l border-border shadow-2xl transition-transform duration-300 ease-out flex flex-col ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Calculation history"
-      >
-        <div className="flex items-center justify-between px-4 py-3.5 border-b border-border shrink-0">
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-muted-foreground" />
-            <h2 className="text-sm font-semibold text-foreground">History</h2>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
-            aria-label="Close history"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto">
-          {history.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center px-6">
-              <Calculator className="w-10 h-10 text-muted-foreground/40 mb-3" />
-              <p className="text-sm text-muted-foreground">No history yet</p>
-              <p className="text-xs text-muted-foreground/60 mt-1">
-                Completed calculations will appear here
-              </p>
-            </div>
-          ) : (
-            <div className="p-3 space-y-2">
-              {history.map((entry) => (
-                <div
-                  key={entry.id}
-                  className="group relative bg-secondary/40 border border-border rounded-xl p-3 hover:bg-secondary/70 transition-colors cursor-pointer"
-                  onClick={() => {
-                    onRecall(entry.result)
-                    onClose()
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault()
-                      onRecall(entry.result)
-                      onClose()
-                    }
-                  }}
-                >
-                  <div className="text-xs text-muted-foreground/70 font-mono truncate pr-6">
-                    {entry.expression}
-                  </div>
-                  <div className="text-base font-semibold text-foreground font-mono mt-0.5">
-                    {entry.result}
-                  </div>
-                  <div className="flex items-center justify-between mt-1.5">
-                    <span className="text-[10px] text-muted-foreground/50">
-                      {formatTimestamp(entry.timestamp)}
-                    </span>
-                  </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      onRemove(entry.id)
-                    }}
-                    className="absolute top-2 right-2 p-1 rounded-md text-muted-foreground/40 hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition-all"
-                    aria-label="Remove entry"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
+            <Dialog.Content asChild>
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                className="fixed top-0 right-0 z-50 h-full w-80 max-w-[85vw] bg-card border-l border-border shadow-2xl flex flex-col"
+              >
+                <div className="flex items-center justify-between px-4 py-3.5 border-b border-border shrink-0">
+                  <Dialog.Title className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <Clock className="w-4 h-4 text-muted-foreground" />
+                    History
+                  </Dialog.Title>
+                  <Dialog.Close asChild>
+                    <button
+                      className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                      aria-label="Close history"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </Dialog.Close>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
 
-        {history.length > 0 && (
-          <div className="border-t border-border p-3 shrink-0">
-              <button
-              onClick={onClear}
-              className="flex items-center justify-center gap-2 w-full py-2 text-xs font-medium text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-              Clear history
-            </button>
-          </div>
+                <div className="flex-1 overflow-y-auto py-3 px-3">
+                  {history.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center h-full text-center px-6">
+                      <Calculator className="w-10 h-10 text-muted-foreground/30 mb-3" />
+                      <p className="text-sm text-muted-foreground">No history yet</p>
+                      <p className="text-xs text-muted-foreground/60 mt-1">
+                        Completed calculations appear here
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <AnimatePresence initial={false}>
+                        {history.map((entry, index) => (
+                          <motion.div
+                            key={entry.id}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, x: 20 }}
+                            transition={{ delay: index * 0.03, duration: 0.2 }}
+                            className="group relative bg-secondary/40 border border-border rounded-xl p-3 hover:bg-secondary/70 transition-colors cursor-pointer"
+                            onClick={() => {
+                              onRecall(entry.result)
+                              onClose()
+                            }}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault()
+                                onRecall(entry.result)
+                                onClose()
+                              }
+                            }}
+                          >
+                            <div className="text-xs text-muted-foreground/70 font-mono truncate pr-6">
+                              {entry.expression}
+                            </div>
+                            <div className="text-base font-semibold text-foreground font-mono mt-0.5">
+                              {entry.result}
+                            </div>
+                            <div className="flex items-center justify-between mt-1.5">
+                              <span className="text-[10px] text-muted-foreground/50">
+                                {formatTimestamp(entry.timestamp)}
+                              </span>
+                            </div>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                onRemove(entry.id)
+                              }}
+                              className="absolute top-2 right-2 p-1 rounded-md text-muted-foreground/40 hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition-all"
+                              aria-label="Remove entry"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </motion.div>
+                        ))}
+                      </AnimatePresence>
+                    </div>
+                  )}
+                </div>
+
+                {history.length > 0 && (
+                  <div className="border-t border-border p-3 shrink-0">
+                    <button
+                      onClick={onClear}
+                      className="flex items-center justify-center gap-2 w-full py-2 text-xs font-medium text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      Clear history
+                    </button>
+                  </div>
+                )}
+              </motion.div>
+            </Dialog.Content>
+          </Dialog.Portal>
         )}
-      </div>
-    </>
+      </AnimatePresence>
+    </Dialog.Root>
   )
 }
