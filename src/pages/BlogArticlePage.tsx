@@ -10,6 +10,27 @@ export function BlogArticlePage() {
   const { slug } = useParams<{ slug: string }>()
   const { data: article, isLoading, isError } = useBlogPostBySlug(slug)
 
+  const pageUrl = `https://financecalculator.com/blog/${slug}`
+
+  const articleJsonLd = useMemo(() => {
+    if (!article) return []
+    return [
+      generateOrganizationSchema(),
+      generateBreadcrumbSchema([
+        { label: "Home", path: "/" },
+        { label: "Blog", path: "/blog" },
+        { label: article.title },
+      ]),
+      generateArticleSchema({
+        headline: article.title,
+        description: article.excerpt || article.title,
+        datePublished: article.published_at || "",
+        authorName: article.author_name || "FinanceCalc",
+        url: pageUrl,
+      }),
+    ]
+  }, [article, pageUrl])
+
   if (isLoading) {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
@@ -35,24 +56,7 @@ export function BlogArticlePage() {
     )
   }
 
-  const pageUrl = `https://financecalculator.com/blog/${slug}`
   const paragraphs = article.content ? article.content.split("\n").filter(Boolean) : []
-
-  const articleJsonLd = useMemo(() => [
-    generateOrganizationSchema(),
-    generateBreadcrumbSchema([
-      { label: "Home", path: "/" },
-      { label: "Blog", path: "/blog" },
-      { label: article.title },
-    ]),
-    generateArticleSchema({
-      headline: article.title,
-      description: article.excerpt || article.title,
-      datePublished: article.published_at || "",
-      authorName: article.author_name || "FinanceCalc",
-      url: pageUrl,
-    }),
-  ], [article, pageUrl])
 
   return (
     <div className="bg-background min-h-screen">
