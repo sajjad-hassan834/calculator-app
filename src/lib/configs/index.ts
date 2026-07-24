@@ -8,6 +8,11 @@ import { roiConfig } from "./roi"
 import { investmentConfig } from "./investment"
 import { taxConfig } from "./tax"
 import { breakEvenConfig } from "./break-even"
+import { inflationConfig } from "./inflation"
+import { currencyConfig } from "./currency"
+import { budgetConfig } from "./budget"
+import { compareConfig } from "./compare"
+import { goalConfig } from "./goal"
 
 export const CALCULATOR_CONFIGS: Record<string, CalculatorConfig> = {
   mortgage: mortgageConfig,
@@ -19,6 +24,11 @@ export const CALCULATOR_CONFIGS: Record<string, CalculatorConfig> = {
   investment: investmentConfig,
   tax: taxConfig,
   "break-even": breakEvenConfig,
+  inflation: inflationConfig,
+  currency: currencyConfig,
+  budget: budgetConfig,
+  compare: compareConfig,
+  goal: goalConfig,
 }
 
 export function getCalculatorConfig(id: string): CalculatorConfig | undefined {

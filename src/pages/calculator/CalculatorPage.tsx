@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback, useEffect, useRef } from "react"
 import { useParams, Link } from "react-router"
 import {
   Copy, Check, Printer, Share2, Info, FileSpreadsheet, FileText,
-  ArrowLeft, ArrowUp, Download, MoreHorizontal, X
+  ArrowLeft, ArrowUp, Download, MoreHorizontal, X, Lock
 } from "lucide-react"
 import { SliderInput } from "../../components/shared/SliderInput"
 import { TermSelector } from "../../components/shared/TermSelector"
@@ -71,7 +71,7 @@ export function CalculatorPage() {
 
   useEffect(() => {
     if (isBasic || !config) return
-    enrichMetaFromApi(calcType, config.meta).then(setEnrichedMeta)
+    enrichMetaFromApi(calcType, config!.meta).then(setEnrichedMeta)
   }, [calcType, isBasic, config])
 
   if (!config && !isBasic) {
@@ -151,6 +151,7 @@ export function CalculatorPage() {
   const colors = getChartColors(isDark)
   const [copied, setCopied] = useState(false)
   const [tableTab, setTableTab] = useState<"yearly" | "monthly">("yearly")
+  const isPro = false // Mock Pro status
 
   const { values, setValue, results } = useCalculatorState(config!)
 
@@ -177,14 +178,14 @@ export function CalculatorPage() {
   }, [calcType, meta.category])
 
   const copyResult = useCallback(() => {
-    const text = config.copyTemplate(results)
+    const text = config!.copyTemplate(results)
     navigator.clipboard.writeText(text).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000) })
     trackEvent("result_copied", { calculator: calcType })
   }, [config, results, calcType])
 
   const exportCSV = useCallback(() => {
-    if (!config.csvData) return
-    const { columns, rows } = config.csvData(results)
+    if (!config!.csvData) return
+    const { columns, rows } = config!.csvData(results)
     const csv = columns.map(c => c.label).join(",") + "\n" + rows.map(r => columns.map(c => r[c.key]).join(",")).join("\n")
     const blob = new Blob([csv], { type: "text/csv" })
     const url = URL.createObjectURL(blob)
@@ -212,24 +213,24 @@ export function CalculatorPage() {
   const Icon = meta.icon
 
   const resultHighlight = {
-    label: config.highlight.label,
-    value: fmtVal(results[config.highlight.valueKey], config.highlight.format, currency),
+    label: config!.highlight.label,
+    value: fmtVal(results[config!.highlight.valueKey], config!.highlight.format, currency),
   }
 
-  const isTableVisible = config.tableData != null
-  const hasMonthly = config.hasMonthlyTable && (calcType === "mortgage" || calcType === "loan")
+  const isTableVisible = config!.tableData != null
+  const hasMonthly = config!.hasMonthlyTable && (calcType === "mortgage" || calcType === "loan")
 
-  const growthChartData = useMemo(() => config.growthChart.data(results), [config, results])
-  const showGrowthChart = growthChartData.length > 0 && config.growthChart.lines.length > 0
+  const growthChartData = useMemo(() => config!.growthChart.data(results), [config, results])
+  const showGrowthChart = growthChartData.length > 0 && config!.growthChart.lines.length > 0
 
   const growthChartLines = useMemo(() =>
-    config.growthChart.lines.map(l => ({
+    config!.growthChart.lines.map(l => ({
       ...l,
       color: colors[l.colorKey as keyof typeof colors] || l.colorKey,
     })),
   [config, colors])
 
-  const pieData = useMemo(() => config.pieChart.data(values, results), [config, values, results])
+  const pieData = useMemo(() => config!.pieChart.data(values, results), [config, values, results])
 
   const pageUrl = `https://financecalculator.com/calculator/${calcType}`
   const faqs = getCalculatorFAQs(calcType)
@@ -297,9 +298,9 @@ export function CalculatorPage() {
               {/* ── Card toolbar ─────────────────────────────────── */}
               <div className="flex items-center gap-2 px-4 sm:px-6 py-3.5 border-b border-border min-w-0">
                 {/* Title group */}
-                <div className="flex-1 min-w-0 mr-2">
-                  <h2 className="font-semibold text-foreground text-sm sm:text-base truncate">{meta.title}</h2>
-                  <p className="text-xs text-muted-foreground mt-0.5 hidden sm:block">Results update in real time</p>
+                <div className="flex-1 min-w-0 mr-2 pt-1 pb-1">
+                  <h2 className="font-bold text-foreground text-lg sm:text-xl truncate">{meta.title}</h2>
+                  <p className="text-sm text-muted-foreground mt-1 hidden sm:block">Results update in real time</p>
                 </div>
 
                 {/* Primary actions — always visible */}
@@ -357,53 +358,66 @@ export function CalculatorPage() {
                             <X className="w-3.5 h-3.5" />
                           </button>
                         </div>
-                        {config.csvData && (
+                        {config!.csvData && (
                           <button
-                            onClick={() => { exportCSV(); setMoreOpen(false) }}
-                            className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                            onClick={() => {
+                              if (!isPro) { alert("This is a Premium feature. Please upgrade your plan to export CSV."); return; }
+                              exportCSV(); setMoreOpen(false)
+                            }}
+                            className="w-full flex items-center justify-between px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                             role="menuitem"
                           >
-                            <FileSpreadsheet className="w-3.5 h-3.5" />
-                            Export CSV
+                            <span className="flex items-center gap-2.5"><FileSpreadsheet className="w-3.5 h-3.5" /> Export CSV</span>
+                            {!isPro && <Lock className="w-3 h-3 text-amber-500" />}
                           </button>
                         )}
                         <button
-                          onClick={() => { exportJSON(); setMoreOpen(false) }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                          onClick={() => {
+                            if (!isPro) { alert("This is a Premium feature. Please upgrade your plan to export JSON."); return; }
+                            exportJSON(); setMoreOpen(false)
+                          }}
+                          className="w-full flex items-center justify-between px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                           role="menuitem"
                         >
-                          <Download className="w-3.5 h-3.5" />
-                          Export JSON
+                          <span className="flex items-center gap-2.5"><Download className="w-3.5 h-3.5" /> Export JSON</span>
+                          {!isPro && <Lock className="w-3 h-3 text-amber-500" />}
                         </button>
-                        {isTableVisible && config.tableData && (
+                        {isTableVisible && config!.tableData && (
                           <button
                             onClick={() => {
-                              const td = config.tableData!(results)
+                              if (!isPro) { alert("This is a Premium feature. Please upgrade your plan to export Excel."); return; }
+                              const td = config!.tableData!(results)
                               exportToExcel(td, `${calcType}-results`)
                               setMoreOpen(false)
                             }}
-                            className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                            className="w-full flex items-center justify-between px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                             role="menuitem"
                           >
-                            <FileSpreadsheet className="w-3.5 h-3.5" />
-                            Export Excel
+                            <span className="flex items-center gap-2.5"><FileSpreadsheet className="w-3.5 h-3.5" /> Export Excel</span>
+                            {!isPro && <Lock className="w-3 h-3 text-amber-500" />}
                           </button>
                         )}
                         <button
-                          onClick={() => { exportToImage("calculator-section", `${calcType}-results`); setMoreOpen(false) }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                          onClick={() => {
+                            if (!isPro) { alert("This is a Premium feature. Please upgrade your plan to save as image."); return; }
+                            exportToImage("calculator-section", `${calcType}-results`); setMoreOpen(false)
+                          }}
+                          className="w-full flex items-center justify-between px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                           role="menuitem"
                         >
-                          <Download className="w-3.5 h-3.5" />
-                          Save as Image
+                          <span className="flex items-center gap-2.5"><Download className="w-3.5 h-3.5" /> Save as Image</span>
+                          {!isPro && <Lock className="w-3 h-3 text-amber-500" />}
                         </button>
                         <button
-                          onClick={() => { window.print(); setMoreOpen(false) }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                          onClick={() => {
+                            if (!isPro) { alert("This is a Premium feature. Please upgrade your plan to export PDF."); return; }
+                            window.print(); setMoreOpen(false)
+                          }}
+                          className="w-full flex items-center justify-between px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                           role="menuitem"
                         >
-                          <FileText className="w-3.5 h-3.5" />
-                          Export PDF
+                          <span className="flex items-center gap-2.5"><FileText className="w-3.5 h-3.5" /> Export PDF</span>
+                          {!isPro && <Lock className="w-3 h-3 text-amber-500" />}
                         </button>
                       </div>
                     )}
@@ -412,8 +426,8 @@ export function CalculatorPage() {
               </div>
 
             <div className="grid lg:grid-cols-5 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-border">
-              <div className="lg:col-span-3 p-6 space-y-6">
-                {config.inputs.map((input) => {
+              <div className="lg:col-span-3 p-6 sm:p-8 space-y-8">
+                {config!.inputs.map((input) => {
                   if (input.type === "select") {
                     const val = values[input.key] ?? input.default
                     return (
@@ -460,7 +474,7 @@ export function CalculatorPage() {
                 />
 
                 <div className="grid grid-cols-2 gap-3">
-                  {config.results.map((r) => (
+                  {config!.results.map((r) => (
                     <ResultCard
                       key={r.key}
                       label={r.label}
@@ -529,7 +543,7 @@ export function CalculatorPage() {
             <div className="border-t border-border p-6">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-4">{config.growthChart.title}</h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-4">{config!.growthChart.title}</h3>
                   {calcType === "tax" ? (
                     <div className="space-y-2">
                       {results.breakdown.map((b: any, i: number) => (
@@ -570,7 +584,7 @@ export function CalculatorPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-4">{config.pieChart.title}</h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-4">{config!.pieChart.title}</h3>
                   {pieData.length > 0 ? (
                     <PieBreakdown
                       data={pieData}
@@ -584,7 +598,7 @@ export function CalculatorPage() {
               </div>
             </div>
 
-            {isTableVisible && config.tableData && (
+            {isTableVisible && config!.tableData && (
               <div className="border-t border-border p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-semibold text-foreground">Breakdown</h3>
@@ -609,18 +623,18 @@ export function CalculatorPage() {
                     </div>
                   )}
                 </div>
-                {tableTab === "monthly" && hasMonthly && config.monthlyTableData ? (
+                {tableTab === "monthly" && hasMonthly && config!.monthlyTableData ? (
                   <DataTable
                     title="Monthly Breakdown (First 12 months)"
-                    columns={config.monthlyTableData!(values, results).columns}
-                    data={config.monthlyTableData!(values, results).rows}
+                    columns={config!.monthlyTableData!(values, results).columns}
+                    data={config!.monthlyTableData!(values, results).rows}
                     defaultRows={12}
                   />
                 ) : (
                   <DataTable
                     title="Year-by-Year Breakdown"
-                    columns={config.tableData!(results).columns}
-                    data={config.tableData!(results).rows}
+                    columns={config!.tableData!(results).columns}
+                    data={config!.tableData!(results).rows}
                     defaultRows={5}
                   />
                 )}

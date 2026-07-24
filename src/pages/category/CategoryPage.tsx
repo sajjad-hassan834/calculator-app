@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router"
-import { ArrowRight, Calculator, TrendingUp, Star, BookOpen, FileText } from "lucide-react"
+import { ArrowRight, Calculator, TrendingUp, Star, BookOpen } from "lucide-react"
 import { Breadcrumbs } from "../../components/ui/Breadcrumbs"
 import { SEOHead } from "../../components/seo/SEOHead"
 import { useCategoryBySlug } from "../../hooks/queries/useCategories"

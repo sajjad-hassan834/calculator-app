@@ -163,7 +163,7 @@ export function MegaMenu({
             <span>25+ free financial calculators — no sign-up required</span>
           </div>
           <Link
-            to="/"
+            to="/sitemap#calculators"
             onClick={onClose}
             className="flex items-center gap-1.5 text-xs font-medium text-primary hover:underline transition-all duration-150"
           >

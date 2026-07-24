@@ -35,7 +35,7 @@ async function sendToBackend(event: AnalyticsEvent) {
     const sessionId = getSessionId()
     switch (event.name) {
       case "page_view": {
-        await api.post("/api/v1/analytics/track/page-view", {
+        await api.post("/analytics/track/page-view", {
           page_type: event.properties?.page_type || "unknown",
           page_id: event.properties?.page_id || null,
           url: event.properties?.path || window.location.pathname,
@@ -46,7 +46,7 @@ async function sendToBackend(event: AnalyticsEvent) {
         break
       }
       case "calculator_used": {
-        await api.post("/api/v1/analytics/track/calculator-usage", {
+        await api.post("/analytics/track/calculator-usage", {
           calculator_id: event.properties?.calculator_id || null,
           calculator_slug: event.properties?.calculator_slug || null,
           session_id: sessionId,
@@ -55,7 +55,7 @@ async function sendToBackend(event: AnalyticsEvent) {
         break
       }
       case "search_used": {
-        await api.post("/api/v1/analytics/track/search", {
+        await api.post("/analytics/track/search", {
           query: event.properties?.query || "",
           result_count: event.properties?.result_count || 0,
           session_id: sessionId,

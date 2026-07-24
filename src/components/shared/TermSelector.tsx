@@ -17,7 +17,7 @@ export function TermSelector({
           <button
             key={o.value}
             onClick={() => onChange(o.value)}
-            className={`py-2.5 px-3 rounded-xl text-sm font-medium border transition-all ${
+            className={`py-2 px-4 rounded-full text-sm font-medium border transition-all ${
               value === o.value
                 ? "bg-primary text-primary-foreground border-primary"
                 : "bg-secondary border-border text-muted-foreground hover:text-foreground"

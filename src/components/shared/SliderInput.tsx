@@ -86,13 +86,13 @@ export function SliderInput({
           <button
             type="button"
             onClick={() => commit(Math.max(min, +(value - step).toFixed(2)))}
-            className="w-7 h-7 rounded-lg bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
+            className="w-8 h-8 rounded-full bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors text-base font-medium"
             aria-label={`Decrease ${label}`}
             tabIndex={-1}
           >
             -
           </button>
-          <div className="flex items-center gap-1 bg-secondary rounded-lg px-3 py-1.5 border border-border">
+          <div className="flex items-center gap-1 bg-secondary rounded-full px-4 py-1.5 border border-border transition-colors focus-within:border-primary/50">
             {prefix && <span className="text-muted-foreground text-xs font-medium">{sym(prefix)}</span>}
             <input
               ref={inputRef}
@@ -112,7 +112,7 @@ export function SliderInput({
                   commit(Math.min(max, Math.max(min, v)))
                 }
               }}
-              className={`bg-transparent text-right text-sm font-['JetBrains_Mono',monospace] font-medium w-16 min-w-0 outline-none text-foreground ${error ? "text-red-600 dark:text-red-400" : ""}`}
+              className={`bg-transparent text-right text-sm font-['JetBrains_Mono',monospace] font-semibold w-16 min-w-0 outline-none text-foreground ${error ? "text-red-600 dark:text-red-400" : ""}`}
               aria-describedby={tooltip ? `${label}-desc` : undefined}
               aria-invalid={!!error}
               aria-errormessage={error ? `${id}-error` : undefined}
@@ -122,7 +122,7 @@ export function SliderInput({
           <button
             type="button"
             onClick={() => commit(Math.min(max, +(value + step).toFixed(2)))}
-            className="w-7 h-7 rounded-lg bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
+            className="w-8 h-8 rounded-full bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors text-base font-medium"
             aria-label={`Increase ${label}`}
             tabIndex={-1}
           >
@@ -130,7 +130,7 @@ export function SliderInput({
           </button>
         </div>
       </div>
-      <div className="relative h-1.5 rounded-full bg-secondary/50">
+      <div className="relative h-2 rounded-full bg-secondary mt-4 mb-2">
         <div
           className="absolute left-0 top-0 h-full bg-primary rounded-full transition-all"
           style={{ width: `${pct}%` }}
@@ -147,8 +147,8 @@ export function SliderInput({
           aria-label={label}
         />
         <div
-          className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-primary rounded-full border-2 border-white shadow-md pointer-events-none transition-all"
-          style={{ left: `calc(${pct}% - 8px)`, zIndex: 1 }}
+          className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-primary rounded-full border-2 border-white dark:border-zinc-900 shadow-sm pointer-events-none transition-all"
+          style={{ left: `calc(${pct}% - 10px)`, zIndex: 1 }}
         />
       </div>
       <div className="flex justify-between text-xs text-muted-foreground font-['JetBrains_Mono',monospace]">

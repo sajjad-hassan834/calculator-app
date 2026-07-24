@@ -1,6 +1,7 @@
 import {
   Home, TrendingUp, PiggyBank, Shield, CreditCard, Percent,
   BarChart2, Briefcase, GraduationCap, DollarSign, Building2,
+  TrendingDown, Wallet, ArrowRightLeft, Target
 } from "lucide-react"
 
 export const CATEGORIES = [
@@ -28,6 +29,11 @@ export const FEATURED = [
   { id: "tax", title: "Tax Calculator", desc: "Estimate your income tax based on progressive brackets.", icon: Percent, gradient: "from-indigo-600 to-indigo-800", uses: "680K", popular: false },
   { id: "investment", title: "Investment Growth", desc: "Project portfolio growth with regular contributions.", icon: TrendingUp, gradient: "from-cyan-600 to-cyan-800", uses: "620K", popular: false },
   { id: "break-even", title: "Break-Even Analysis", desc: "Find how many units you need to sell to break even.", icon: BarChart2, gradient: "from-orange-600 to-orange-800", uses: "410K", popular: false },
+  { id: "inflation", title: "Inflation Calculator", desc: "See how inflation eats into purchasing power.", icon: TrendingDown, gradient: "from-red-500 to-rose-700", uses: "540K", popular: false },
+  { id: "currency", title: "Currency Converter", desc: "Real-time exchange rates.", icon: DollarSign, gradient: "from-green-500 to-emerald-700", uses: "890K", popular: false },
+  { id: "budget", title: "Budget Planner", desc: "Track your income and expenses.", icon: Wallet, gradient: "from-purple-500 to-indigo-700", uses: "1.1M", popular: true },
+  { id: "compare", title: "Compare Investments", desc: "Which investment is better?", icon: ArrowRightLeft, gradient: "from-cyan-500 to-blue-700", uses: "420K", popular: false },
+  { id: "goal", title: "Goal Planner", desc: "Plan your path to a target amount.", icon: Target, gradient: "from-pink-500 to-rose-600", uses: "650K", popular: false },
 ]
 
 export const FAQS = [

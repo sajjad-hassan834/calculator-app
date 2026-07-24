@@ -1,7 +1,10 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router"
-import { Search, Check, Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent, Briefcase, GraduationCap, DollarSign, Building2 } from "lucide-react"
+import { Search, Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent, Briefcase, GraduationCap, DollarSign, Building2, ArrowRight } from "lucide-react"
 import { SearchOverlay } from "../components/shared/SearchOverlay"
+import { AuroraBackground } from "../components/motion/AuroraBackground"
+import { ScrollReveal } from "../components/motion/ScrollReveal"
+import { AnimatedNumber } from "../components/motion/AnimatedNumber"
 
 const CATEGORIES = [
   { id: "mortgage", label: "Mortgage", icon: Home },
@@ -14,8 +17,6 @@ const CATEGORIES = [
   { id: "education", label: "Education", icon: GraduationCap },
   { id: "personal", label: "Personal", icon: DollarSign },
   { id: "realestate", label: "Real Estate", icon: Building2 },
-  { id: "currency", label: "Currency", icon: DollarSign },
-  { id: "insurance", label: "Insurance", icon: Shield },
 ]
 
 const POPULAR = [
@@ -23,120 +24,166 @@ const POPULAR = [
   { label: "Compound Interest", path: "/calculator/compound" },
   { label: "Loan Calculator", path: "/calculator/loan" },
   { label: "Retirement Planner", path: "/calculator/retirement" },
-  { label: "ROI Calculator", path: "/calculator/roi" },
-  { label: "Savings Goal", path: "/calculator/savings" },
 ]
 
-export function Hero() {
+export function Hero({ title, subtitle }: { title?: string, subtitle?: string }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const navigate = useNavigate()
 
+  // Simulate a live counter starting from a high number and ticking up
+  const [calculationsToday, setCalculationsToday] = useState(12847200)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCalculationsToday(prev => prev + Math.floor(Math.random() * 5) + 1)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <>
-      <section className="relative overflow-hidden bg-[#07111f]">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-20"
-          style={{ background: "radial-gradient(ellipse, #1a4fba 0%, transparent 70%)" }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 lg:pt-28 lg:pb-24">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center">
-            <div>
-              <div className="flex mb-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-300 text-xs font-medium">
-                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
-                  Trusted by 12 million users worldwide
+      <AuroraBackground className="pt-24 pb-16 lg:pt-32 lg:pb-32">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
+          <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+            
+            {/* Left Content */}
+            <div className="lg:col-span-7 relative">
+              <ScrollReveal variant="fade-up" delay={100}>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 glass rounded-full text-foreground/80 text-xs font-medium border border-border/50">
+                  <span className="w-2 h-2 bg-success rounded-full animate-pulse" />
+                  Live: <AnimatedNumber value={calculationsToday} className="font-bold text-primary" /> calculations today
                 </div>
-              </div>
+              </ScrollReveal>
 
-              <h1 className="font-['DM_Serif_Display',serif] text-4xl sm:text-5xl lg:text-5xl text-white leading-tight mb-5 max-w-xl">
-                Smart Financial Calculations
-                <span className="block italic text-blue-300">for Every Goal</span>
-              </h1>
-              <p className="text-slate-400 text-lg max-w-md mb-8 leading-relaxed">
-                Free, accurate, and instant. From mortgages to investments — get the numbers
-                you need to make confident decisions.
-              </p>
+              <ScrollReveal variant="fade-up" delay={200}>
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1] mb-6">
+                  {title ? (
+                    <span dangerouslySetInnerHTML={{ __html: title.replace('\n', '<br/>') }} />
+                  ) : (
+                    <>Financial clarity, <br/>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient bg-300%">instantly.</span></>
+                  )}
+                </h1>
+              </ScrollReveal>
 
-              <div className="relative max-w-md mb-8">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                <button
-                  onClick={() => setSearchOpen(true)}
-                  className="w-full text-left pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-slate-400 text-base outline-none focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20 transition"
-                >
-                  Search any calculator...
-                </button>
-                <button
-                  onClick={() => setSearchOpen(true)}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:opacity-90 transition-all duration-200 hover:shadow-xl hover:-translate-y-[calc(50%+2px)] cursor-pointer"
-                >
-                  Search
-                </button>
-              </div>
+              <ScrollReveal variant="fade-up" delay={300}>
+                <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl leading-relaxed">
+                  {subtitle || "Make smarter financial decisions with our suite of free, expert-built calculators. No sign-up required."}
+                </p>
+              </ScrollReveal>
 
-              <div className="flex flex-wrap gap-2 mb-8">
-                {POPULAR.map((p) => (
+              <ScrollReveal variant="fade-up" delay={400}>
+                <div className="relative max-w-xl mb-8 group">
+                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <button
-                    key={p.label}
-                    onClick={() => navigate(p.path)}
-                    className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm text-slate-300 hover:text-white transition-all duration-200 hover:-translate-y-1 cursor-pointer"
+                    onClick={() => setSearchOpen(true)}
+                    className="w-full text-left pl-14 pr-32 py-5 glass-card rounded-2xl text-muted-foreground text-base sm:text-lg hover:border-primary/50 transition-all shadow-lg"
                   >
-                    {p.label}
+                    What do you want to calculate?
                   </button>
-                ))}
-              </div>
+                  <button
+                    onClick={() => setSearchOpen(true)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 px-6 py-3 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-all shadow-md flex items-center gap-2 group-hover:translate-x-1"
+                  >
+                    Search <ArrowRight className="w-4 h-4 hidden sm:block" />
+                  </button>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal variant="fade-up" delay={500}>
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-sm font-medium text-muted-foreground mr-2">Trending:</span>
+                  {POPULAR.map((p) => (
+                    <button
+                      key={p.label}
+                      onClick={() => navigate(p.path)}
+                      className="px-4 py-2 glass rounded-full text-sm text-foreground/80 hover:text-primary hover:bg-primary/10 transition-all hover:-translate-y-0.5 border border-border/50"
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+              </ScrollReveal>
             </div>
 
-            <div className="hidden lg:block">
-              <img
-                src="/images/homepage/hero-finance.svg"
-                alt="Financial calculator dashboard illustration showing portfolio value, savings goals, and growth charts"
-                className="w-full h-auto"
-                loading="eager"
-              />
+            {/* Right Visuals (Floating Cards) */}
+            <div className="hidden lg:block lg:col-span-5 relative h-[600px] w-full">
+              <ScrollReveal variant="float" delay={300} className="absolute top-10 right-0 w-[280px] glass-card rounded-2xl p-6 z-20">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 rounded-xl bg-primary/10 text-primary">
+                    <Home className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-muted-foreground">Monthly Payment</div>
+                    <div className="text-2xl font-bold text-foreground">$2,450</div>
+                  </div>
+                </div>
+                <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                  <div className="h-full bg-primary w-[70%]" />
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal variant="float" delay={150} className="absolute top-1/2 -translate-y-1/2 -left-10 w-[260px] glass-card rounded-2xl p-6 z-10 scale-90 opacity-90" style={{ animationDelay: '1s', animationDuration: '7s' }}>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 rounded-xl bg-accent/10 text-accent">
+                    <TrendingUp className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-muted-foreground">Est. Returns</div>
+                    <div className="text-2xl font-bold text-foreground">+14.2%</div>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <div className="h-10 w-full bg-secondary rounded-md" />
+                  <div className="h-14 w-full bg-secondary rounded-md" />
+                  <div className="h-16 w-full bg-accent rounded-md" />
+                  <div className="h-20 w-full bg-secondary rounded-md" />
+                </div>
+              </ScrollReveal>
+              
+              <ScrollReveal variant="float" delay={600} className="absolute bottom-16 right-10 w-[240px] glass-card rounded-2xl p-5 z-30" style={{ animationDelay: '2s', animationDuration: '5s' }}>
+                <div className="flex justify-between items-center mb-3">
+                  <div className="text-sm font-medium text-muted-foreground">Tax Savings</div>
+                  <Shield className="w-4 h-4 text-success" />
+                </div>
+                <div className="text-3xl font-bold text-success mb-1">$4,200</div>
+                <div className="text-xs text-muted-foreground">Per year optimization</div>
+              </ScrollReveal>
             </div>
           </div>
+        </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 mt-8">
+        {/* Bottom Curved Divider */}
+        <div className="curved-divider-bottom hidden lg:block">
+          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" className="shape-fill"></path>
+          </svg>
+        </div>
+      </AuroraBackground>
+
+      {/* Categories Row (Pushed down slightly by the divider) */}
+      <section className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 pb-16">
+        <ScrollReveal variant="fade-up" delay={600}>
+          <div className="flex overflow-x-auto pb-6 pt-4 gap-4 snap-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {CATEGORIES.map((cat) => {
               const Icon = cat.icon
               return (
                 <button
                   key={cat.id}
                   onClick={() => navigate(`/category/${cat.id}`)}
-                  className="flex flex-col items-center gap-2 p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-200 hover:border-white/20 group hover:-translate-y-1 hover:shadow-xl cursor-pointer"
+                  className="flex flex-col items-center gap-3 p-5 glass-card min-w-[120px] rounded-2xl hover:border-primary/40 group hover:-translate-y-2 cursor-pointer snap-start transition-all shadow-sm hover:shadow-md"
                 >
-                  <Icon className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform" />
-                  <span className="text-xs text-slate-400 group-hover:text-slate-200 transition-colors font-medium">
+                  <div className="p-3 bg-secondary group-hover:bg-primary/10 rounded-xl transition-colors">
+                    <Icon className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">
                     {cat.label}
                   </span>
                 </button>
               )
             })}
           </div>
-
-          <div className="flex flex-wrap justify-center gap-6 mt-12 text-slate-500 text-xs font-medium">
-            {[
-              "No sign-up required",
-              "100% Free forever",
-              "Privacy-first — no data stored",
-              "Instant results",
-            ].map((t) => (
-              <div key={t} className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-emerald-500" />
-                {t}
-              </div>
-            ))}
-          </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />

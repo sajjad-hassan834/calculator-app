@@ -1,4 +1,4 @@
-import { Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent, BarChart2, Calculator } from "lucide-react"
+import { Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent, BarChart2, Calculator, TrendingDown, DollarSign, Wallet, ArrowRightLeft, Target } from "lucide-react"
 
 export interface CalcMeta {
   id: string
@@ -28,6 +28,7 @@ export interface CalcMeta {
   commonMistakes: string[]
   tips: string[]
   glossary: { term: string; def: string }[]
+  faqs?: { q: string; a: string }[]
   references: { label: string; url: string }[]
   related: { label: string; path: string }[]
   relatedCategories: string[]
@@ -975,4 +976,240 @@ export const CALCULATOR_META: Record<string, CalcMeta> = {
     author: { name: "Development Team", role: "Principal Frontend Engineer" },
     reviewer: { name: "UX Team", role: "UX Expert" },
   },
+  inflation: {
+    id: "inflation",
+    title: "Inflation Calculator",
+    desc: "Calculate how inflation affects the purchasing power of your money over time.",
+    shortDesc: "See how inflation eats into purchasing power.",
+    icon: TrendingDown,
+    category: "Personal Finance",
+    gradient: "from-red-500 to-rose-700",
+    uses: "540K",
+    popular: false,
+    time: "30 seconds",
+    readingTime: "4 min",
+    difficulty: "Beginner",
+    formula: "FV = PV × (1 + r)^t",
+    explanation: "Where FV is future value (or past value), PV is present value, r is the inflation rate, and t is time in years.",
+    introduction: "The Inflation Calculator shows you how much your money will be worth in the future, or how much it was worth in the past.",
+    whyMatters: "Inflation constantly erodes purchasing power. A dollar today buys more than a dollar tomorrow.",
+    howItWorks: "Enter the amount, the average inflation rate, and the number of years. We calculate the equivalent value.",
+    whenToUse: [
+      "Planning long-term savings",
+      "Evaluating salary growth against cost of living",
+      "Historical price comparisons"
+    ],
+    benefits: [
+      "Visualize purchasing power loss",
+      "Set realistic financial goals",
+      "Understand historical costs"
+    ],
+    variables: [
+      { name: "Amount", symbol: "PV", desc: "The starting amount of money" },
+      { name: "Inflation Rate", symbol: "r", desc: "Annual inflation rate percentage" },
+      { name: "Years", symbol: "t", desc: "Number of years" }
+    ],
+    example: {
+      desc: "If you have $10,000 and inflation averages 3% for 10 years:",
+      steps: [
+        "In 10 years, it will take $13,439 to buy what $10,000 buys today.",
+        "Your purchasing power drops by 25.6%."
+      ]
+    },
+    interpretation: "Your money needs to grow by at least the inflation rate just to break even in purchasing power.",
+    advantages: ["Simple to use", "Highlights hidden costs of holding cash"],
+    limitations: ["Assumes constant inflation rate", "Does not account for specific spending habits (CPI varies)"],
+    commonMistakes: ["Assuming a 0% inflation rate for future planning"],
+    tips: ["Invest cash into assets that beat inflation."],
+    glossary: [
+      { term: "Inflation", def: "The general increase in prices and fall in the purchasing value of money." },
+      { term: "Purchasing Power", def: "The value of a currency expressed in terms of the number of goods or services that one unit of money can buy." }
+    ],
+    faqs: [
+      { q: "What is a normal inflation rate?", a: "Central banks typically target around 2% annual inflation." }
+    ],
+    references: [],
+    related: [{ label: "Investment Growth", path: "/calculator/investment" }],
+    relatedCategories: ["Personal Finance", "Investments"],
+    lastUpdated: "July 2026",
+    author: { name: "Finance Team", role: "Analyst" },
+    reviewer: { name: "Economics Team", role: "Reviewer" },
+  },
+  currency: {
+    id: "currency",
+    title: "Currency Converter",
+    desc: "Convert between major world currencies using up-to-date standard rates.",
+    shortDesc: "Real-time exchange rates.",
+    icon: DollarSign,
+    category: "Currency",
+    gradient: "from-green-500 to-emerald-700",
+    uses: "890K",
+    popular: false,
+    time: "15 seconds",
+    readingTime: "2 min",
+    difficulty: "Beginner",
+    formula: "Converted = Amount × (Rate To / Rate From)",
+    explanation: "Multiplies the source amount by the exchange rate of the destination currency.",
+    introduction: "Easily convert money between different countries.",
+    whyMatters: "Crucial for international travel, business, and online shopping.",
+    howItWorks: "Select your starting currency, target currency, and amount. We do the math.",
+    whenToUse: ["Traveling abroad", "Buying imported goods", "Remittances"],
+    benefits: ["Quick conversions", "Supports major currencies"],
+    variables: [
+      { name: "Amount", symbol: "A", desc: "The amount to convert" },
+      { name: "From", symbol: "F", desc: "Source currency" },
+      { name: "To", symbol: "T", desc: "Destination currency" }
+    ],
+    example: {
+      desc: "Convert 100 USD to EUR at a rate of 0.92",
+      steps: ["100 × 0.92 = 92 EUR"]
+    },
+    interpretation: "100 US Dollars is currently worth about 92 Euros.",
+    advantages: ["Fast and easy to use"],
+    limitations: ["Uses fixed/standard rates; actual bank rates may vary with fees."],
+    commonMistakes: ["Forgetting bank conversion fees"],
+    tips: ["Always check if your credit card charges foreign transaction fees."],
+    glossary: [
+      { term: "Exchange Rate", def: "The value of one currency for the purpose of conversion to another." }
+    ],
+    faqs: [],
+    references: [],
+    related: [],
+    relatedCategories: ["Currency", "Personal Finance"],
+    lastUpdated: "July 2026",
+    author: { name: "Finance Team", role: "Analyst" },
+    reviewer: { name: "Economics Team", role: "Reviewer" },
+  },
+  budget: {
+    id: "budget",
+    title: "Budget Planner",
+    desc: "Plan your monthly budget using the 50/30/20 rule or custom allocations.",
+    shortDesc: "Track your income and expenses.",
+    icon: Wallet,
+    category: "Personal Finance",
+    gradient: "from-purple-500 to-indigo-700",
+    uses: "1.1M",
+    popular: true,
+    time: "60 seconds",
+    readingTime: "5 min",
+    difficulty: "Beginner",
+    formula: "Balance = Income - (Needs + Wants + Savings)",
+    explanation: "Subtracts all categorized expenses from your total monthly income.",
+    introduction: "A good budget is the foundation of financial health.",
+    whyMatters: "Tells your money where to go instead of wondering where it went.",
+    howItWorks: "Input your after-tax income and your expenses across categories.",
+    whenToUse: ["Monthly financial planning", "Getting out of debt", "Saving for a big purchase"],
+    benefits: ["Visualizes your spending", "Highlights areas to cut back"],
+    variables: [
+      { name: "Income", symbol: "I", desc: "Monthly take-home pay" },
+      { name: "Needs", symbol: "N", desc: "Essential expenses (housing, food, utilities)" }
+    ],
+    example: {
+      desc: "Income: $5,000, Needs: $2,500, Wants: $1,500, Savings: $1,000",
+      steps: ["Total Expenses: $4,000", "Remaining: $1,000 to save or invest"]
+    },
+    interpretation: "You are perfectly following the 50/30/20 budget rule.",
+    advantages: ["Helps avoid overspending"],
+    limitations: ["Requires you to accurately know your expenses"],
+    commonMistakes: ["Forgetting annual or irregular expenses like car maintenance"],
+    tips: ["Track every dollar for one month to get a baseline."],
+    glossary: [
+      { term: "50/30/20 Rule", def: "A budget rule: 50% for needs, 30% for wants, 20% for savings/debt." }
+    ],
+    faqs: [],
+    references: [],
+    related: [{ label: "Savings Goal", path: "/calculator/savings" }],
+    relatedCategories: ["Personal Finance"],
+    lastUpdated: "July 2026",
+    author: { name: "Finance Team", role: "Analyst" },
+    reviewer: { name: "Economics Team", role: "Reviewer" },
+  },
+  compare: {
+    id: "compare",
+    title: "Compare Investments",
+    desc: "Compare the returns of two different investment scenarios side-by-side.",
+    shortDesc: "Which investment is better?",
+    icon: ArrowRightLeft,
+    category: "Investments",
+    gradient: "from-cyan-500 to-blue-700",
+    uses: "420K",
+    popular: false,
+    time: "45 seconds",
+    readingTime: "6 min",
+    difficulty: "Intermediate",
+    formula: "Calculates Future Value for both Option A and Option B.",
+    explanation: "Runs standard compound interest formulas simultaneously for two distinct scenarios.",
+    introduction: "Deciding between real estate and stocks? Or a CD vs an index fund? Compare them here.",
+    whyMatters: "A 1% difference in fees or returns can mean hundreds of thousands over a lifetime.",
+    howItWorks: "Enter initial amount, contribution, and expected return for two options to see which wins.",
+    whenToUse: ["Deciding where to allocate capital", "Comparing high-yield savings to bonds"],
+    benefits: ["Side-by-side visual comparison"],
+    variables: [
+      { name: "Option A Rate", symbol: "Ra", desc: "Annual return for first option" },
+      { name: "Option B Rate", symbol: "Rb", desc: "Annual return for second option" }
+    ],
+    example: {
+      desc: "Option A: 5% return. Option B: 8% return.",
+      steps: ["Calculate Future Value for A", "Calculate Future Value for B", "Find the difference."]
+    },
+    interpretation: "Option B outpaces Option A significantly over a 20 year period.",
+    advantages: ["Easy relative comparison"],
+    limitations: ["Does not factor in varying risk profiles (volatility) of the investments."],
+    commonMistakes: ["Comparing a risk-free asset directly to a highly volatile asset without accounting for risk."],
+    tips: ["Higher returns usually come with higher risk."],
+    glossary: [
+      { term: "Opportunity Cost", def: "The potential benefit you lose when you choose one alternative over another." }
+    ],
+    faqs: [],
+    references: [],
+    related: [{ label: "ROI Calculator", path: "/calculator/roi" }],
+    relatedCategories: ["Investments"],
+    lastUpdated: "July 2026",
+    author: { name: "Finance Team", role: "Analyst" },
+    reviewer: { name: "Economics Team", role: "Reviewer" },
+  },
+  goal: {
+    id: "goal",
+    title: "Goal Planner",
+    desc: "Calculate exactly how much you need to save each month to reach a specific financial goal.",
+    shortDesc: "Plan your path to a target amount.",
+    icon: Target,
+    category: "Savings",
+    gradient: "from-pink-500 to-rose-600",
+    uses: "650K",
+    popular: false,
+    time: "30 seconds",
+    readingTime: "4 min",
+    difficulty: "Beginner",
+    formula: "PMT = (FV × r) / ((1 + r)^n - 1)",
+    explanation: "Calculates the required monthly payment (PMT) to reach a Future Value (FV).",
+    introduction: "Whether it's a wedding, a car, or a down payment, this tool tells you how to get there.",
+    whyMatters: "Having a specific monthly target makes large financial goals achievable.",
+    howItWorks: "Enter your target amount, how many years you have, and your expected return.",
+    whenToUse: ["Saving for a house down payment", "Planning a wedding", "Buying a car in cash"],
+    benefits: ["Actionable monthly targets"],
+    variables: [
+      { name: "Target Amount", symbol: "FV", desc: "The amount you want to reach" },
+      { name: "Years", symbol: "t", desc: "Time you have to save" }
+    ],
+    example: {
+      desc: "Save $50,000 for a down payment in 5 years at 4% return.",
+      steps: ["Target: $50,000", "Monthly contribution required: ~$754"]
+    },
+    interpretation: "You need to save $754 per month to reach your goal of $50,000 in 5 years.",
+    advantages: ["Gives a clear roadmap"],
+    limitations: ["Assumes steady returns"],
+    commonMistakes: ["Assuming too high of a return rate for short-term goals"],
+    tips: ["For goals under 3 years, keep the money in a high-yield savings account."],
+    glossary: [
+      { term: "Target Date", def: "The date by which you need the funds." }
+    ],
+    faqs: [],
+    references: [],
+    related: [{ label: "Savings Calculator", path: "/calculator/savings" }],
+    relatedCategories: ["Savings", "Personal Finance"],
+    lastUpdated: "July 2026",
+    author: { name: "Finance Team", role: "Analyst" },
+    reviewer: { name: "Economics Team", role: "Reviewer" },
+  }
 }

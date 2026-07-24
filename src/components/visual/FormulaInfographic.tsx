@@ -1,4 +1,4 @@
-import { ArrowDown, Variable, Workflow } from "lucide-react"
+import { Variable, Workflow } from "lucide-react"
 
 interface FormulaInfographicProps {
   formula: string

@@ -2,13 +2,6 @@ import { Clock, Lock } from "lucide-react"
 
 const FUTURE_FEATURES = [
   { icon: Clock, title: "Portfolio Tracker", desc: "Track all your investments in one place with real-time updates." },
-  { icon: Clock, title: "Budget Planner", desc: "Create and manage monthly budgets with spending insights." },
-  { icon: Clock, title: "Retirement Planner", desc: "Plan and optimize your retirement savings with projections." },
-  { icon: Clock, title: "Inflation Calculator", desc: "See how inflation affects your purchasing power." },
-  { icon: Clock, title: "Currency Converter", desc: "Real-time exchange rates for 170+ currencies." },
-  { icon: Clock, title: "Goal Planner", desc: "Set and track multiple financial goals simultaneously." },
-  { icon: Clock, title: "Tax Planner", desc: "Plan your taxes with deductions and credits." },
-  { icon: Clock, title: "Compare Investments", desc: "Side-by-side comparison of different investment options." },
   { icon: Clock, title: "User Accounts", desc: "Save your calculations and scenarios in the cloud." },
 ]
 
@@ -37,16 +30,16 @@ export function ComingSoonCard({
   )
 }
 
-export function ComingSoonSection() {
+export function ComingSoonSection({ title = "More Features Coming Soon", subtitle = "We are building advanced tools to help you master your finances." }: { title?: string, subtitle?: string }) {
   return (
     <section className="py-16 bg-card border-y border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="font-['DM_Serif_Display',serif] text-2xl lg:text-3xl text-foreground mb-2">
-            More Features Coming Soon
+            {title}
           </h2>
           <p className="text-sm text-muted-foreground">
-            We are building advanced tools to help you master your finances.
+            {subtitle}
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">

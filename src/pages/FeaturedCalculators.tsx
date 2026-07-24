@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router"
 import { Star, ArrowRight, Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent, BarChart2, Calculator as CalcIcon } from "lucide-react"
 import { useFeaturedCalculators } from "../hooks/queries/useCalculators"
+import { ScrollReveal } from "../components/motion/ScrollReveal"
 
 const GRADIENT_MAP: Record<string, string> = {
   mortgage: "from-blue-600 to-blue-800",
@@ -18,7 +19,7 @@ const ICON_MAP: Record<string, any> = {
   Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent, BarChart2, CalcIcon,
 }
 
-export function FeaturedCalculators() {
+export function FeaturedCalculators({ title = "Discover Popular Tools", subtitle = "The most-used financial calculators by our community" }: { title?: string, subtitle?: string }) {
   const navigate = useNavigate()
   const { data: calculators, isLoading } = useFeaturedCalculators()
 
@@ -40,53 +41,61 @@ export function FeaturedCalculators() {
   const displayCalcs = (calculators || []).slice(0, 9)
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-24 bg-secondary/30 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <h2 className="font-['DM_Serif_Display',serif] text-2xl lg:text-3xl text-foreground mb-1">
-              Popular Calculators
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              The most-used tools on FinanceCalculator.com
-            </p>
+        <ScrollReveal variant="fade-up">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+            <div>
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                {title}
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                {subtitle}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {displayCalcs.map((calc) => {
+        </ScrollReveal>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+          {displayCalcs.map((calc, i) => {
             const Icon = ICON_MAP[calc.calculator_type] || CalcIcon
             const gradient = GRADIENT_MAP[calc.slug] || "from-primary to-primary/70"
             const path = `/calculator/${calc.slug}`
             const uses = calc.view_count ? `${(calc.view_count / 1000).toFixed(1)}K` : ""
             return (
-              <button
-                key={calc.id}
-                onClick={() => navigate(path)}
-                className="group relative text-left bg-card border border-border rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden cursor-pointer"
-              >
-                {calc.is_popular && (
-                  <div className="absolute top-4 right-4">
-                    <span className="flex items-center gap-1 px-2 py-0.5 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-xs font-medium rounded-full border border-amber-100 dark:border-amber-900/40">
-                      <Star className="w-2.5 h-2.5 fill-current" /> Popular
+              <ScrollReveal key={calc.id} variant="fade-up" delay={i * 100}>
+                <button
+                  onClick={() => navigate(path)}
+                  className="w-full h-full group relative text-left bg-card border border-border/80 rounded-3xl p-6 md:p-8 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/30 transition-all duration-500 ease-out overflow-hidden cursor-pointer flex flex-col"
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-700" />
+                  
+                  {calc.is_popular && (
+                    <div className="absolute top-6 right-6">
+                      <span className="flex items-center gap-1 px-3 py-1 bg-accent/10 text-accent text-xs font-bold rounded-full border border-accent/20">
+                        <Star className="w-3 h-3 fill-current" /> Popular
+                      </span>
+                    </div>
+                  )}
+                  
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-6 shadow-lg shadow-primary/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500`}>
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-foreground mb-3 pr-8 group-hover:text-primary transition-colors">{calc.name}</h3>
+                  <p className="text-base text-muted-foreground mb-8 leading-relaxed grow">{calc.short_description || calc.description}</p>
+                  
+                  <div className="flex items-center justify-between mt-auto w-full border-t border-border/50 pt-4">
+                    {uses ? (
+                      <span className="text-sm text-muted-foreground font-mono bg-secondary px-2 py-1 rounded-md">
+                        {uses} uses
+                      </span>
+                    ) : <span />}
+                    <span className="flex items-center gap-2 text-sm font-bold text-primary translate-y-1 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                      Calculate <ArrowRight className="w-4 h-4" />
                     </span>
                   </div>
-                )}
-                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-4`}>
-                  <Icon className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-1.5 pr-16">{calc.name}</h3>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{calc.short_description || calc.description}</p>
-                <div className="flex items-center justify-between">
-                  {uses && (
-                    <span className="text-xs text-muted-foreground font-['JetBrains_Mono',monospace]">
-                      {uses} uses
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity ml-auto">
-                    Open <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </button>
+                </button>
+              </ScrollReveal>
             )
           })}
         </div>

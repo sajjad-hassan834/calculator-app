@@ -1,5 +1,5 @@
 import { Link } from "react-router"
-import { Calculator, Globe, Mail, Twitter, Youtube, Linkedin } from "lucide-react"
+import { Calculator, Globe, Mail, Twitter, Linkedin } from "lucide-react"
 
 const FOOTER_LINKS = {
   Calculators: [
@@ -44,7 +44,15 @@ const FOOTER_LINKS = {
   ],
 }
 
+import { useQuery } from "@tanstack/react-query"
+import { getPublicSettings } from "../../services/settings.service"
+
 export function Footer() {
+  const { data: settings } = useQuery({
+    queryKey: ["settings", "public"],
+    queryFn: getPublicSettings
+  })
+
   return (
     <footer className="bg-[#07111f] text-slate-400" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
@@ -54,17 +62,17 @@ export function Footer() {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Calculator className="w-4 h-4 text-white" />
               </div>
-              <span className="font-['DM_Serif_Display',serif] text-white text-base">FinanceCalc</span>
+              <span className="font-['DM_Serif_Display',serif] text-white text-base">{settings?.site_name || "FinanceCalc"}</span>
             </Link>
             <p className="text-xs leading-relaxed mb-5 text-slate-500">
-              Free, accurate financial calculators for everyone. Trusted by millions since 2018.
+              {settings?.site_description || "Free, accurate financial calculators for everyone. Trusted by millions since 2018."}
             </p>
             <div className="flex gap-2 mb-5">
               {[
-                { icon: Twitter, label: "Twitter", href: "https://x.com/financecalc", rel: "noopener noreferrer", target: "_blank" },
-                { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/financecalc", rel: "noopener noreferrer", target: "_blank" },
-                { icon: Youtube, label: "YouTube", href: "https://youtube.com/@financecalc", rel: "noopener noreferrer", target: "_blank" },
-                { icon: Mail, label: "Email", href: "mailto:contact@financecalc.com" },
+                ...(settings?.social_twitter ? [{ icon: Twitter, label: "Twitter", href: settings.social_twitter, rel: "noopener noreferrer", target: "_blank" }] : []),
+                ...(settings?.social_linkedin ? [{ icon: Linkedin, label: "LinkedIn", href: settings.social_linkedin, rel: "noopener noreferrer", target: "_blank" }] : []),
+                ...(settings?.social_facebook ? [{ icon: Globe, label: "Facebook", href: settings.social_facebook, rel: "noopener noreferrer", target: "_blank" }] : []),
+                ...(settings?.contact_email ? [{ icon: Mail, label: "Email", href: `mailto:${settings.contact_email}` }] : []),
               ].map((s) => {
                 const Icon = s.icon
                 return (

@@ -129,3 +129,148 @@ code, pre {
   background: var(--primary);
   color: var(--primary-foreground);
 }
+
+/* ── Premium Design Overhaul Additions ─────────────────────────────────── */
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.dark .glass {
+  background: rgba(9, 9, 11, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+  @apply bg-card/80 backdrop-blur-xl border border-border/50 shadow-xl;
+}
+
+/* Noise Texture Overlay */
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.4;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Aurora Gradient Backgrounds */
+@keyframes aurora-gradient {
+  0% { background-position: 50% 50%, 50% 50%; }
+  50% { background-position: 100% 50%, 0% 50%; }
+  100% { background-position: 50% 50%, 50% 50%; }
+}
+
+.bg-aurora {
+  background-image: 
+    radial-gradient(at 0% 0%, var(--aurora-1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, var(--aurora-3) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, var(--aurora-2) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, var(--aurora-4) 0px, transparent 50%);
+  background-size: 200% 200%;
+  animation: aurora-gradient 15s ease infinite;
+  opacity: 0.15;
+  filter: blur(60px);
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Scroll Reveal Animations */
+.reveal-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.reveal-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-scale {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.animate-fade-scale {
+  animation: fade-scale 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.animate-float {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+/* Stagger Utilities */
+.stagger-1 { animation-delay: 100ms; }
+.stagger-2 { animation-delay: 200ms; }
+.stagger-3 { animation-delay: 300ms; }
+.stagger-4 { animation-delay: 400ms; }
+.stagger-5 { animation-delay: 500ms; }
+
+/* Curved Section Dividers */
+.curved-divider-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: translateY(99%);
+  z-index: 10;
+}
+
+.curved-divider-bottom svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 60px;
+}
+
+.curved-divider-bottom .shape-fill {
+  fill: var(--background);
+}
+
+.curved-divider-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: translateY(-99%) rotate(180deg);
+  z-index: 10;
+}
+
+.curved-divider-top svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 60px;
+}
+
+.curved-divider-top .shape-fill {
+  fill: var(--background);
+}
+

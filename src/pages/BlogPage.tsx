@@ -1,11 +1,12 @@
 import { Link } from "react-router"
 import { SEOHead } from "../components/seo/SEOHead"
-import { Calendar, Clock, ArrowRight, BookOpen, Home, TrendingUp, PiggyBank, Shield, Percent } from "lucide-react"
+import { Calendar, Clock, ArrowRight, BookOpen } from "lucide-react"
 import { Breadcrumbs } from "../components/ui/Breadcrumbs"
 import { useBlogPosts } from "../hooks/queries/useBlog"
 
 export function BlogPage() {
   const { data: posts, isLoading } = useBlogPosts()
+  console.log("BlogPage rendered", { posts, isLoading })
 
   return (
     <div className="bg-background min-h-screen">
@@ -30,6 +31,7 @@ export function BlogPage() {
 
         {isLoading ? (
           <div className="space-y-6">
+            <pre className="text-xs text-red-500">Loading...</pre>
             {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="h-32 bg-secondary rounded-2xl animate-pulse" />
             ))}

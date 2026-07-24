@@ -1,4 +1,5 @@
-import { Link } from "react-router"
+import { useEffect } from "react"
+import { Link, useLocation } from "react-router"
 import { SEOHead } from "../components/seo/SEOHead"
 import { SEARCH_INDEX } from "../lib/searchData"
 import { CATEGORIES } from "../lib/data"
@@ -29,6 +30,20 @@ const LEGAL_PAGES = [
 ]
 
 export function SitemapPage() {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.substring(1)
+      const el = document.getElementById(id)
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" })
+        }, 100)
+      }
+    }
+  }, [location.hash])
+
   return (
     <>
       <SEOHead
@@ -83,7 +98,7 @@ export function SitemapPage() {
           </section>
 
           {/* Calculators */}
-          <section>
+          <section id="calculators" className="scroll-mt-20">
             <h2 className="font-['DM_Serif_Display',serif] text-xl text-foreground mb-4">Calculators</h2>
             <div className="grid sm:grid-cols-2 gap-2">
               {SEARCH_INDEX.map((c) => (
@@ -103,7 +118,7 @@ export function SitemapPage() {
           </section>
 
           {/* Categories */}
-          <section>
+          <section id="categories" className="scroll-mt-20">
             <h2 className="font-['DM_Serif_Display',serif] text-xl text-foreground mb-4">Categories</h2>
             <div className="grid sm:grid-cols-2 gap-2">
               {CATEGORIES.map((cat) => {

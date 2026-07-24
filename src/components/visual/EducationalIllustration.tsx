@@ -1,7 +1,5 @@
-import { useState } from "react"
 import {
   Home, TrendingUp, CreditCard, PiggyBank, Shield, Percent, BarChart2, Calculator,
-  Landmark, Building2, PieChart, LineChart, Banknote, Scale, Gem, TreePine,
 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 
@@ -81,7 +79,6 @@ interface EducationalIllustrationProps {
 }
 
 export function EducationalIllustration({ calculatorId, className = "" }: EducationalIllustrationProps) {
-  const [flipped, setFlipped] = useState(false)
   const config = ILLUSTRATION_MAP[calculatorId]
 
   if (!config) return null

@@ -1,4 +1,4 @@
-import { CheckCircle2, FileSearch, Shield, Users, Award, Eye } from "lucide-react"
+import { CheckCircle2, FileSearch, Shield, Eye } from "lucide-react"
 
 interface TrustInfographicProps {
   methodologySteps: string[]

@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from "react-router"
-import { lazy, Suspense } from "react"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router"
+import { lazy, Suspense, useEffect } from "react"
+import { trackPageView } from "./lib/analytics"
 import { MainLayout } from "./components/layout/MainLayout"
 import { ScrollToTop } from "./components/layout/ScrollToTop"
 import { useDarkMode } from "./hooks/useDarkMode"
@@ -21,6 +22,19 @@ const BlogArticlePage = lazy(() => import("./pages/BlogArticlePage").then(m => (
 const AccessibilityPage = lazy(() => import("./pages/AccessibilityPage").then(m => ({ default: m.AccessibilityPage })))
 const SitemapPage = lazy(() => import("./pages/SitemapPage").then(m => ({ default: m.SitemapPage })))
 const SupportPage = lazy(() => import("./pages/SupportPage").then(m => ({ default: m.SupportPage })))
+const PricingPage = lazy(() => import("./pages/PricingPage").then(m => ({ default: m.PricingPage })))
+const AffiliateDashboardPage = lazy(() => import("./pages/AffiliateDashboardPage").then(m => ({ default: m.AffiliateDashboardPage })))
+const SubscriptionDashboardPage = lazy(() => import("./pages/SubscriptionDashboardPage").then(m => ({ default: m.SubscriptionDashboardPage })))
+
+function AnalyticsTracker() {
+  const location = useLocation()
+
+  useEffect(() => {
+    trackPageView(location.pathname + location.search)
+  }, [location])
+
+  return null
+}
 
 function LayoutWrapper() {
   const [darkMode, toggleDarkMode] = useDarkMode()
@@ -43,6 +57,7 @@ function SuspenseFallback() {
 export default function App() {
   return (
     <BrowserRouter>
+      <AnalyticsTracker />
       <Routes>
         <Route element={<LayoutWrapper />}>
           <Route index element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><HomePage /></ErrorBoundary></Suspense>} />
@@ -57,6 +72,9 @@ export default function App() {
           <Route path="accessibility" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><AccessibilityPage /></ErrorBoundary></Suspense>} />
           <Route path="sitemap" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><SitemapPage /></ErrorBoundary></Suspense>} />
           <Route path="support" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><SupportPage /></ErrorBoundary></Suspense>} />
+          <Route path="pricing" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><PricingPage /></ErrorBoundary></Suspense>} />
+          <Route path="affiliate-dashboard" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><AffiliateDashboardPage /></ErrorBoundary></Suspense>} />
+          <Route path="subscription" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><SubscriptionDashboardPage /></ErrorBoundary></Suspense>} />
           <Route path="offline" element={<Suspense fallback={<SuspenseFallback />}><OfflinePage /></Suspense>} />
           <Route path="500" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><ErrorPage status={500} message="Something went wrong" /></ErrorBoundary></Suspense>} />
           <Route path="*" element={<Suspense fallback={<SuspenseFallback />}><ErrorBoundary><NotFoundPage /></ErrorBoundary></Suspense>} />
